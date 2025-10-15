@@ -1,9 +1,30 @@
 import { useRef, useState } from "react";
 import { Phone } from "lucide-react";
-import whatsapp from "../../../../../public/whatsapplogo.png"; // your WhatsApp icon path
+import whatsapp from "../../../assets/images/whatsapplogo.png";
+// import type { InteriorScrollAdminModel } from "../../../Admin/AdminComponents/InteriorScrollAdmin";
 
-const InteriorDesgnInteriorScroll = () => {
+const InteriorScroll = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
+  // const [images, setImages] = useState<InteriorScrollAdminModel[]>([]);
+
+  //   useEffect(() => {
+  //   const stored = localStorage.getItem("interiorScroll");
+  //   if (stored) setImages(JSON.parse(stored));
+  // }, []);
+
+  const images = [
+    {
+      id: "1",
+      img1: "https://images.unsplash.com/photo-1556912167-f556f1f39fdf?w=800&q=80",
+      img2: "https://images.unsplash.com/photo-1600210492493-0946911123ea?w=800&q=80",
+    },
+  ];
+
+  if (images.length === 0) {
+    return (
+      <p className="text-center text-gray-500">No before/after images found</p>
+    );
+  }
 
   return (
     <section ref={sectionRef} className="py-16 md:py-24 bg-white">
@@ -17,12 +38,14 @@ const InteriorDesgnInteriorScroll = () => {
             Latest dream home interiors delivered the hassle-free way
           </p>
         </div>
-
-        <BeforeAfterSlider
-          beforeImage="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=1200&h=800&fit=crop"
-          afterImage="https://images.unsplash.com/photo-1600210492493-0946911123ea?w=1200&h=800&fit=crop"
-          startingPosition={50} // optional
-        />
+        {images.map((item) => (
+          <BeforeAfterSlider
+            key={item.id}
+            beforeImage={item.img1}
+            afterImage={item.img2}
+            startingPosition={50}
+          />
+        ))}
 
         {/* Connect With Us Section */}
         <div className="mt-16 md:mt-20 text-center">
@@ -41,7 +64,7 @@ const InteriorDesgnInteriorScroll = () => {
               Call Us
             </button>
             <button className="w-full sm:w-auto px-8 py-4 bg-brand text-white hover:bg-brand-dark transition-all duration-300 font-semibold text-lg shadow-lg hover:shadow-xl flex items-center justify-center gap-3">
-              <img  src={whatsapp} alt="WhatsApp" className="w-6" />
+              <img src={whatsapp} alt="WhatsApp" className="w-6" />
               Chat with WhatsApp
             </button>
           </div>
@@ -51,8 +74,7 @@ const InteriorDesgnInteriorScroll = () => {
   );
 };
 
-export default InteriorDesgnInteriorScroll;
-
+export default InteriorScroll;
 
 interface BeforeAfterSliderProps {
   beforeImage: string;
@@ -130,7 +152,7 @@ const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
 
       {/* Labels */}
       <span className="absolute top-4 left-4 bg-black/50 text-white text-sm px-3 py-1 rounded">
-       After
+        After
       </span>
       <span className="absolute top-4 right-4 bg-black/50 text-white text-sm px-3 py-1 rounded">
         Before
@@ -140,5 +162,3 @@ const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
 };
 
 // export default BeforeAfterSlider;
-
-
