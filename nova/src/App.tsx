@@ -2,19 +2,18 @@ import "./App.css";
 import Footer from "./components/Footer";
 import NavBar from "./components/NavBar";
 import { Routes, Route } from "react-router-dom";
-import { CartProvider } from "./context/CartContext";
+// import { CartProvider } from "./context/CartContext";
 import HomePage from "./pages/home/HomePage";
 import AboutUs from "./pages/aboutUs/AboutUs";
 import PortfolioSection from "./pages/portfolio/portfolio";
 import InteriorDesignForm from "./pages/contactUs/ContactForm";
 import { Construction } from "lucide-react";
 import InteriorandDesign from "./pages/interior-design/InteriorandDesign";
-import { HelmetProvider } from "react-helmet-async";
+// import { HelmetProvider } from "react-helmet-async";
 function App() {
   return (
     <>
-      <HelmetProvider>
-        <CartProvider>
+        {/* <CartProvider> */}
           <NavBar />
           <Routes>
             <Route path="/" element={<HomePage />} />
@@ -25,8 +24,7 @@ function App() {
             <Route path="/interiorHome" element={<InteriorandDesign />} />
           </Routes>
           <Footer />
-        </CartProvider>
-      </HelmetProvider>
+        {/* </CartProvider> */}
     </>
   );
 }

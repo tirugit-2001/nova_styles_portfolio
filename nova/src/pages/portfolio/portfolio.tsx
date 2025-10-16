@@ -1,7 +1,6 @@
 import { ArrowRight } from "lucide-react";
 import GalleryModal from "./gallaryModal";
 import { useState } from "react";
-import { Helmet } from "react-helmet-async";
 
 export default function PortfolioSection() {
   const [selectedGallery, setSelectedGallery] = useState<string[] | null>(null);
@@ -106,20 +105,6 @@ export default function PortfolioSection() {
 
   return (
     <>
-      <Helmet>
-        {/* Basic SEO */}
-        <title>
-          Nova Styles Portfolio | Modern Interior Design Projects in Bangalore
-        </title>
-        <meta
-          name="description"
-          content="Explore Nova Styles' interior design portfolio — featuring modern home interiors, modular kitchens, living rooms, and luxury commercial spaces designed across Bangalore."
-        />
-        <meta
-          name="keywords"
-          content="interior design portfolio, nova styles portfolio, home interiors, modular kitchen designs, commercial interiors, living room design, bedroom interiors, bangalore interior designers"
-        />
-      </Helmet>
       <div className="bg-gray-50 py-16 px-4 sm:px-6 lg:px-8 mt-40">
         <div className="max-w-7xl mx-auto">
           {/* Header */}
