@@ -2,7 +2,6 @@ import { useState } from "react";
 import { ArrowLeft } from "lucide-react";
 import emailjs from "@emailjs/browser";
 import { Toaster, toast } from "sonner";
-import { Helmet } from "react-helmet-async";
 
 export default function InteriorDesignForm() {
   const [currentStep, setCurrentStep] = useState(1);
@@ -401,20 +400,6 @@ ${formData.selectedPackage}
 
   return (
     <>
-      <Helmet>
-        {/* Basic SEO */}
-        <title>
-          Contact Nova Styles | Best Interior Design Company in Bangalore
-        </title>
-        <meta
-          name="description"
-          content="Get in touch with Nova Styles — Bangalore’s premium interior design company. Book a free consultation for your home or office interior project today."
-        />
-        <meta
-          name="keywords"
-          content="contact nova styles, interior design consultation, home interiors contact, office interior enquiry, interior designer in bangalore, nova styles bangalore"
-        />
-      </Helmet>
       <div className="min-h-screen bg-[#F9F9F9] flex items-center justify-center p-4 lg:mt-40">
         <Toaster richColors position="top-center" />
         <div className="bg-white  shadow-lg  p-8 w-full max-w-4xl ">
