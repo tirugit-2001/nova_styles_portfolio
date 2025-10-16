@@ -5,15 +5,10 @@ import React, {
   useEffect,
   type ReactNode,
 } from "react";
-import type { ProductAdminModel } from "../pages/Admin/AdminComponents/ProductAdmin";
-
-interface CartItem extends ProductAdminModel {
-  quantity: number;
-}
 
 interface CartContextType {
-  cartItems: CartItem[];
-  addToCart: (product: ProductAdminModel) => void;
+  cartItems: any[];
+  addToCart: (product: any) => void;
   removeFromCart: (id: string | null) => void;
   updateQuantity: (id: string | null, quantity: number) => void;
   clearCart: () => void;
@@ -26,7 +21,7 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 export const CartProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [cartItems, setCartItems] = useState<any[]>([]);
 
   // Load cart from localStorage on mount
   useEffect(() => {
@@ -41,7 +36,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
   }, [cartItems]);
 
-  const addToCart = (product: ProductAdminModel) => {
+  const addToCart = (product: any) => {
     setCartItems((prevItems) => {
       const existingItem = prevItems.find((item) => item.id === product.id);
 
