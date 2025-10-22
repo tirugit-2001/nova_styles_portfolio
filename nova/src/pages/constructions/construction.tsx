@@ -4,7 +4,7 @@ import ConsInteriorScroll from "./constructionsComponents/ConsInteriorScroll"
 import ConsPortfolioWork from "./constructionsComponents/ConsPortfolioWork"
 import ConsProcessSteps from "./constructionsComponents/ConstructionAboutProcess"
 
-const construction = () => {
+const Construction = () => {
   return (
     <>
     <ConsHeroSection />
@@ -16,4 +16,4 @@ const construction = () => {
   )
 }
 
-export default construction
+export default Construction

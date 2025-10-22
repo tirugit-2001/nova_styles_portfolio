@@ -10,7 +10,7 @@ interface CTABannerProps {
 }
 
 const CTABanner: React.FC<CTABannerProps> = ({
-  title = "Transform your 2BHK, 3BHK",
+  title = "Transform your 2BHK or 3BHK with NovaStyles Interiors.",
   subtitle = "Book a free consultation with expert interior designers.",
   buttonText = "Book Free Consultation",
   onButtonClick,

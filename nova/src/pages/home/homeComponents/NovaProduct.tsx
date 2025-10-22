@@ -105,12 +105,14 @@ const NovaProductDemo: React.FC = () => {
             Trending Home Interior Wallpapers
           </h1>
           <p className="text-gray-600 text-xl">
-            Latest dream home interiors delivered the hassle-free way
+            Latest designs from NovaStyles Wallpapers—crafted to elevate any
+            space. Choose from curated collections or request custom prints
+            tailored to your style.
           </p>
         </div>
-        
+
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-24 justify-items-center ">
-          {products.map(product => (
+          {products.map((product) => (
             <NovaProduct key={product.id} product={product} />
           ))}
         </div>

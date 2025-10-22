@@ -82,9 +82,11 @@ const ConsPortfolioWork = () => {
               Latest dream home interiors delivered the hassle-free way
             </p>
           </div>
+          <a href="/contactUs">
           <button className="mt-6 md:mt-0 px-6 py-3 bg-brand text-white hover:bg-brand-dark transition-all duration-300 font-semibold shadow-lg hover:shadow-xl whitespace-nowrap">
             Get Free Estimate
           </button>
+          </a>
         </div>
 
         {/* Category Filter */}

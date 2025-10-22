@@ -7,8 +7,8 @@ import HomePage from "./pages/home/HomePage";
 import AboutUs from "./pages/aboutUs/AboutUs";
 import PortfolioSection from "./pages/portfolio/portfolio";
 import InteriorDesignForm from "./pages/contactUs/ContactForm";
-import { Construction } from "lucide-react";
 import InteriorandDesign from "./pages/interior-design/InteriorandDesign";
+import Construction from "./pages/constructions/construction";
 // import { HelmetProvider } from "react-helmet-async";
 function App() {
   return (

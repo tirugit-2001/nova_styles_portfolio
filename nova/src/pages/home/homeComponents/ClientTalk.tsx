@@ -75,7 +75,9 @@ const ClientTalk = () => {
             What Our Clients Say About Us
           </h2>
           <p className="text-gray-600 text-base md:text-lg">
-            Latest dream home interiors delivered the hassle-free way
+            Real homeowners. Real transformations. Real trust. See why families
+            across Bangalore choose NovaStyles for their most important
+            investment.
           </p>
         </div>
 
@@ -86,14 +88,13 @@ const ClientTalk = () => {
             <div
               className="flex transition-transform duration-500 ease-in-out"
               style={{
-                transform: `translateX(-${currentIndex * (100 / itemsPerView)}%)`
+                transform: `translateX(-${
+                  currentIndex * (100 / itemsPerView)
+                }%)`,
               }}
             >
               {testimonials.map((testimonial) => (
-                <div
-                  key={testimonial.id}
-                  className="min-w-[33.333%] px-3"
-                >
+                <div key={testimonial.id} className="min-w-[33.333%] px-3">
                   <div className="bg-white overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 h-full">
                     {/* Image with Quote Overlay */}
                     <div className="relative h-80">
@@ -103,7 +104,7 @@ const ClientTalk = () => {
                         className="w-full h-full object-cover"
                       />
                       <div className="absolute inset-0" />
-                      
+
                       {/* Content on Image */}
                       <div className="absolute bottom-0 left-0 right-20 top-48 p-2 text-black bg-[#DFE6DE]">
                         <div className="mb-2 ">
@@ -111,9 +112,7 @@ const ClientTalk = () => {
                             "{testimonial.quote}"
                           </p>
                         </div>
-                        <p className="font-bold text-sm">
-                          -{testimonial.name}
-                        </p>
+                        <p className="font-bold text-sm">-{testimonial.name}</p>
                       </div>
                     </div>
                   </div>
@@ -132,7 +131,7 @@ const ClientTalk = () => {
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-                
+
                 <div className="absolute bottom-0 left-0 right-20 top-60 p-3 text-black bg-[#DFE6DE]">
                   <div className="mb-2">
                     {/* <Quote className="text-base font-light" /> */}
@@ -168,21 +167,23 @@ const ClientTalk = () => {
 
         {/* Progress Indicators */}
         <div className="flex justify-center gap-2 mt-8">
-          {Array.from({ length: testimonials.length - (itemsPerView - 1) }).map((_, index) => (
-            <button
-              key={index}
-              onClick={() => {
-                setCurrentIndex(index);
-                setIsAutoPlaying(false);
-              }}
-              className={`transition-all duration-300 rounded-full ${
-                index === currentIndex
-                  ? 'w-8 h-2 bg-brand'
-                  : 'w-2 h-2 bg-gray-300 hover:bg-gray-400'
-              }`}
-              aria-label={`Go to testimonial ${index + 1}`}
-            />
-          ))}
+          {Array.from({ length: testimonials.length - (itemsPerView - 1) }).map(
+            (_, index) => (
+              <button
+                key={index}
+                onClick={() => {
+                  setCurrentIndex(index);
+                  setIsAutoPlaying(false);
+                }}
+                className={`transition-all duration-300 rounded-full ${
+                  index === currentIndex
+                    ? "w-8 h-2 bg-brand"
+                    : "w-2 h-2 bg-gray-300 hover:bg-gray-400"
+                }`}
+                aria-label={`Go to testimonial ${index + 1}`}
+              />
+            )
+          )}
         </div>
       </div>
     </section>

@@ -95,15 +95,19 @@ const PortfolioWork = () => {
         <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-12 md:mb-16">
           <div>
             <h2 className="text-2xl md:text-2xl lg:text-3xl font-bold text-gray-800 mb-4">
-              Our Comprehensive Design & Construction Services
+              GLIMPSE OF OUR WORKS
             </h2>
             <p className="text-gray-600 text-base md:text-lg">
-              Latest dream home interiors delivered the hassle-free way
+              Beautifully designed. Thoughtfully built. Delivered the NovaStyles
+              way. From modern apartments to luxurious villas, our portfolio
+              reflects our dedication to detail and quality.
             </p>
           </div>
+          <a href="/contactUs">
           <button className="mt-6 md:mt-0 px-6 py-3 bg-brand text-white hover:bg-brand-dark transition-all duration-300 font-semibold shadow-lg hover:shadow-xl whitespace-nowrap">
             Get Free Estimate
           </button>
+          </a>
         </div>
 
         {/* Category Filter */}
@@ -134,36 +138,36 @@ const PortfolioWork = () => {
               }}
             >
               {/* Image Container */}
-                <a href="/portfolio">
-              <div className="relative h-64 md:h-80 overflow-hidden">
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
-                />
+              <a href="/portfolio">
+                <div className="relative h-64 md:h-80 overflow-hidden">
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
+                  />
 
-                {/* Gradient Overlay (bottom to top with #d6ad75 on hover) */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-80 group-hover:bg-gradient-to-t group-hover:from-[#d6ad75]/90 group-hover:via-[#d6ad75]/50 group-hover:to-transparent transition-all duration-500" />
+                  {/* Gradient Overlay (bottom to top with #d6ad75 on hover) */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-80 group-hover:bg-gradient-to-t group-hover:from-[#d6ad75]/90 group-hover:via-[#d6ad75]/50 group-hover:to-transparent transition-all duration-500" />
 
-                {/* Text Overlay - Slide up effect */}
-                <div className="absolute bottom-0 left-0 right-0 p-5 text-white ">
-                  <h3 className="text-xl md:text-2xl font-bold mb-1">
-                    {item.title}
-                  </h3>
-                  <p className="text-sm md:text-base text-gray-200">
-                    {item.location}
-                  </p>
-                </div>
+                  {/* Text Overlay - Slide up effect */}
+                  <div className="absolute bottom-0 left-0 right-0 p-5 text-white ">
+                    <h3 className="text-xl md:text-2xl font-bold mb-1">
+                      {item.title}
+                    </h3>
+                    <p className="text-sm md:text-base text-gray-200">
+                      {item.location}
+                    </p>
+                  </div>
 
-                {/* Hover Button - Bottom Right */}
-                <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-500">
-                  {/* <button className="px-5 py-2 bg-amber-400 text-gray-900 rounded-lg font-semibold shadow-lg hover:bg-amber-500 flex items-center gap-2">
+                  {/* Hover Button - Bottom Right */}
+                  <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-500">
+                    {/* <button className="px-5 py-2 bg-amber-400 text-gray-900 rounded-lg font-semibold shadow-lg hover:bg-amber-500 flex items-center gap-2">
                     View Project
                     <ChevronRight size={18} />
                   </button> */}
+                  </div>
                 </div>
-              </div>
-                </a>
+              </a>
             </div>
           ))}
         </div>

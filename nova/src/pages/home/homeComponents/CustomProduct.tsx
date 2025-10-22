@@ -3,6 +3,7 @@ import React from 'react';
 interface CustomProductProps {
   title?: string;
   subtitle?: string;
+  subtitle2?: string;
   startingPrice?: number;
   buttonText?: string;
   imageUrl?: string;
@@ -11,7 +12,8 @@ interface CustomProductProps {
 
 const CustomProduct: React.FC<CustomProductProps> = ({
   title = "Bring Your Own Design Into Life",
-  subtitle = "Latest dream home interiors delivered the hassle-free way",
+  subtitle = "Already have a vision? We’ll turn it into reality.",
+  subtitle2 = "Upload your image or reference and our team will create a custom wallpaper just for you.",
   startingPrice = 450,
   buttonText = "Explore Our Products",
   imageUrl = "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1200&q=80",
@@ -27,8 +29,11 @@ const CustomProduct: React.FC<CustomProductProps> = ({
               {title}
             </h3>
             <p className="text-gray-600 text-xl" >
-              {subtitle}
+              {subtitle} 
+              <br />
+              <span>{subtitle2}</span>
             </p>
+            
             <p className="text-gray-900 text-base font-medium">
               Starting ₹{startingPrice}
             </p>

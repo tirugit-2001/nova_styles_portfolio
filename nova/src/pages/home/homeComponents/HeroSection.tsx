@@ -29,30 +29,38 @@ const HeroSection = () => {
 
   const slides = [
     {
-      title: "Complete Home Interior Design",
-      subtitle: "Transform your 2BHK, 3BHK or Villa with end-to-end interior solution",
+      title: "Transform your 1BHK, 2BHK or 3BHK with end-to-end interior design.",
+      subtitle: "Modular or fully customised interiors, seamless execution, and transparent pricing—all handled by the NovaStyles in-house team.",
       price: "Starting ₹4,50,000",
-      image: "https://images.unsplash.com/photo-1600210492493-0946911123ea?w=1200&h=800&fit=crop"
+      image: "https://images.unsplash.com/photo-1600210492493-0946911123ea?w=1200&h=800&fit=crop",
+      // buttonTxt:"Get Free Estimate"
     },
     {
-      title: "Luxury Living Spaces",
-      subtitle: "Create stunning interiors that reflect your unique style and personality",
+      title: "From foundation to finish—build your dream home with confidence.",
+      subtitle: "Whether it’s an economy build or a luxury custom residence, NovaStyles delivers quality construction with clear timelines and expert project management.",
       price: "Starting ₹4,50,000",
-      image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&h=800&fit=crop"
+      image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&h=800&fit=crop",
     },
     {
-      title: "Modern Kitchen Designs",
-      subtitle: "Functional and beautiful kitchen solutions for your dream home",
+      title: "Give your home a fresh start without the stress.",
+      subtitle: "We handle structural, layout and design upgrades with precision and care—so your space feels brand new without starting from scratch.",
       price: "Starting ₹4,50,000",
-      image: "https://images.unsplash.com/photo-1556912173-3bb406ef7e77?w=1200&h=800&fit=crop"
+      image: "https://images.unsplash.com/photo-1556912173-3bb406ef7e77?w=1200&h=800&fit=crop",
+    },
+    {
+      title: "Wallpapers, flooring, furniture, décor—style every corner effortlessly",
+      subtitle: "Explore ready-to-order collections or get fully customised designs created exclusively for your home.",
+      price: "Starting ₹4,50,000",
+      image: "https://images.unsplash.com/photo-1556912173-3bb406ef7e77?w=1200&h=800&fit=crop",
+      // buttonTxt:"Shop NovaStyles Products"
     }
   ];
 
   const stats = [
     { number: "500+", label: "Homes Completed" },
     { number: "05 Year", label: "Warranty" },
-    { number: "05 Year", label: "Warranty" },
-    { number: "45- Days", label: "Completion" }
+    // { number: "05 Year", label: "Warranty" },
+    { number: "45- Days", label: "Day Delivery Options" }
   ];
 
   useEffect(() => {
@@ -101,9 +109,9 @@ const HeroSection = () => {
             <div className="relative h-full max-w-7xl mx-auto px-4 md:px-8 flex items-center">
               <div className="max-w-2xl text-white">
                 <p className="text-sm md:text-2xl lg-text-2xl text-[#DFE6DE] font-medium tracking-wide">
-                  {slide.title.split(' ')[0]} {slide.title.split(' ')[1]} {slide.title.split(' ')[2]} {slide.title.split(' ')[3]}
+                  {slide.title}
                 </p>
-                <h1 className="text-2xl md:text-4xl lg:text-6xl font-satoshi text font-medium mb-6 leading-tight">
+                <h1 className="text-2xl md:text-3xl lg:text-5xl font-satoshi text font-medium mb-6 leading-tight">
                   {slide.subtitle}
                 </h1>
                 <p className="text-base md:text-base mb-2 text-white font-semibold">
@@ -156,7 +164,7 @@ const HeroSection = () => {
       {/* Stats Section */}
       <div className="bg-white py-8 md:py-12 border-t border-gray-200">
         <div className="max-w-7xl mx-auto px-4 md:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
             {stats.map((stat, index) => (
               <div key={index} className="text-center">
                 <div className="text-xl md:text-xl lg:text-2xl font-bold text-[#7C947A] mb-2">

@@ -32,10 +32,12 @@ const InteriorScroll = () => {
         {/* Section Header */}
         <div className="text-left mb-10">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 mb-4">
-            What Our Clients Say About Us
+            HOW OUR INTERIOR CHANGES
           </h2>
           <p className="text-gray-600 text-base md:text-lg">
-            Latest dream home interiors delivered the hassle-free way
+            Design isn’t just about how it looks—it’s about how it feels. Watch
+            real spaces come to life as we optimise layout, lighting, storage
+            and style with precision.
           </p>
         </div>
         {images.map((item) => (
@@ -53,8 +55,8 @@ const InteriorScroll = () => {
             Connect With Us
           </h3>
           <p className="text-gray-600 text-base md:text-lg mb-8">
-            Reach out on WhatsApp or give us a call for the best home design
-            experience.
+            Have a project in mind? Let’s talk. Reach out on call or
+            WhatsApp—we’d love to help you design, build or style your home.
           </p>
 
           {/* CTA Buttons */}

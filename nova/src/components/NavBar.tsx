@@ -353,9 +353,11 @@ const NavBar = () => {
               )}
             </div>
           ))}
+          <a href="/contactUs">
           <button className="w-full mt-4 px-6 py-3 bg-brand text-white rounded hover:bg-amber-500 transition-colors font-medium">
             Get Free Estimate
           </button>
+          </a>
         </div>
       )}
       {/* </div> */}
