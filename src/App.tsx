@@ -9,22 +9,22 @@ import PortfolioSection from "./pages/portfolio/portfolio";
 import InteriorDesignForm from "./pages/contactUs/ContactForm";
 import InteriorandDesign from "./pages/interior-design/InteriorandDesign";
 import Construction from "./pages/constructions/construction";
-// import { HelmetProvider } from "react-helmet-async";
+
 function App() {
   return (
     <>
-        {/* <CartProvider> */}
-          <NavBar />
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/aboutus" element={<AboutUs />} />
-            <Route path="/portfolio" element={<PortfolioSection />} />
-            <Route path="/contactUs" element={<InteriorDesignForm />} />
-            <Route path="/construction" element={<Construction />} />
-            <Route path="/interiorHome" element={<InteriorandDesign />} />
-          </Routes>
-          <Footer />
-        {/* </CartProvider> */}
+      {/* <CartProvider> */}
+        <NavBar />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/aboutus" element={<AboutUs />} />
+          <Route path="/portfolio" element={<PortfolioSection />} />
+          <Route path="/contactUs" element={<InteriorDesignForm />} />
+          <Route path="/construction" element={<Construction />} />
+          <Route path="/interiorHome" element={<InteriorandDesign />} />
+        </Routes>
+        <Footer />
+      {/* </CartProvider> */}
     </>
   );
 }
