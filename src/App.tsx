@@ -6,12 +6,12 @@ import { Routes, Route } from "react-router-dom";
 import HomePage from "./pages/home/HomePage";
 import AboutUs from "./pages/aboutUs/AboutUs";
 import PortfolioSection from "./pages/portfolio/portfolio";
-import InteriorDesignForm from "./pages/contactUs/ConstructionContactForm";
-import InteriorandDesign from "./pages/interior-design/InteriorandDesign";
 import Construction from "./pages/constructions/construction";
 import CTABanner from "./pages/home/homeComponents/CTABanner";
-import ConstructionContactForm from "./pages/contactUs/ConstructionContactForm";
 import { ContactUs } from "./pages/contactUs/ContactUs";
+import InteriorDesignForm from "./pages/contactUs/InteriorContactForm";
+import InteriorandDesign from "./pages/interior-design/InteriorandDesign";
+import ConstructionContactForm from "./pages/contactUs/ConstructionContactForm";
 
 function App() {
   return (

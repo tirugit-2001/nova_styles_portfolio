@@ -28,7 +28,7 @@ export const ContactUs = () => {
           </div>
 
           <button
-            onClick={() => navigate("/ContactUs/interior")}
+            onClick={() => navigate("/ContactUs/construction")}
             className="bg-brand text-white font-medium px-6 py-2 rounded-lg hover:bg-brand-dark transition-all duration-200"
           >
             Choose Interior Design
