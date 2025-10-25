@@ -90,12 +90,13 @@ const ConsPortfolioWork = () => {
         </div>
 
         {/* Category Filter */}
-        <div className="flex flex-wrap gap-3 mb-10 md:mb-12">
+         <div className="w-full overflow-x-auto sm:overflow-x-visible">
+        <div className="flex sm:flex-wrap space-x-3 sm:space-x-0 sm:gap-3 min-w-max px-2 mb-10 md:mb-12 scrollbar-hide">
           {categories.map((category) => (
             <button
               key={category}
               onClick={() => setSelectedCategory(category)}
-              className={`px-6 py-2 font-medium transition-all duration-300 ${
+              className={`px-6 py-2 font-medium transition-all duration-300 whitespace-nowrap ${
                 selectedCategory === category
                   ? "bg-brand text-white shadow-lg scale-105"
                   : "bg-white text-gray-700 hover:bg-gray-100 shadow-md"
@@ -105,6 +106,7 @@ const ConsPortfolioWork = () => {
             </button>
           ))}
         </div>
+      </div>
 
         {/* Portfolio Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
@@ -140,7 +142,7 @@ const ConsPortfolioWork = () => {
 
                 {/* Hover Button - Bottom Right */}
                 <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-500">
-                  {/* <button className="px-5 py-2 bg-amber-400 text-gray-900 rounded-lg font-semibold shadow-lg hover:bg-amber-500 flex items-center gap-2">
+                  {/* <button className="px-5 py-2 bg-amber-400 text-gray-900 rounded-lg font-semibold shadow-lg hover:bg-brand-dark flex items-center gap-2">
                     View Project
                     <ChevronRight size={18} />
                   </button> */}

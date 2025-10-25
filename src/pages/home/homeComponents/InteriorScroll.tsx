@@ -57,7 +57,7 @@ const InteriorScroll = () => {
           </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center max-w-xl mx-auto">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center lg:items-center items-stretch  max-w-xl mx-auto">
           <a href="tel:9900334035"> 
             <button className="w-full sm:w-auto px-20 py-4 bg-brand text-white hover:bg-brand-dark transition-all duration-300 font-semibold text-lg shadow-lg hover:shadow-xl flex items-center justify-center gap-3">
               <Phone size={20} />

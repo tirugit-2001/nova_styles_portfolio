@@ -6,13 +6,13 @@ const menuItems = [
     items: [
       {
         label: "Modular interiors",
-        path: "/construction",
+        path: "/interiorHome",
         description:
           "Interior designs made of prefabricated units that can be combined or customized.",
       },
       {
         label: "Customised Premium interiors",
-        path: "/construction",
+        path: "/interiorHome",
         description:
           "High-end interior designs tailored to your space and needs.",
       },

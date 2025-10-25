@@ -117,7 +117,7 @@ const HeroSection = () => {
                   {slide.price}
                 </p>
                 <a href="/contactUs">
-                  <button className="lg:px-8 lg:py-4 px-6 py-2 bg-brand text-white hover:bg-amber-500 transition-all duration-300 font-semibold lg:text-lg text-sm shadow-xl hover:shadow-2xl hover:scale-105">
+                  <button className="lg:px-8 lg:py-4 px-6 py-2 bg-brand text-white hover:bg-brand-dark transition-all duration-300 font-semibold lg:text-lg text-sm shadow-xl hover:shadow-2xl hover:scale-105">
                     Get Free Estimate
                   </button>
                 </a>

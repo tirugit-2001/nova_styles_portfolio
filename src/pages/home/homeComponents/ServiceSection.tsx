@@ -78,7 +78,7 @@ const ServiceSection = () => {
                     {service.price}
                   </p>
                 </div>
-                {/* <button className="w-full py-3 bg-brand text-white rounded-lg hover:bg-amber-500 transition-all duration-300 font-semibold text-base shadow-md hover:shadow-lg">
+                {/* <button className="w-full py-3 bg-brand text-white rounded-lg hover:bg-brand-dark transition-all duration-300 font-semibold text-base shadow-md hover:shadow-lg">
                   Get Free Estimate
                 </button> */}
               </div>
@@ -89,7 +89,7 @@ const ServiceSection = () => {
 
         {/* Bottom CTA */}
         {/* <div className="text-center mt-12 md:mt-16">
-          <button className="px-8 py-4 bg-amber-400 text-gray-900 rounded-lg hover:bg-amber-500 transition-all duration-300 font-semibold text-lg shadow-xl hover:shadow-2xl hover:scale-105">
+          <button className="px-8 py-4 bg-amber-400 text-gray-900 rounded-lg hover:bg-brand-dark transition-all duration-300 font-semibold text-lg shadow-xl hover:shadow-2xl hover:scale-105">
             View All Services
           </button>
         </div> */}

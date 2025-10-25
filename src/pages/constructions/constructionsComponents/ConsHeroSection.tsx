@@ -9,12 +9,12 @@ const ConsHeroSection = () => {
       price: "Starting ₹4,50,000",
       image: "https://images.unsplash.com/photo-1600210492493-0946911123ea?w=1200&h=800&fit=crop"
     },
-    // {
-    //   title: "Luxury Living Spaces",
-    //   subtitle: "Create stunning interiors that reflect your unique style and personality",
-    //   price: "Starting ₹4,50,000",
-    //   image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&h=800&fit=crop"
-    // },
+    {
+      title: "Luxury Living Spaces",
+      subtitle: "Create stunning interiors that reflect your unique style and personality",
+      price: "Starting ₹4,50,000",
+      image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&h=800&fit=crop"
+    },
     // {
     //   title: "Modern Kitchen Designs",
     //   subtitle: "Functional and beautiful kitchen solutions for your dream home",
@@ -82,7 +82,7 @@ const ConsHeroSection = () => {
                 {slide.price}
               </p>
               <a href="/contactUs">
-                <button className="lg:px-8 lg:py-4 px-6 py-2 bg-brand text-white hover:bg-amber-500 transition-all duration-300 font-semibold lg:text-lg text-sm shadow-xl hover:shadow-2xl hover:scale-105">
+                <button className="lg:px-8 lg:py-4 px-6 py-2 bg-brand text-white hover:bg-brand-dark transition-all duration-300 font-semibold lg:text-lg text-sm shadow-xl hover:shadow-2xl hover:scale-105">
                   Get Free Estimate
                 </button>
               </a>

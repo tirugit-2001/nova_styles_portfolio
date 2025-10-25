@@ -14,19 +14,19 @@ const InteriorHeroSection = () => {
       price: "Starting ₹1,000 / sq.ft",
       image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&h=800&fit=crop",
     },
-    {
-      title: "Home Renovation & Remodeling",
-      subtitle: "Redesign your existing space with NovaStyles Renovation Servicess",
-      price: "Book your free consultation",
-      image: "https://images.unsplash.com/photo-1556912173-3bb406ef7e77?w=1200&h=800&fit=crop",
-    },
-    {
-      title: "Designer Wallpapers, Flooring & Furnishing",
-      subtitle: "Shop NovaStyles Interiors — wallpapers, flooring, furniture & more",
-      price: "Starting ₹450 / sq.ft",
-      image: "https://images.unsplash.com/photo-1556912173-3bb406ef7e77?w=1200&h=800&fit=crop",
-      // buttonTxt:"Shop NovaStyles Products"
-    }
+    // {
+    //   title: "Home Renovation & Remodeling",
+    //   subtitle: "Redesign your existing space with NovaStyles Renovation Servicess",
+    //   price: "Book your free consultation",
+    //   image: "https://images.unsplash.com/photo-1556912173-3bb406ef7e77?w=1200&h=800&fit=crop",
+    // },
+    // {
+    //   title: "Designer Wallpapers, Flooring & Furnishing",
+    //   subtitle: "Shop NovaStyles Interiors — wallpapers, flooring, furniture & more",
+    //   price: "Starting ₹450 / sq.ft",
+    //   image: "https://images.unsplash.com/photo-1556912173-3bb406ef7e77?w=1200&h=800&fit=crop",
+    //   // buttonTxt:"Shop NovaStyles Products"
+    // }
   ];
 
   // const stats = [
@@ -91,7 +91,7 @@ const InteriorHeroSection = () => {
                   {slide.price}
                 </p>
                 <a href="/contactUs">
-                  <button className="lg:px-8 lg:py-4 px-6 py-2 bg-brand text-white hover:bg-amber-500 transition-all duration-300 font-semibold lg:text-lg text-sm shadow-xl hover:shadow-2xl hover:scale-105">
+                  <button className="lg:px-8 lg:py-4 px-6 py-2 bg-brand text-white hover:bg-brand-dark transition-all duration-300 font-semibold lg:text-lg text-sm shadow-xl hover:shadow-2xl hover:scale-105">
                     Get Free Estimate
                   </button>
                 </a>

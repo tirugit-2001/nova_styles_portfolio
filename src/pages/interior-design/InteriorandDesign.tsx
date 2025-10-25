@@ -13,7 +13,6 @@ const InteriorandDesign = () => {
       <InteriorClientTalk />
       <InteriorProcessSteps />
       <InteriorCustomProduct />
-      {/* <InteriorDesgnInteriorScroll /> */}
     </>
   );
 };
