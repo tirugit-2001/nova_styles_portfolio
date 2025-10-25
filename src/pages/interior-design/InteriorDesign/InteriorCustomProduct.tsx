@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface CustomProductProps {
+interface InteriorCustomProductProps {
   title?: string;
   subtitle?: string;
   subtitle2?: string;
@@ -10,7 +10,7 @@ interface CustomProductProps {
   onButtonClick?: () => void;
 }
 
-const CustomProduct: React.FC<CustomProductProps> = ({
+const InteriorCustomProduct: React.FC<InteriorCustomProductProps> = ({
   title = "Building Your Dream Home Starts Here",
   subtitle = "From design to delivery — Nova Construction brings your vision to life.",
   // subtitle2 = "Upload your image or reference and our team will create a custom wallpaper just for you.",
@@ -62,4 +62,4 @@ const CustomProduct: React.FC<CustomProductProps> = ({
 };
 
 
-export default CustomProduct;
+export default InteriorCustomProduct;

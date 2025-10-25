@@ -2,6 +2,26 @@ const menuItems = [
   {
     title: "Nova Interiors",
     hasDropdown: true,
+    isCardMenu: true,
+    items: [
+      {
+        label: "Modular interiors",
+        path: "/construction",
+        description:
+          "Interior designs made of prefabricated units that can be combined or customized.",
+      },
+      {
+        label: "Customised Premium interiors",
+        path: "/construction",
+        description:
+          "High-end interior designs tailored to your space and needs.",
+      },
+    ],
+  },
+
+  {
+    title: "Nova Products",
+    hasDropdown: true,
     isMegaMenu: true,
     groups: [
       {
@@ -66,24 +86,31 @@ const menuItems = [
     ],
   },
   {
-    title: "Nova Construction",
+    title: "Nova Constructions",
     hasDropdown: true,
     isCardMenu: true,
     items: [
       {
-        label: "Modular interiors",
+        label: "Economy range",
         path: "/construction",
         description:
-          "Interior designs made of prefabricated units that can be combined or customized.",
+          "Smart construction solutions designed for budget-friendly, quality homes",
       },
       {
-        label: "Customised Premium interiors",
+        label: "Luxury custom residences",
         path: "/construction",
         description:
-          "High-end interior designs tailored to your space and needs.",
+          "Tailor-maid homes built with premium materials and timeless craftmanship",
+      },
+      {
+        label: "Renovation ",
+        path: "/construction",
+        description:
+          "Transofrm exisiting spaces with expert planning and modern design upgrades",
       },
     ],
   },
+  
   // {
   //   title: "Nova Products",
   //   path:"/ourProduct",

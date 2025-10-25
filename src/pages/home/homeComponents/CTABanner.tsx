@@ -10,9 +10,9 @@ interface CTABannerProps {
 }
 
 const CTABanner: React.FC<CTABannerProps> = ({
-  title = "Transform your 2BHK or 3BHK with NovaStyles Interiors.",
-  subtitle = "Book a free consultation with expert interior designers.",
-  buttonText = "Book Free Consultation",
+  title = "Transform Your 2BHK or 3BHK with NovaStyles",
+  subtitle = "Your complete home interior and construction partner — trusted by 500+ homeowners across India.",
+  buttonText = "Get Free Estimate",
   onButtonClick,
   // backgroundColor = "bg-[#9CA992]",
   // buttonColor = "bg-[#C9A66B]"

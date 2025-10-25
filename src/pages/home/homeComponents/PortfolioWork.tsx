@@ -95,19 +95,17 @@ const PortfolioWork = () => {
         <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-12 md:mb-16">
           <div>
             <h2 className="text-2xl md:text-2xl lg:text-3xl font-bold text-gray-800 mb-4">
-              GLIMPSE OF OUR WORKS
+              Glimpse of Our Works
             </h2>
             <p className="text-gray-600 text-base md:text-lg">
-              Beautifully designed. Thoughtfully built. Delivered the NovaStyles
-              way. From modern apartments to luxurious villas, our portfolio
-              reflects our dedication to detail and quality.
+            Explore Interiors and Construction Projects by NovaStyle across India
             </p>
           </div>
-          <a href="/contactUs">
+          {/* <a href="/contactUs">
           <button className="mt-6 md:mt-0 px-6 py-3 bg-brand text-white hover:bg-brand-dark transition-all duration-300 font-semibold shadow-lg hover:shadow-xl whitespace-nowrap">
             Get Free Estimate
           </button>
-          </a>
+          </a> */}
         </div>
 
         {/* Category Filter */}

@@ -105,9 +105,7 @@ const NovaProductDemo: React.FC = () => {
             Trending Home Interior Wallpapers
           </h1>
           <p className="text-gray-600 text-xl">
-            Latest designs from NovaStyles Wallpapers—crafted to elevate any
-            space. Choose from curated collections or request custom prints
-            tailored to your style.
+          Latest design trends delivered the hassle-free way.
           </p>
         </div>
 

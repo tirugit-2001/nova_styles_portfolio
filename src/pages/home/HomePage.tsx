@@ -18,7 +18,7 @@ const HomePage = () => {
       <NovaProductDemo />
       <CustomProduct />
       <ClientTalk />
-      <CTABanner />
+      {/* <CTABanner /> */}
     </>
   );
 };

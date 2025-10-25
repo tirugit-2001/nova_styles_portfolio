@@ -4,30 +4,30 @@ const ServiceSection = () => {
     {
       id: 1,
       title: "Interior Solutions",
-      // price: "Starting ₹4,50,000",
+      price: "Starting ₹4,50,000",
       image: "https://images.unsplash.com/photo-1600210492493-0946911123ea?w=800&h=600&fit=crop",
-      description: "Smart modular and custom interiors crafted to match your lifestyle."
+      description: "home interiors delivered the hassle-free way"
     },
     {
       id: 2,
-      title: "Construction Solutions",
-      // price: "Starting ₹4,50,000",
+      title: "Residential Construction Services",
+      price: "Starting ₹4,50,000",
       image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop",
-      description: "Strong structures, elegant finishes and zero compromise on quality."
+      description: "Dream homes built with quality and care"
     },
     {
       id: 3,
-      title: "Renovation Services",
-      // price: "Starting ₹4,50,000",
+      title: "Home Renovation Services",
+      price: "Starting ₹4,50,000",
       image: "https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?w=800&h=600&fit=crop",
-      description: "Upgrade your existing space with expert planning and hassle-free execution."
+      description: "Transform your space the effortless way"
     },
     {
       id: 4,
-      title: "Nova Home Products",
-      // price: "Starting ₹4,50,000",
+      title: "Nova Interior Products",
+      price: "Starting ₹4,50,000",
       image: "https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=800&h=600&fit=crop",
-      description: "Designer wallpapers, flooring, furnishings and décor—delivered to your door."
+      description: "Decor & furnishings made for modern living"
     }
   ];
 
@@ -40,14 +40,12 @@ const ServiceSection = () => {
             Our Comprehensive Design & Construction Services
           </h2>
           <p className="text-gray-600 text-base md:text-lg max-w-3xl mx-auto">
-            Your home deserves more than a contractor—it deserves a partner.
-            NovaStyles handles interiors, construction and finishing products
-            under one roof, ensuring a seamless experience from
-            concept to completion.
+          Crafting dream homes with NovaStyles — seamlessly, beautifully, and on time.
           </p>
         </div>
 
         {/* Services Grid */}
+        <a href="/interiorHome">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
           {services.map((service) => (
             <div
@@ -77,7 +75,7 @@ const ServiceSection = () => {
                     {service.description}
                   </p>
                   <p className="text-base md:text-lg font-semibold text-brand">
-                    {/* {service.} */}
+                    {service.price}
                   </p>
                 </div>
                 {/* <button className="w-full py-3 bg-brand text-white rounded-lg hover:bg-amber-500 transition-all duration-300 font-semibold text-base shadow-md hover:shadow-lg">
@@ -87,6 +85,7 @@ const ServiceSection = () => {
             </div>
           ))}
         </div>
+        </a>
 
         {/* Bottom CTA */}
         {/* <div className="text-center mt-12 md:mt-16">

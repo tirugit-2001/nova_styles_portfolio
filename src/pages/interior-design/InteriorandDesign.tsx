@@ -1,7 +1,8 @@
 // InteriorandDesign.tsx
+import InteriorProcessSteps from "./InteriorDesign/InteriorAboutProcess";
 import InteriorClientTalk from "./InteriorDesign/InteriorClientTalk";
+import InteriorCustomProduct from "./InteriorDesign/InteriorCustomProduct";
 import InteriorHeroSection from "./InteriorDesign/InteriorHeroSection";
-import InteriorDesgnInteriorScroll from "./InteriorDesign/InteriorInteriorScroll";
 import InteriorPortfolioWork from "./InteriorDesign/InteriorPortfolioWork";
 
 const InteriorandDesign = () => {
@@ -10,7 +11,9 @@ const InteriorandDesign = () => {
       <InteriorHeroSection />
       <InteriorPortfolioWork />
       <InteriorClientTalk />
-      <InteriorDesgnInteriorScroll />
+      <InteriorProcessSteps />
+      <InteriorCustomProduct />
+      {/* <InteriorDesgnInteriorScroll /> */}
     </>
   );
 };

@@ -75,9 +75,7 @@ const ClientTalk = () => {
             What Our Clients Say About Us
           </h2>
           <p className="text-gray-600 text-base md:text-lg">
-            Real homeowners. Real transformations. Real trust. See why families
-            across Bangalore choose NovaStyles for their most important
-            investment.
+            Real homes. Real Stories. Crafted by NovaStyles
           </p>
         </div>
 

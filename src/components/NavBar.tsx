@@ -79,8 +79,8 @@ const NavBar = () => {
     >
       {/* <div className=" flex-row  items-center justify-center"> */}
       {/* Top Bar */}
-      <div className="bg-gray-200 py-2 px-4 md:px-8 ">
-        <div className="max-w-7xl mx-auto flex justify-end items-center gap-6 text-sm">
+      <div className="bg-[#DFE6DE] py-2 px-4 md:px-8 ">
+        <div className="mx-auto flex justify-end items-center gap-6 text-sm">
           <a
             href="mailto:info@novastyles.com"
             className="flex items-center gap-2 text-gray-700 hover:text-amber-600 transition-colors"
@@ -94,19 +94,19 @@ const NavBar = () => {
             className="flex items-center gap-2 text-gray-700 hover:text-amber-600 transition-colors"
           >
             <Phone size={16} />
-            <span className="hidden sm:inline">Call Now: +91-7852369451</span>
+            <span className="hidden sm:inline">Call Now: +91-9900334035</span>
           </a>
         </div>
       </div>
 
       {/* Main Navigation */}
-      <div className="bg-white px-4 md:px-8 py-4">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
+      <div className="bg-white px-4 md:px-8 pb-2">
+        <div className="max-w-full mx-auto flex items-center justify-between">
           <div className="flex gap-10">
             {/* Logo */}
-            <a className="flex items-center gap-1" href="/">
-              <div className="text-amber-500">
-                <img src={logo} alt="" />
+            <a className="flex items-center" href="/">
+              <div className="w-40 md:w-44 lg:w-64 text-amber-500">
+                <img className="" src={logo} alt="" />
               </div>
             </a>
 
@@ -246,7 +246,7 @@ const NavBar = () => {
         </div>
 
         {/* Product Categories Bar */}
-        <div className="mx-16 hidden lg:flex items-center gap-4 mt-4 pt-4 border-t border-gray-200">
+        <div className="mx-16 hidden lg:flex items-center gap-4 mt-0 pt-4 border-t border-gray-200">
           {/* Left Scroll Button */}
           {canScrollLeft && (
             <button
@@ -305,13 +305,13 @@ const NavBar = () => {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden bg-white border-t border-gray-200 py-4 px-4">
+        <div className="lg:hidden bg-white border-t border-gray-200 py-4 px-4 max-h-[80vh] overflow-y-auto">
           {menuItems.map((item) => (
             <div key={item.title} className="border-b border-gray-100 py-3">
               {item.hasDropdown ? (
                 <>
                   <button
-                    className="flex items-center justify-between w-full text-gray-700"
+                    className="flex items-center justify-between w-full text-gray-700 hover:text-brand transition-colors py-2 font-medium"
                     onClick={() =>
                       setOpenDropdown(
                         openDropdown === item.title ? null : item.title
@@ -320,32 +320,83 @@ const NavBar = () => {
                   >
                     {item.title}
                     <ChevronDown
-                      size={16}
-                      className={`transition-transform ${
+                      size={18}
+                      className={`transition-transform duration-200 ${
                         openDropdown === item.title ? "rotate-180" : ""
                       }`}
                     />
                   </button>
 
                   {openDropdown === item.title && (
-                    <div className="mt-2 pl-4">
-                      {item.items?.map((subItem) => (
-                        <a
-                          key={subItem.label}
-                          href={subItem.path ? subItem.path : "#"}
-                          className="block py-2 text-sm text-gray-600 hover:text-amber-600"
-                          onClick={() => setIsMobileMenuOpen(false)}
-                        >
-                          {subItem.label}
-                        </a>
-                      ))}
+                    <div className="mt-3 space-y-3">
+                      {/* Card Menu (Nova Interiors & Nova Constructions) */}
+                      {item.isCardMenu && item.items && (
+                        <div className="space-y-3">
+                          {item.items.map((subItem) => (
+                            <a
+                              key={subItem.label}
+                              href={subItem.path ? subItem.path : "#"}
+                              className="block p-4 bg-gray-50 rounded-lg border border-gray-100 hover:bg-amber-50 hover:border-brand transition-all duration-200"
+                              onClick={() => setIsMobileMenuOpen(false)}
+                            >
+                              <h4 className="font-semibold text-gray-800 mb-2 text-sm">
+                                {subItem.label}
+                              </h4>
+                              <p className="text-xs text-gray-600 leading-relaxed">
+                                {subItem.description}
+                              </p>
+                            </a>
+                          ))}
+                        </div>
+                      )}
+
+                      {/* Mega Menu (Nova Products) */}
+                      {item.isMegaMenu && item.groups && (
+                        <div className="space-y-4">
+                          {item.groups.map((group) => (
+                            <div key={group.title} className="space-y-2">
+                              <h4 className="font-semibold text-gray-800 text-sm border-b border-gray-200 pb-1">
+                                {group.title}
+                              </h4>
+                              <div className="space-y-1">
+                                {group.items.map((subItem) => (
+                                  <a
+                                    key={subItem.label}
+                                    href={subItem.path ? subItem.path : "#"}
+                                    className="block py-2 px-3 text-sm text-gray-600 hover:text-brand hover:bg-amber-50 rounded-md transition-colors"
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                  >
+                                    {subItem.label}
+                                  </a>
+                                ))}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+
+                      {/* Regular Dropdown Items */}
+                      {!item.isCardMenu && !item.isMegaMenu && item.items && (
+                        <div className="space-y-1">
+                          {item.items.map((subItem) => (
+                            <a
+                              key={subItem.label}
+                              href={subItem.path ? subItem.path : "#"}
+                              className="block py-2 px-3 text-sm text-gray-600 hover:text-brand hover:bg-amber-50 rounded-md transition-colors"
+                              onClick={() => setIsMobileMenuOpen(false)}
+                            >
+                              {subItem.label}
+                            </a>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   )}
                 </>
               ) : (
                 <a
                   href={item.path}
-                  className="block text-gray-700 hover:text-amber-600"
+                  className="block text-gray-700 hover:text-amber-600 transition-colors py-2 font-medium"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {item.title}
@@ -353,10 +404,11 @@ const NavBar = () => {
               )}
             </div>
           ))}
+          
           <a href="/contactUs">
-          <button className="w-full mt-4 px-6 py-3 bg-brand text-white rounded hover:bg-amber-500 transition-colors font-medium">
-            Get Free Estimate
-          </button>
+            <button className="w-full mt-6 px-6 py-3 bg-brand text-white rounded-lg hover:bg-brand-dark transition-colors font-medium shadow-sm">
+              Get Free Estimate
+            </button>
           </a>
         </div>
       )}

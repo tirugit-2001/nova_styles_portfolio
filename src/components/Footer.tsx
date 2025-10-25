@@ -14,11 +14,11 @@ interface FooterProps {
 
 const Footer: React.FC<FooterProps> = ({
   // companyName = "NovaStyles Constructions",
-  tagline = "Your Complete Interior & Construction Partner",
-  address = "Kozhikode, Kerala - 673001",
-  phone = "+91-XXXXX-XXXXX",
+  tagline = "NovaStyles | Home Interiors, Construction ",
+   address= "& Premium Interior Products",
+  phone = "Phone: +91-9900334035",
   email = "info@novastyles.com",
-  website = "www.novastyles.com"
+  website = "Your Complete Interior & Construction Partner Kozhikode, Kerala - 673001"
 }) => {
   const services = [
     "Interior Design",
@@ -58,8 +58,7 @@ const Footer: React.FC<FooterProps> = ({
               <div className="flex items-center gap-3 mb-4 sm:mb-6">
                 <a href="/">
                   <div className="flex gap-2">
-                    <img src={logoN} alt="#" className="text-white" />
-                    <img src={logo} alt="" />
+                    <img className="w-40 md:w-44 lg:w-60" src={logoN} alt="#" />
                   </div>
                 </a>
               </div>
@@ -91,12 +90,12 @@ const Footer: React.FC<FooterProps> = ({
 
       {/* Main Footer Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-8 py-8 sm:py-12">
-        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-5 gap-6 sm:gap-8">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-5 gap-8 sm:gap-10">
           {/* Contact Info */}
           <div className="space-y-2 col-span-2 sm:col-span-1">
             <p className="text-sm break-words">Phone: {phone}</p>
             <p className="text-sm break-words">Email: {email}</p>
-            <p className="text-sm break-words">Website: {website}</p>
+            <p className="text-sm break-words">{website}</p>
           </div>
 
           {/* Services */}

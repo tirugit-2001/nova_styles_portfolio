@@ -31,13 +31,11 @@ const InteriorScroll = () => {
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         {/* Section Header */}
         <div className="text-left mb-10">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 mb-4">
-            HOW OUR INTERIOR CHANGES
+          <h2 className="text-2xl md:text-2xl lg:text-3xl font-bold text-gray-800 mb-4">
+            How Our Interiors Change Your Home
           </h2>
           <p className="text-gray-600 text-base md:text-lg">
-            Design isn’t just about how it looks—it’s about how it feels. Watch
-            real spaces come to life as we optimise layout, lighting, storage
-            and style with precision.
+          Experience design that transforms spaces and lifestyles.
           </p>
         </div>
         {images.map((item) => (
@@ -55,20 +53,27 @@ const InteriorScroll = () => {
             Connect With Us
           </h3>
           <p className="text-gray-600 text-base md:text-lg mb-8">
-            Have a project in mind? Let’s talk. Reach out on call or
-            WhatsApp—we’d love to help you design, build or style your home.
+          Your dream home is one message away.
           </p>
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center max-w-xl mx-auto">
+          <a href="tel:9900334035"> 
             <button className="w-full sm:w-auto px-20 py-4 bg-brand text-white hover:bg-brand-dark transition-all duration-300 font-semibold text-lg shadow-lg hover:shadow-xl flex items-center justify-center gap-3">
               <Phone size={20} />
               Call Us
             </button>
-            <button className="w-full sm:w-auto px-8 py-4 bg-brand text-white hover:bg-brand-dark transition-all duration-300 font-semibold text-lg shadow-lg hover:shadow-xl flex items-center justify-center gap-3">
-              <img src={whatsapp} alt="WhatsApp" className="w-6" />
-              Chat with WhatsApp
-            </button>
+            </a>
+            <a
+              href="https://wa.me/919900334035"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <button className="w-full sm:w-auto px-8 py-4 bg-brand text-white hover:bg-brand-dark transition-all duration-300 font-semibold text-lg shadow-lg hover:shadow-xl flex items-center justify-center gap-3">
+                <img src={whatsapp} alt="WhatsApp" className="w-6" />
+                Chat on WhatsApp
+              </button>
+            </a>
           </div>
         </div>
       </div>

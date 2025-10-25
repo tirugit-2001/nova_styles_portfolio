@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { Phone } from "lucide-react";
-// import whatsapp from "../../../../public/whatsapplogo.png"; // your WhatsApp icon path
+import whatsapp from "../../../assets/images/whatsapplogo.png"; // your WhatsApp icon path
 
 const ConsInteriorScroll = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -36,17 +36,25 @@ const ConsInteriorScroll = () => {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center max-w-xl mx-auto">
+          <a href="tel:9900334035"> 
             <button className="w-full sm:w-auto px-20 py-4 bg-brand text-white hover:bg-brand-dark transition-all duration-300 font-semibold text-lg shadow-lg hover:shadow-xl flex items-center justify-center gap-3">
               <Phone size={20} />
               Call Us
             </button>
-            <button className="w-full sm:w-auto px-8 py-4 bg-brand text-white hover:bg-brand-dark transition-all duration-300 font-semibold text-lg shadow-lg hover:shadow-xl flex items-center justify-center gap-3">
-              <img  src="/whatsapplogo.png" alt="WhatsApp" className="w-6" />
-              Chat with WhatsApp
-            </button>
+            </a>
+            <a
+              href="https://wa.me/919900334035"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <button className="w-full sm:w-auto px-8 py-4 bg-brand text-white hover:bg-brand-dark transition-all duration-300 font-semibold text-lg shadow-lg hover:shadow-xl flex items-center justify-center gap-3">
+                <img src={whatsapp} alt="WhatsApp" className="w-6" />
+                Chat on WhatsApp
+              </button>
+            </a>
           </div>
         </div>
-      </div>
+        </div>
     </section>
   );
 };
