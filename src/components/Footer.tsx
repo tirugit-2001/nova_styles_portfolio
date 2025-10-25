@@ -1,7 +1,6 @@
 import React from 'react';
 import { Instagram, Linkedin, Facebook, Youtube } from 'lucide-react';
 import logoN from "../../public/logo_N.png"
-import logo from "../../public/whitelogo.png"
 
 interface FooterProps {
   companyName?: string;

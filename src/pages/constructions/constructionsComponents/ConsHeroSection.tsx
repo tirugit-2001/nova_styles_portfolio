@@ -1,8 +1,6 @@
-import { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+
 
 const ConsHeroSection = () => {
-  const [currentSlide, setCurrentSlide] = useState(0);
 
   const slides = [
     {
@@ -60,9 +58,6 @@ const ConsHeroSection = () => {
       {slides.map((slide, index) => (
         <div
           key={index}
-          className={`absolute inset-0 transition-opacity duration-1000 ${
-            index === currentSlide ? 'opacity-100' : 'opacity-0'
-          }`}
         >
           {/* Background Image */}
           <div

@@ -1,5 +1,4 @@
 import ClientTalk from "./homeComponents/ClientTalk";
-import CTABanner from "./homeComponents/CTABanner";
 import CustomProduct from "./homeComponents/CustomProduct";
 import HeroSection from "./homeComponents/HeroSection";
 import InteriorScroll from "./homeComponents/InteriorScroll";
