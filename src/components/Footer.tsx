@@ -17,7 +17,7 @@ const Footer: React.FC<FooterProps> = ({
    address= "& Premium Interior Products",
   phone = "Phone: +91-9900334035",
   email = "info@novastyles.com",
-  website = "Your Complete Interior & Construction Partner Kozhikode, Kerala - 673001"
+  website = "Banglore Karnataka - 5760001"
 }) => {
   const services = [
     "Interior Design",
@@ -36,11 +36,11 @@ const Footer: React.FC<FooterProps> = ({
   ];
 
   const locations = [
-    "Kozhikode (Calicut)",
-    "Wayanad",
-    "Thrissur",
-    "Ernakulam",
-    "Palakkad"
+    "Banglore",
+    "Manglore",
+    "Mysore",
+    "Hubli",
+    "Mumbai"
   ];
 
   return (
