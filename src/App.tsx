@@ -1,7 +1,7 @@
 import "./App.css";
 import Footer from "./components/Footer";
 import NavBar from "./components/NavBar";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 // import { CartProvider } from "./context/CartContext";
 import HomePage from "./pages/home/HomePage";
 import AboutUs from "./pages/aboutUs/AboutUs";
@@ -14,6 +14,9 @@ import InteriorandDesign from "./pages/interior-design/InteriorandDesign";
 import ConstructionContactForm from "./pages/contactUs/ConstructionContactForm";
 
 function App() {
+
+  const location = useLocation();
+   const isContactUsPage = location.pathname.toLowerCase().startsWith('/contactus');
   return (
     <>
       {/* <CartProvider> */}
@@ -29,7 +32,11 @@ function App() {
           <Route path="/construction" element={<Construction />} />
           <Route path="/interiorHome" element={<InteriorandDesign />} />
         </Routes>
-        <CTABanner />
+        {
+          !isContactUsPage &&(
+            <CTABanner />
+          )
+        }
         <Footer />
       {/* </CartProvider> */}
     </>

@@ -9,6 +9,7 @@ import {
   X,
   ChevronRight,
   ChevronLeft,
+  CircleUserRound,
 } from "lucide-react";
 import SignInForm from "../service/Email";
 import logo from "../../public/novalogo.png";
@@ -121,14 +122,14 @@ const NavBar = () => {
                   onMouseLeave={() => setOpenDropdown(null)}
                 >
                   {item.hasDropdown ? (
-                    <button className="flex items-center gap-1 text-gray-700 hover:text-brand transition-colors py-2">
+                    <button className="flex items-center gap-1 font-medium text-gray-700 hover:text-brand transition-colors py-2">
                       {item.title}
                       <ChevronDown size={16} />
                     </button>
                   ) : (
                     <a
                       href={item.path}
-                      className="flex items-center gap-1 text-gray-700 hover:text-brand transition-colors py-2"
+                      className="flex items-center gap-1 text-gray-700 hover:text-brand font-medium transition-colors py-2"
                     >
                       {item.title}
                     </a>
@@ -139,8 +140,11 @@ const NavBar = () => {
                     <div className="absolute top-full left-0 w-[800px] bg-white rounded-lg shadow-xl py-6 px-6 border border-gray-100 grid grid-cols-2 gap-8">
                       {item.groups.map((group) => (
                         <div key={group.title}>
-                          <a href={group.items.find((e) => e.path)?.path}>
-                            <h4 className="font-semibold text-gray-800 mb-2">
+                          <a
+                            className="font-medium"
+                            href={group.items.find((e) => e.path)?.path}
+                          >
+                            <h4 className="font-medium text-gray-800 mb-2">
                               {group.title}
                             </h4>
                           </a>
@@ -246,59 +250,61 @@ const NavBar = () => {
         </div>
 
         {/* Product Categories Bar */}
-        <div className="mx-16 hidden lg:flex items-center gap-4 mt-0 pt-4 border-t border-gray-200">
-          {/* Left Scroll Button */}
-          {canScrollLeft && (
-            <button
-              onClick={() => scroll("left")}
-              className="p-2 hover:bg-gray-100 rounded-full transition-colors"
-            >
-              <ChevronLeft size={20} className="text-gray-700" />
-            </button>
-          )}
+        {isMobileMenuOpen === false && (
+          <div className={`border border-gray-200`}></div>
+        )}
+        <div className="mx-4 hidden lg:flex items-center justify-between pt-4">
+  {/* Left Section: Scrollable Categories + Arrows */}
+  <div className="flex items-center gap-4 flex-1 min-w-0">
+    {/* Left Scroll Button */}
+    {canScrollLeft && (
+      <button
+        onClick={() => scroll("left")}
+        className="p-2 hover:bg-gray-100/40 rounded-full transition-colors bg-transparent"
+      >
+        <ChevronLeft size={20} className="text-gray-700" />
+      </button>
+    )}
 
-          {/* Categories Scrollable */}
-          <div
-            ref={scrollRef}
-            className="flex gap-6 overflow-x-auto scrollbar-hide scroll-smooth flex-1"
-          >
-            {productCategories.map((category) => (
-              <a
-                key={category.label}
-                href={category.path}
-                className="text-sm font-medium  text-[#4D4D4D] hover:text-brand transition-colors whitespace-nowrap"
-              >
-                {category.label}
-              </a>
-            ))}
-          </div>
+    {/* Scrollable Categories */}
+    <div
+      ref={scrollRef}
+      className="flex gap-6 overflow-x-auto scrollbar-hide scroll-smooth flex-1"
+    >
+      {productCategories.map((category) => (
+        <a
+          key={category.label}
+          href={category.path}
+          className="text-sm font-medium text-[#4D4D4D] hover:text-brand transition-colors whitespace-nowrap"
+        >
+          {category.label}
+        </a>
+      ))}
+    </div>
 
-          {/* Right Scroll Button */}
-          {canScrollRight && (
-            <button
-              onClick={() => scroll("right")}
-              className="p-2 hover:bg-gray-100 rounded-full transition-colors"
-            >
-              <ChevronRight size={20} className="text-gray-700" />
-            </button>
-          )}
+    {/* Right Scroll Button */}
+    {canScrollRight && (
+      <button
+        onClick={() => scroll("right")}
+        className="p-2 hover:bg-gray-100/40 rounded-full transition-colors bg-transparent"
+      >
+        <ChevronRight size={20} className="text-gray-700" />
+      </button>
+    )}
+  </div>
 
-          {/* Fixed Buttons (always visible, never scroll) */}
-          <div className="flex items-center gap-2 ml-4">
-            <button className="p-2 hover:bg-gray-100 rounded-full transition-colors">
-              {/* <ShoppingCart size={20} className="text-gray-700" /> */}
-            </button>
-            <button className="p-2 hover:bg-gray-100 rounded-full transition-colors">
-              {/* <User
-                size={20}
-                onClick={() => {
-                  setEmailSignIn(true);
-                }}
-                className="text-gray-700"
-              /> */}
-            </button>
-          </div>
-        </div>
+  {/* Right Section: Fixed Sign In Button */}
+  <div className="flex items-center gap-4 ml-6 shrink-0">
+    <button
+      className="p-2 hover:bg-gray-100/40 rounded-full transition-colors flex gap-2 items-center"
+      onClick={() => setEmailSignIn(true)}
+    >
+      <CircleUserRound size={20} className="text-gray-700" />
+      <span>Sign In</span>
+    </button>
+  </div>
+</div>
+
       </div>
 
       {showEmailDignIn && <SignInForm onClose={() => setEmailSignIn(false)} />}
@@ -404,7 +410,7 @@ const NavBar = () => {
               )}
             </div>
           ))}
-          
+
           <a href="/contactUs">
             <button className="w-full mt-6 px-6 py-3 bg-brand text-white rounded-lg hover:bg-brand-dark transition-colors font-medium shadow-sm">
               Get Free Estimate

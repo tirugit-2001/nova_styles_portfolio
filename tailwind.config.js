@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-export default {
+module.exports = {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
@@ -7,17 +7,16 @@ export default {
   theme: {
     extend: {
       colors: {
-        brand : {
-           DEFAULT: "#d6ad75",   // brand = main color
+        brand: {
+          DEFAULT: "#d6ad75",   // brand = main color
           light: "#e2c89e",     // optional lighter shade
-          dark: "#b5894f", 
-        }
-
+          dark: "#b5894f",
+        },
       },
       fontFamily: {
-        satoshi: ['Satoshi', 'sans-serif'],
+        satoshi: ["Satoshi", "sans-serif"],
       },
     },
   },
-  plugins: [],
-}
+  plugins: [require("tailwind-scrollbar-hide")],
+};
