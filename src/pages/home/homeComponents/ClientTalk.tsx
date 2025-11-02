@@ -1,9 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const ClientTalk = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const touchStartX = useRef<number | null>(null);
+  const touchEndX = useRef<number | null>(null);
+  const autoPlayTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const testimonials = [
     {
@@ -45,25 +48,111 @@ const ClientTalk = () => {
 
   const itemsPerView = 3;
   const maxIndex = testimonials.length - itemsPerView;
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      if (autoPlayTimeoutRef.current) {
+        clearTimeout(autoPlayTimeoutRef.current);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     if (!isAutoPlaying) return;
 
     const timer = setInterval(() => {
-      setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
+      if (isMobile) {
+        // Mobile: cycle through all testimonials
+        setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+      } else {
+        // Desktop: use maxIndex
+        setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
+      }
     }, 4000);
 
     return () => clearInterval(timer);
-  }, [isAutoPlaying, maxIndex]);
+  }, [isAutoPlaying, maxIndex, isMobile, testimonials.length]);
 
   const nextSlide = () => {
+    // Clear any existing timeout
+    if (autoPlayTimeoutRef.current) {
+      clearTimeout(autoPlayTimeoutRef.current);
+    }
+    
+    // Pause auto-play temporarily, then restart
     setIsAutoPlaying(false);
     setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
+    
+    // Restart auto-play after 3 seconds
+    autoPlayTimeoutRef.current = setTimeout(() => {
+      setIsAutoPlaying(true);
+      autoPlayTimeoutRef.current = null;
+    }, 3000);
   };
 
   const prevSlide = () => {
+    // Clear any existing timeout
+    if (autoPlayTimeoutRef.current) {
+      clearTimeout(autoPlayTimeoutRef.current);
+    }
+    
+    // Pause auto-play temporarily, then restart
     setIsAutoPlaying(false);
     setCurrentIndex((prev) => (prev <= 0 ? maxIndex : prev - 1));
+    
+    // Restart auto-play after 3 seconds
+    autoPlayTimeoutRef.current = setTimeout(() => {
+      setIsAutoPlaying(true);
+      autoPlayTimeoutRef.current = null;
+    }, 3000);
+  };
+
+  // Swipe handlers for mobile
+  const minSwipeDistance = 50;
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    touchEndX.current = null;
+    touchStartX.current = e.targetTouches[0].clientX;
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.targetTouches[0].clientX;
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStartX.current || !touchEndX.current) return;
+    
+    const distance = touchStartX.current - touchEndX.current;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe || isRightSwipe) {
+      // Clear any existing timeout
+      if (autoPlayTimeoutRef.current) {
+        clearTimeout(autoPlayTimeoutRef.current);
+      }
+      
+      // Pause auto-play temporarily, then restart
+      setIsAutoPlaying(false);
+      
+      if (isLeftSwipe) {
+        setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+      } else {
+        setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+      }
+      
+      // Restart auto-play after 3 seconds
+      autoPlayTimeoutRef.current = setTimeout(() => {
+        setIsAutoPlaying(true);
+        autoPlayTimeoutRef.current = null;
+      }, 3000);
+    }
   };
 
   return (
@@ -119,9 +208,14 @@ const ClientTalk = () => {
             </div>
           </div>
 
-          {/* Mobile View - 1 Card */}
-          <div className="md:hidden">
-            <div className="bg-white rounded-lg overflow-hidden shadow-lg">
+          {/* Mobile View - 1 Card with Swipe */}
+          <div 
+            className="md:hidden"
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+            onTouchEnd={onTouchEnd}
+          >
+            <div className="bg-white overflow-hidden shadow-lg">
               <div className="relative h-96">
                 <img
                   src={testimonials[currentIndex % testimonials.length].image}
@@ -145,10 +239,10 @@ const ClientTalk = () => {
             </div>
           </div>
 
-          {/* Navigation Arrows */}
+          {/* Navigation Arrows - Hidden on Mobile */}
           <button
             onClick={prevSlide}
-            className="absolute left-0 md:-left-4 top-1/2 -translate-y-1/2 p-2 md:p-3 bg-white hover:bg-gray-100 rounded-full shadow-lg transition-all duration-300 z-10 group"
+            className="hidden md:flex absolute left-0 md:-left-4 top-1/2 -translate-y-1/2 p-2 md:p-3 bg-white hover:bg-gray-100 rounded-full shadow-lg transition-all duration-300 z-10 group items-center justify-center"
             aria-label="Previous testimonial"
           >
             <ChevronLeft className="w-5 h-5 md:w-6 md:h-6 text-gray-800 group-hover:scale-110 transition-transform" />
@@ -156,7 +250,7 @@ const ClientTalk = () => {
 
           <button
             onClick={nextSlide}
-            className="absolute right-0 md:-right-4 top-1/2 -translate-y-1/2 p-2 md:p-3 bg-white hover:bg-gray-100 rounded-full shadow-lg transition-all duration-300 z-10 group"
+            className="hidden md:flex absolute right-0 md:-right-4 top-1/2 -translate-y-1/2 p-2 md:p-3 bg-white hover:bg-gray-100 rounded-full shadow-lg transition-all duration-300 z-10 group items-center justify-center"
             aria-label="Next testimonial"
           >
             <ChevronRight className="w-5 h-5 md:w-6 md:h-6 text-gray-800 group-hover:scale-110 transition-transform" />
@@ -165,17 +259,28 @@ const ClientTalk = () => {
 
         {/* Progress Indicators */}
         <div className="flex justify-center gap-2 mt-8">
-          {Array.from({ length: testimonials.length - (itemsPerView - 1) }).map(
+          {Array.from({ length: testimonials.length }).map(
             (_, index) => (
               <button
                 key={index}
                 onClick={() => {
+                  // Clear any existing timeout
+                  if (autoPlayTimeoutRef.current) {
+                    clearTimeout(autoPlayTimeoutRef.current);
+                  }
+                  
                   setCurrentIndex(index);
                   setIsAutoPlaying(false);
+                  
+                  // Restart auto-play after 3 seconds
+                  autoPlayTimeoutRef.current = setTimeout(() => {
+                    setIsAutoPlaying(true);
+                    autoPlayTimeoutRef.current = null;
+                  }, 3000);
                 }}
                 className={`transition-all duration-300 rounded-full ${
                   index === currentIndex
-                    ? "w-8 h-2 bg-brand"
+                    ? "w-8 h-2 md:w-8 md:h-2 bg-brand"
                     : "w-2 h-2 bg-gray-300 hover:bg-gray-400"
                 }`}
                 aria-label={`Go to testimonial ${index + 1}`}

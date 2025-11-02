@@ -32,26 +32,26 @@ const HeroSection = () => {
       title: "Complete Home Interior Design",
       subtitle: "Transform your 2BHK, 3BHK or Villa with end-to-end interior solutions",
       price: "Starting ₹4,50,000",
-      image: "https://images.unsplash.com/photo-1600210492493-0946911123ea?w=1200&h=800&fit=crop",
+      image: "/hero1img.jpg",
     },
     {
       title: "Complete Home Interior Design",
       subtitle: "Build your dream home with NovaStyles Construction Experts",
       price: "Starting ₹1,000 / sq.ft",
-      image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&h=800&fit=crop",
+      image: "/hero2img.jpg",
     },
     {
       title: "Home Renovation & Remodeling",
       subtitle: "Redesign your existing space with NovaStyles Renovation Servicess",
       price: "Book your free consultation",
-      image: "https://images.unsplash.com/photo-1556912173-3bb406ef7e77?w=1200&h=800&fit=crop",
+      image: "/hero3img.jpg",
     },
     {
       title: "Designer Wallpapers, Flooring & Furnishing",
       subtitle: "Shop NovaStyles Interiors — wallpapers, flooring, furniture & more",
       price: "Starting ₹450 / sq.ft",
-      image: "https://images.unsplash.com/photo-1556912173-3bb406ef7e77?w=1200&h=800&fit=crop",
-      // buttonTxt:"Shop NovaStyles Products"
+      image: "/hero4img.jpg",
+      // buttonTxt:"Shop NovaStyles Products"
     }
   ];
 
@@ -127,34 +127,34 @@ const HeroSection = () => {
         ))}
 
         {/* Navigation Arrows - Right Bottom */}
-        <div className="absolute bottom-8 right-8 flex gap-3">
+        <div className="absolute bottom-4 right-4 md:bottom-8 md:right-8 flex gap-2 md:gap-3">
           <button
             onClick={prevSlide}
-            className="p-3 bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-full transition-all duration-300 group"
+            className="p-2 md:p-3 bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-full transition-all duration-300 group"
             aria-label="Previous slide"
           >
-            <ChevronLeft className="w-6 h-6 md:w-7 md:h-7 text-white group-hover:scale-110 transition-transform" />
+            <ChevronLeft className="w-4 h-4 md:w-6 md:h-6 lg:w-7 lg:h-7 text-white group-hover:scale-110 transition-transform" />
           </button>
 
           <button
             onClick={nextSlide}
-            className="p-3 bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-full transition-all duration-300 group"
+            className="p-2 md:p-3 bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-full transition-all duration-300 group"
             aria-label="Next slide"
           >
-            <ChevronRight className="w-6 h-6 md:w-7 md:h-7 text-white group-hover:scale-110 transition-transform" />
+            <ChevronRight className="w-4 h-4 md:w-6 md:h-6 lg:w-7 lg:h-7 text-white group-hover:scale-110 transition-transform" />
           </button>
         </div>
 
         {/* Slide Indicators */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-3">
+        <div className="absolute bottom-4 md:bottom-8 left-1/2 -translate-x-1/2 flex gap-2 md:gap-3">
           {slides.map((_, index) => (
             <button
               key={index}
               onClick={() => goToSlide(index)}
               className={`transition-all duration-300 rounded-full ${
                 index === currentSlide
-                  ? 'w-12 h-3 bg-brand'
-                  : 'w-3 h-3 bg-white/50 hover:bg-white/70'
+                  ? 'w-8 h-2 md:w-12 md:h-3 bg-brand'
+                  : 'w-2 h-2 md:w-3 md:h-3 bg-white/50 hover:bg-white/70'
               }`}
               aria-label={`Go to slide ${index + 1}`}
             />

@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ArrowLeft } from "lucide-react";
+import axios from "axios";
 
 export default function ConstructionContactForm() {
   const [currentStep, setCurrentStep] = useState(1);
@@ -22,6 +23,28 @@ export default function ConstructionContactForm() {
     pincode: "",
     whatsappUpdates: false,
   });
+
+  // Read from localStorage on component mount
+  useEffect(() => {
+    const savedData = localStorage.getItem("constructionHeroFormData");
+    if (savedData) {
+      try {
+        const parsedData = JSON.parse(savedData);
+        setFormData((prev) => ({
+          ...prev,
+          name: parsedData.name || prev.name,
+          email: parsedData.email || prev.email,
+          mobile: parsedData.mobile || prev.mobile,
+          pincode: parsedData.pincode || prev.pincode,
+          whatsappUpdates: parsedData.whatsappUpdates !== undefined ? parsedData.whatsappUpdates : prev.whatsappUpdates,
+        }));
+        // Clear localStorage after reading to avoid stale data
+        localStorage.removeItem("constructionHeroFormData");
+      } catch (error) {
+        console.error("Error parsing localStorage data:", error);
+      }
+    }
+  }, []);
 
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
@@ -120,52 +143,107 @@ export default function ConstructionContactForm() {
     }
   };
 
-  const handleSubmit = async () => {
-    if (!formData.name || !formData.email || !formData.mobile) {
-      showToastMessage("Please fill in all required fields (Name, Email, Mobile)", "error");
-      return;
-    }
 
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      showToastMessage("Please enter a valid email address", "error");
-      return;
-    }
+const handleSubmit = async () => {
+  if (!formData.name || !formData.email || !formData.mobile) {
+    showToastMessage("Please fill in all required fields (Name, Email, Mobile)", "error");
+    return;
+  }
 
-    if (!/^\d{10}$/.test(formData.mobile.replace(/\D/g, ""))) {
-      showToastMessage("Please enter a valid 10-digit mobile number", "error");
-      return;
-    }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+    showToastMessage("Please enter a valid email address", "error");
+    return;
+  }
 
-    setIsSubmitting(true);
+  if (!/^\d{10}$/.test(formData.mobile.replace(/\D/g, ""))) {
+    showToastMessage("Please enter a valid 10-digit mobile number", "error");
+    return;
+  }
 
-    // Simulate form submission
-    setTimeout(() => {
-      console.log("Form Data:", formData);
-      showToastMessage("Form submitted successfully! Our team will contact you shortly.");
-      
-      // Reset form
-      setFormData({
-        projectType: "",
-        plotSize: "",
-        builtUpArea: "",
-        requirements: {
-          "How many Floors": 1,
-          Bedroom: 1,
-          Bathrooms: 1,
-          crockeryUnit: 1,
-          Kitchen: 1,
-        },
-        selectedPackage: "",
-        name: "",
-        email: "",
-        mobile: "",
-        pincode: "",
-        whatsappUpdates: false,
-      });
-      setCurrentStep(1);
-      setIsSubmitting(false);
-    }, 2000);
+  setIsSubmitting(true);
+
+  // Get selected package price
+  const selectedPackage = packages.find(pkg => pkg.name === formData.selectedPackage);
+  const foundItem = selectedPackage?.items.find(item => item.price);
+  const packagePrice = foundItem?.price 
+    ? parseInt(foundItem.price.replace(/[₹,]/g, '') || '0')
+    : 0;
+  
+  const totalPrice = packagePrice;
+
+  // Prepare the data to send to backend
+  const requestData = {
+    projectType: formData.projectType,
+    plotSize: formData.plotSize,
+    builtUpArea: formData.builtUpArea,
+    requirements: formData.requirements,
+    selectedPackage: formData.selectedPackage,
+    name: formData.name,
+    email: formData.email,
+    mobile: formData.mobile.replace(/\D/g, ""), // Remove non-digits
+    pincode: formData.pincode || "",
+    whatsappUpdates: formData.whatsappUpdates || false,
+    // Add pricing fields
+    packagePrice: packagePrice,
+    totalPrice: totalPrice,
   };
+
+  try {
+    const API_URL = `${import.meta.env.VITE_BACKEND_URL}/api/v1/content/construction-form`;
+    
+    const response = await axios.post(API_URL, requestData, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    showToastMessage(
+      response.data.message || "Form submitted successfully! Our team will contact you shortly.",
+      "success"
+    );
+
+    // Reset form on success
+    setFormData({
+      projectType: "",
+      plotSize: "",
+      builtUpArea: "",
+      requirements: {
+        "How many Floors": 1,
+        Bedroom: 1,
+        Bathrooms: 1,
+        crockeryUnit: 1,
+        Kitchen: 1,
+      },
+      selectedPackage: "",
+      name: "",
+      email: "",
+      mobile: "",
+      pincode: "",
+      whatsappUpdates: false,
+    });
+    setCurrentStep(1);
+  } catch (error: any) {
+    console.error("Failed to submit form:", error);
+    
+    // Handle different error types
+    let errorMessage = "Failed to submit form. Please try again or contact support.";
+    
+    if (error.response) {
+      // Server responded with error status
+      errorMessage = error.response.data?.message || error.response.statusText || errorMessage;
+    } else if (error.request) {
+      // Request made but no response received
+      errorMessage = "Unable to reach server. Please check your connection.";
+    } else {
+      // Error in setting up request
+      errorMessage = error.message || errorMessage;
+    }
+    
+    showToastMessage(errorMessage, "error");
+  } finally {
+    setIsSubmitting(false);
+  }
+};
 
   const renderStep1 = () => (
     <div className="space-y-8">

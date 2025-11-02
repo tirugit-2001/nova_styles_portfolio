@@ -153,11 +153,5 @@ const productCategories = [
   { label: "Novastyles Interior", path: "/categories/interior" },
   { label: "Canvas Prints", path: "/categories/canvasPrint" },
   { label: "Wall decor items", path: "/categories/wallDecor" },
-  { label: "Wall panels", path: "/categories/wallpanels" },
-  { label: "Soft furnishings", path: "/categories/furnishings" },
-  { label: "Furniture", path: "/categories/furniture" },
-  { label: "Novastyles Interior", path: "/categories/interior" },
-  { label: "Canvas Prints", path: "/categories/canvasPrint" },
-  { label: "Wall decor items", path: "/categories/wallDecor" },
 ];
 export { productCategories, menuItems };

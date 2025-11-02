@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ArrowLeft, Home, Check } from "lucide-react";
-import emailjs from "@emailjs/browser";
 import { Toaster, toast } from "sonner";
+import apiClient from "../../utils/axios";
 
 export default function InteriorDesignForm() {
   const [currentStep, setCurrentStep] = useState(1);
@@ -17,6 +17,28 @@ export default function InteriorDesignForm() {
     pincode: "",
     whatsappUpdates: false,
   });
+
+  // Read from localStorage on component mount
+  useEffect(() => {
+    const savedData = localStorage.getItem("interiorHeroFormData");
+    if (savedData) {
+      try {
+        const parsedData = JSON.parse(savedData);
+        setFormData((prev) => ({
+          ...prev,
+          name: parsedData.name || prev.name,
+          email: parsedData.email || prev.email,
+          mobile: parsedData.mobile || prev.mobile,
+          pincode: parsedData.pincode || prev.pincode,
+          whatsappUpdates: parsedData.whatsappUpdates !== undefined ? parsedData.whatsappUpdates : prev.whatsappUpdates,
+        }));
+        // Clear localStorage after reading to avoid stale data
+        localStorage.removeItem("interiorHeroFormData");
+      } catch (error) {
+        console.error("Error parsing localStorage data:", error);
+      }
+    }
+  }, []);
 
   const floorplans = ["1 BHK", "2 BHK", "3 BHK"];
 
@@ -291,11 +313,18 @@ const getCurrentPackages = () => {
 
 const getAddonsForPackage = (packageName: string) => {
   if (formData.floorplan === "1 BHK") return [];
-  if (formData.floorplan === "3 BHK") return addons3BHK;
+  if (formData.floorplan === "3 BHK") {
+    if (packageName.includes("Premium") || packageName.includes("premium")) return addons3BHK.premium;
+    if (packageName.includes("Standard") || packageName.includes("standard")) return addons3BHK.standard;
+    if (packageName.includes("Basic") || packageName.includes("basic")) return addons3BHK.basic;
+    if (packageName.includes("Prelam") || packageName.includes("prelam")) return addons3BHK.prelam;
+    return [];
+  }
   if (formData.floorplan === "2 BHK") {
-    if (packageName.includes("Prelam")) return addons2BHK.prelam;
-    if (packageName.includes("Basic")) return addons2BHK.basic;
-    if (packageName.includes("Standard")) return addons2BHK.standard;
+    if (packageName.includes("Prelam") || packageName.includes("prelam")) return addons2BHK.prelam;
+    if (packageName.includes("Basic") || packageName.includes("basic")) return addons2BHK.basic;
+    if (packageName.includes("Standard") || packageName.includes("standard")) return addons2BHK.standard;
+    if (packageName.includes("Premium") || packageName.includes("premium")) return addons2BHK.premium;
   }
   return [];
 };
@@ -350,83 +379,49 @@ const handleBack = () => {
 
 const handleSubmit = async () => {
   if (!formData.name || !formData.email || !formData.mobile) {
-    alert("Please fill in all required fields (Name, Email, Mobile)");
+    toast.error("Please fill in all required fields (Name, Email, Mobile)");
     return;
   }
 
   setIsSubmitting(true);
-  
-  const SERVICE_ID = "deepak_2442";
-  const TEMPLATE_ID = "template_oscvb3b";
-  const PUBLIC_KEY = "I4G2FBNszgEyUKK0Q";
 
-  // Get selected package and addons for email
+  // Get selected package and addons for pricing
   const selectedPackage = getSelectedPackage();
   const selectedAddons = getSelectedAddons();
   const totalPrice = calculateTotalPrice();
+  
+  // Calculate package price
+  const packagePrice = selectedPackage 
+    ? parseInt(selectedPackage.totalPrice.replace(/[₹,]/g, ''))
+    : 0;
+  
+  // Calculate addons total
+  const addonsTotal = selectedAddons.reduce((total: number, addon: any) => {
+    return total + parseInt(addon.price.replace(/[₹,]/g, ''));
+  }, 0);
 
-  // Create formatted message with all form details
-  const message = `
-Interior Design Consultation Request
-
-📋 Project Details:
-━━━━━━━━━━━━━━━━━━━━
-- Floorplan: ${formData.floorplan}
-- Purpose: ${formData.purpose}
-
-📦 Selected Package:
-━━━━━━━━━━━━━━━━━━━━
-${selectedPackage ? `${selectedPackage.name} - ${selectedPackage.subtitle}` : 'None selected'}
-Package Price: ${selectedPackage ? selectedPackage.totalPrice : '₹0'}
-
-${selectedAddons.length > 0 ? `🔧 Selected Add-ons:
-━━━━━━━━━━━━━━━━━━━━
-${selectedAddons.map((addon:any) => `- ${addon.label} (${addon.qty}): ${addon.price}`).join('\n')}
-Add-ons Total: ${formatPrice(selectedAddons.reduce((total:any, addon:any) => total + parseInt(addon.price.replace(/[₹,]/g, '')), 0))}
-
-` : ''}💰 Total Estimated Cost:
-━━━━━━━━━━━━━━━━━━━━
-${formatPrice(totalPrice)}
-
-📞 Contact Information:
-━━━━━━━━━━━━━━━━━━━━
-- Name: ${formData.name}
-- Email: ${formData.email}
-- Mobile: ${formData.mobile}
-- Pincode: ${formData.pincode}
-- WhatsApp Updates: ${formData.whatsappUpdates ? "Yes" : "No"}
-  `.trim();
-
-  // Get current time in readable format
-  const now = new Date();
-  const timeString = now.toLocaleString("en-IN", {
-    timeZone: "Asia/Kolkata",
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-
-  // Prepare template parameters matching your EmailJS template
-  const templateParams = {
+  // Prepare the data to send to backend
+  const requestData = {
+    floorplan: formData.floorplan,
+    purpose: formData.purpose || "",
+    selectedPackage: formData.selectedPackage,
+    addons: formData.addons || [],
     name: formData.name,
-    time: timeString,
-    message: message,
+    email: formData.email,
+    mobile: formData.mobile,
+    pincode: formData.pincode || "",
+    whatsappUpdates: formData.whatsappUpdates || false,
+    // Add pricing fields
+    packagePrice: packagePrice,
+    addonsTotal: addonsTotal,
+    totalPrice: totalPrice,
   };
 
   try {
-    await toast.promise(
-      emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams, PUBLIC_KEY),
-      {
-        loading: "Submitting your request...",
-        success:
-          "Form submitted successfully! Our team will contact you shortly.",
-        error: "Failed to send email. Please try again or contact support.",
-      }
+    const response = await apiClient.post("/api/v1/content/contact-form", requestData);
+    toast.success(
+      response.data.message || "Form submitted successfully! Our team will contact you shortly."
     );
-
-    // Reset form only on success
     setFormData({
       floorplan: "",
       purpose: "",
@@ -439,9 +434,21 @@ ${formatPrice(totalPrice)}
       whatsappUpdates: false,
     });
     setCurrentStep(1);
-  } catch (error) {
-    console.error("Failed to send email:", error);
-    // toast.promise already handles the error message
+  } catch (error: any) {
+    console.error("Failed to submit form:", error);
+    let errorMessage = "Failed to submit form. Please try again or contact support.";
+    if (error.response) {
+      // Server responded with error status
+      errorMessage = error.response.data?.message || error.response.statusText || errorMessage;
+    } else if (error.request) {
+      // Request made but no response received
+      errorMessage = "Unable to reach server. Please check your connection.";
+    } else {
+      // Error in setting up request
+      errorMessage = error.message || errorMessage;
+    }
+    
+    toast.error(errorMessage);
   } finally {
     setIsSubmitting(false);
   }

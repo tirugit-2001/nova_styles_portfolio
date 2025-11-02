@@ -149,9 +149,9 @@ const NavBar = () => {
                             </h4>
                           </a>
                           <ul className="space-y-1 text-sm text-gray-600">
-                            {group.items.map((subItem) => (
+                            {group.items.map((subItem, idx) => (
                               <li
-                                key={subItem.label}
+                                key={`${group.title}-${subItem.path || subItem.label}-${idx}`}
                                 className="hover:text-brand cursor-pointer transition-colors"
                               >
                                 {subItem.label}
@@ -166,9 +166,9 @@ const NavBar = () => {
                   {/* Nova Construction → Card-style dropdown */}
                   {item.isCardMenu && openDropdown === item.title && (
                     <div className="absolute top-full left-0 w-[400px] bg-white rounded-lg shadow-xl py-4 px-4 border border-gray-100 group-hover:block">
-                      {item.items.map((subItem) => (
+                      {item.items.map((subItem, idx) => (
                         <div
-                          key={subItem.label}
+                          key={`${item.title}-${subItem.path || subItem.label}-${idx}`}
                           className="py-3 border-b last:border-0 hover:bg-amber-50 rounded-md px-2"
                         >
                           <a href={subItem.path}>
@@ -193,8 +193,8 @@ const NavBar = () => {
                             {group.title}
                           </h4>
                           <ul className="space-y-1 text-sm text-gray-600">
-                            {group.items.map((subItem) => (
-                              <li key={subItem.label}>
+                            {group.items.map((subItem, idx) => (
+                              <li key={`${group.title}-${subItem.path || subItem.label}-${idx}`}>
                                 <a
                                   href={subItem.path}
                                   className="hover:text-brand cursor-pointer transition-colors"
@@ -271,9 +271,9 @@ const NavBar = () => {
       ref={scrollRef}
       className="flex gap-6 overflow-x-auto scrollbar-hide scroll-smooth flex-1"
     >
-      {productCategories.map((category) => (
+      {productCategories.map((category, index) => (
         <a
-          key={category.label}
+          key={`${category.path}-${index}`}
           href={category.path}
           className="text-sm font-medium text-[#4D4D4D] hover:text-brand transition-colors whitespace-nowrap"
         >
@@ -338,9 +338,9 @@ const NavBar = () => {
                       {/* Card Menu (Nova Interiors & Nova Constructions) */}
                       {item.isCardMenu && item.items && (
                         <div className="space-y-3">
-                          {item.items.map((subItem) => (
+                          {item.items.map((subItem, idx) => (
                             <a
-                              key={subItem.label}
+                              key={`${item.title}-${subItem.path || subItem.label}-${idx}`}
                               href={subItem.path ? subItem.path : "#"}
                               className="block p-4 bg-gray-50 rounded-lg border border-gray-100 hover:bg-amber-50 hover:border-brand transition-all duration-200"
                               onClick={() => setIsMobileMenuOpen(false)}
@@ -365,9 +365,9 @@ const NavBar = () => {
                                 {group.title}
                               </h4>
                               <div className="space-y-1">
-                                {group.items.map((subItem) => (
+                                {group.items.map((subItem, idx) => (
                                   <a
-                                    key={subItem.label}
+                                    key={`${group.title}-${subItem.path || subItem.label}-${idx}`}
                                     href={subItem.path ? subItem.path : "#"}
                                     className="block py-2 px-3 text-sm text-gray-600 hover:text-brand hover:bg-amber-50 rounded-md transition-colors"
                                     onClick={() => setIsMobileMenuOpen(false)}
@@ -384,9 +384,9 @@ const NavBar = () => {
                       {/* Regular Dropdown Items */}
                       {!item.isCardMenu && !item.isMegaMenu && item.items && (
                         <div className="space-y-1">
-                          {item.items.map((subItem) => (
+                          {item.items.map((subItem, idx) => (
                             <a
-                              key={subItem.label}
+                              key={`${item.title}-${subItem.path || subItem.label}-${idx}`}
                               href={subItem.path ? subItem.path : "#"}
                               className="block py-2 px-3 text-sm text-gray-600 hover:text-brand hover:bg-amber-50 rounded-md transition-colors"
                               onClick={() => setIsMobileMenuOpen(false)}
@@ -411,8 +411,20 @@ const NavBar = () => {
             </div>
           ))}
 
+          {/* Sign In Button for Mobile */}
+          <button
+            onClick={() => {
+              setEmailSignIn(true);
+              setIsMobileMenuOpen(false);
+            }}
+            className="w-full mt-6 px-6 py-3 border-2 border-brand text-brand rounded-lg hover:bg-brand hover:text-white transition-colors font-medium flex items-center justify-center gap-2"
+          >
+            <CircleUserRound size={20} />
+            <span>Sign In</span>
+          </button>
+
           <a href="/contactUs">
-            <button className="w-full mt-6 px-6 py-3 bg-brand text-white rounded-lg hover:bg-brand-dark transition-colors font-medium shadow-sm">
+            <button className="w-full mt-4 px-6 py-3 bg-brand text-white rounded-lg hover:bg-brand-dark transition-colors font-medium shadow-sm">
               Get Free Estimate
             </button>
           </a>

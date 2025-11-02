@@ -15,8 +15,8 @@ const InteriorScroll = () => {
   const images = [
     {
       id: "1",
-      img1: "https://images.unsplash.com/photo-1556912167-f556f1f39fdf?w=800&q=80",
-      img2: "https://images.unsplash.com/photo-1600210492493-0946911123ea?w=800&q=80",
+      img1: "/interiorScrollbefore.png",
+      img2: "/interiorScrollafter.jpg",
     },
   ];
 

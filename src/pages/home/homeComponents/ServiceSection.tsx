@@ -5,28 +5,28 @@ const ServiceSection = () => {
       id: 1,
       title: "Interior Solutions",
       price: "Starting ₹4,50,000",
-      image: "https://images.unsplash.com/photo-1600210492493-0946911123ea?w=800&h=600&fit=crop",
+      image: "/interior_solution.jpg",
       description: "home interiors delivered the hassle-free way"
     },
     {
       id: 2,
       title: "Residential Construction Services",
       price: "Starting ₹4,50,000",
-      image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop",
+      image: "/Residential_construction.jpg",
       description: "Dream homes built with quality and care"
     },
     {
       id: 3,
       title: "Home Renovation Services",
       price: "Starting ₹4,50,000",
-      image: "https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?w=800&h=600&fit=crop",
+      image: "/home_renovation.jpg",
       description: "Transform your space the effortless way"
     },
     {
       id: 4,
       title: "Nova Interior Products",
       price: "Starting ₹4,50,000",
-      image: "https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=800&h=600&fit=crop",
+      image: "/nova_interior_products.jpg",
       description: "Decor & furnishings made for modern living"
     }
   ];
@@ -53,7 +53,7 @@ const ServiceSection = () => {
               className="group bg-white overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2"
             >
               {/* Image Container */}
-              <div className="relative h-64 md:h-72 overflow-hidden">
+              <div className="relative h-56 md:h-64 overflow-hidden">
                 <div
                   className="absolute inset-0 bg-cover bg-center transform group-hover:scale-110 transition-transform duration-700"
                   style={{
