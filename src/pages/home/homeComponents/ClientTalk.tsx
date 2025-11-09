@@ -12,36 +12,36 @@ const ClientTalk = () => {
     {
       id: 1,
       name: "Rajesh & Priya Nair",
-      image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop",
-      quote: "Nova Styles transformed our small 2 BHK into a beautiful, functional home",
+      image: "/clientTalk1.jpg",
+      quote: "“NovaStyles transformed our small 2BHK into a beautiful, functional home we love.”",
       rating: 5
     },
     {
       id: 2,
       name: "Rajesh & Priya Nair",
-      image: "https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=800&h=600&fit=crop",
-      quote: "Nova Styles transformed our small 2 BHK into a beautiful, functional home",
+      image: "/clientTalk2.jpg",
+      quote: "“Professional team, stunning results. Our home feels brand new”",
       rating: 5
     },
     {
       id: 3,
       name: "Rajesh & Priya Nair",
-      image: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&h=600&fit=crop",
-      quote: "Nova Styles transformed our small 2 BHK into a beautiful, functional home",
+      image: "/clientTalk3jpg.jpg",
+      quote: "NovaStyles made our 3BHK look spacious and elegant. Highly recommended",
       rating: 5
     },
     {
       id: 4,
       name: "Amit & Sneha Sharma",
-      image: "https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=800&h=600&fit=crop",
-      quote: "Exceptional service and stunning results. Our dream home is now a reality",
+      image: "/clintTalk1.jpg",
+      quote: "“NovaStyles transformed our small 2BHK into a beautiful, functional home we love.”",
       rating: 5
     },
     {
       id: 5,
       name: "Vikram & Anita Patel",
-      image: "https://images.unsplash.com/photo-1600210492493-0946911123ea?w=800&h=600&fit=crop",
-      quote: "Professional team, timely delivery, and beautiful interiors. Highly recommended",
+      image: "/clientTalk3jpg.jpg",
+      quote: "“Professional team, stunning results. Our home feels brand new”",
       rating: 5
     }
   ];

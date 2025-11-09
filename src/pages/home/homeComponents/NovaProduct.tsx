@@ -18,7 +18,7 @@ const NovaProduct: React.FC<NovaProductProps> = ({ product }) => {
   const defaultProduct: Product = {
     id: 1,
     title: 'The Wind in the Willows',
-    image: 'https://images.unsplash.com/photo-1513519245088-0e12902e35ca?w=800&q=80',
+    image: '/wallpaper1.jpg',
     originalPrice: 350,
     salePrice: 263,
     pricePerSqFt: '/sq.ft.'
@@ -66,7 +66,7 @@ const NovaProductDemo: React.FC = () => {
     {
       id: 1,
       title: 'The Wind in the Willows',
-      image: 'https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=800&q=80',
+      image: '/wallpaper1.jpg',
       originalPrice: 350,
       salePrice: 263,
       pricePerSqFt: '/sq.ft.'
@@ -74,7 +74,7 @@ const NovaProductDemo: React.FC = () => {
     {
       id: 2,
       title: 'The Wind in the Willows',
-      image: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&q=80',
+      image: '/wallpaper2jpg.jpg',
       originalPrice: 350,
       salePrice: 263,
       pricePerSqFt: '/sq.ft.'
@@ -82,7 +82,7 @@ const NovaProductDemo: React.FC = () => {
     {
       id: 3,
       title: 'The Wind in the Willows',
-      image: 'https://images.unsplash.com/photo-1615873968403-89e068629265?w=800&q=80',
+      image: '/wallpaper3jpg.jpg',
       originalPrice: 350,
       salePrice: 263,
       pricePerSqFt: '/sq.ft.'
@@ -90,7 +90,7 @@ const NovaProductDemo: React.FC = () => {
     {
       id: 4,
       title: 'The Wind in the Willows',
-      image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&q=80',
+      image: '/wallpaper4.jpg',
       originalPrice: 350,
       salePrice: 263,
       pricePerSqFt: '/sq.ft.'

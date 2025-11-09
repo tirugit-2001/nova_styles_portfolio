@@ -16,8 +16,8 @@ const Footer: React.FC<FooterProps> = ({
   tagline = "NovaStyles | Home Interiors, Construction ",
    address= "& Premium Interior Products",
   phone = "Phone: +91-9900334035",
-  email = "info@novastyles.com",
-  website = "Banglore Karnataka - 5760001"
+  email = "salesnovastyles@gmail.com",
+  website = "287 / c, 10th Main Rd, 5th Block, jayanagar,Bengaluru, Karnataka 560041"
 }) => {
   const services = [
     "Interior Design",
@@ -37,10 +37,8 @@ const Footer: React.FC<FooterProps> = ({
 
   const locations = [
     "Banglore",
-    "Manglore",
-    "Mysore",
     "Hubli",
-    "Mumbai"
+    "Dharwad",
   ];
 
   return (
@@ -156,13 +154,13 @@ const Footer: React.FC<FooterProps> = ({
               Connect With US:
             </h4>
             <div className="flex gap-4">
-              <a href="#" className="hover:opacity-70 transition-opacity">
+              <a href="https://www.instagram.com/novastylesinterior/" className="hover:opacity-70 transition-opacity">
                 <Instagram className="w-5 h-5 sm:w-6 sm:h-6" />
               </a>
               <a href="#" className="hover:opacity-70 transition-opacity">
                 <Linkedin className="w-5 h-5 sm:w-6 sm:h-6" />
               </a>
-              <a href="#" className="hover:opacity-70 transition-opacity">
+              <a href="https://www.facebook.com/profile.php?id=61556927492013" className="hover:opacity-70 transition-opacity">
                 <Facebook className="w-5 h-5 sm:w-6 sm:h-6" />
               </a>
               <a href="#" className="hover:opacity-70 transition-opacity">

@@ -16,7 +16,7 @@ const CustomProduct: React.FC<CustomProductProps> = ({
   // subtitle2 = "Upload your image or reference and our team will create a custom wallpaper just for you.",
   startingPrice = "4,50,000",
   buttonText = "Get Free Estimation",
-  imageUrl = "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1200&q=80",
+  imageUrl = "/dreamhome.jpg",
   onButtonClick
 }) => {
   return (
@@ -48,12 +48,18 @@ const CustomProduct: React.FC<CustomProductProps> = ({
           </div>
 
           {/* Right Image */}
-          <div className="relative h-64 lg:h-80 overflow-hidden">
-            <img
-              src={imageUrl}
-              alt="Interior Design"
-              className="w-full h-full object-cover"
-            />
+          <div className="relative w-full lg:max-w-lg mx-auto">
+            <div className="relative aspect-video overflow-hidden">
+              <img
+                src={imageUrl}
+                alt="Interior Design"
+                className="h-full w-full"
+                onError={() => {
+                  // Fallback if image doesn't load
+                  console.error('Image failed to load:', imageUrl);
+                }}
+              />
+            </div>
           </div>
         </div>
       </div>
