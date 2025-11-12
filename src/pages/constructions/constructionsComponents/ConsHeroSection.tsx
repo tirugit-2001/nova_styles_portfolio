@@ -33,7 +33,7 @@ const ConsHeroSection = () => {
       subtitle: "Transform your 2BHK, 3BHK or Villa with end-to-end interior solution",
       price: "Starting ₹4,50,000",
       image: "/constrution_hero1.jpg"
-    },
+    }, 
     {
       title: "Luxury Living Spaces",
       subtitle: "Create stunning interiors that reflect your unique style and personality",
