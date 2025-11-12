@@ -32,13 +32,13 @@ const InteriorHeroSection = () => {
       title: "Complete Home Interior Design",
       subtitle: "Transform your 2BHK, 3BHK or Villa with end-to-end interior solutions",
       price: "Starting ₹4,50,000",
-      image: "https://images.unsplash.com/photo-1600210492493-0946911123ea?w=1200&h=800&fit=crop",
+      image: "/interior_hero1.jpg",
     },
     {
       title: "Complete Home Interior Design",
       subtitle: "Build your dream home with NovaStyles Construction Experts",
       price: "Starting ₹1,000 / sq.ft",
-      image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&h=800&fit=crop",
+      image: "",
     },
     // {
     //   title: "Home Renovation & Remodeling",
