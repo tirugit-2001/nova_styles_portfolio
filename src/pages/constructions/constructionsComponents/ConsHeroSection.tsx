@@ -76,7 +76,7 @@ const ConsHeroSection = () => {
   // };
 
   return (
-    <div className="relative w-full md:mt-[140px] lg:mt-[180px]">
+    <div className="relative w-full">
       {/* Hero Section with Form */}
       <div className="relative h-[600px] md:h-[700px] lg:h-[700px] overflow-hidden bg-gray-900">
         {/* Background Image */}

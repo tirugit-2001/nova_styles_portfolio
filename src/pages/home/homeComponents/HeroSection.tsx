@@ -83,7 +83,7 @@ const HeroSection = () => {
   };
 
   return (
-    <div className="relative w-full md:mt-[140px] lg:mt-[180px]">
+    <div className="relative w-full">
       {/* Hero Slider */}
       <div className="relative h-[500px] md:h-[600px] lg:h-[700px] overflow-hidden bg-gray-900">
         {/* Slides */}
