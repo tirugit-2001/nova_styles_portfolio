@@ -40,6 +40,7 @@ const ConsHeroSection = () => {
       price: "Starting ₹4,50,000",
       image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&h=800&fit=crop"
     },
+    
     // {
     //   title: "Modern Kitchen Designs",
     //   subtitle: "Functional and beautiful kitchen solutions for your dream home",
