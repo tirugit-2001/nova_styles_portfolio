@@ -21,23 +21,26 @@ function App() {
     <>
       {/* <CartProvider> */}
         <NavBar />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/aboutus" element={<AboutUs />} />
-          <Route path="/portfolio" element={<PortfolioSection />} />
-          <Route path="/contactUs/interior" element={<InteriorDesignForm />} />
-          <Route path="/ContactUs" element = {<ContactUs />} />
-          <Route path = "/ContactUs/construction" element = {<ConstructionContactForm />} />
+        {/* Main content wrapper with padding for fixed navbar - ensures no content is hidden behind navbar */}
+        <main className="pt-[110px] sm:pt-[120px] md:pt-[140px] lg:pt-[190px]">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/aboutus" element={<AboutUs />} />
+            <Route path="/portfolio" element={<PortfolioSection />} />
+            <Route path="/contactUs/interior" element={<InteriorDesignForm />} />
+            <Route path="/ContactUs" element = {<ContactUs />} />
+            <Route path = "/ContactUs/construction" element = {<ConstructionContactForm />} />
 
-          <Route path="/construction" element={<Construction />} />
-          <Route path="/interiorHome" element={<InteriorandDesign />} />
-        </Routes>
-        {
-          !isContactUsPage &&(
-            <CTABanner />
-          )
-        }
-        <Footer />
+            <Route path="/construction" element={<Construction />} />
+            <Route path="/interiorHome" element={<InteriorandDesign />} />
+          </Routes>
+          {
+            !isContactUsPage &&(
+              <CTABanner />
+            )
+          }
+          <Footer />
+        </main>
       {/* </CartProvider> */}
     </>
   );

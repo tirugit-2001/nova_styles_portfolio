@@ -7,13 +7,11 @@ import PortfolioWork from "../home/homeComponents/PortfolioWork";
 const AboutUs = () => {
   return (
     <>
-      <div className="mt-40">
-        <AboutHero />
-        <PortfolioWork />
-        <ProcessSteps />
-        <ClientTalk />
-        <CTABanner />
-      </div>
+      <AboutHero />
+      <PortfolioWork />
+      <ProcessSteps />
+      <ClientTalk />
+      <CTABanner />
     </>
   );
 };
