@@ -777,7 +777,7 @@ const handleSubmit = async () => {
 
   return (
     <>
-      <div className="min-h-screen bg-[#F9F9F9] flex items-center justify-center p-4 lg:mt-40">
+      <div className="min-h-screen bg-[#F9F9F9] flex items-center justify-center p-4 pt-10">
         <Toaster richColors position="top-center" />
         <div className="bg-white  shadow-lg  p-8 w-full max-w-4xl ">
           {/* Header */}

@@ -938,7 +938,7 @@ export default function ConstructionContactForm() {
   );
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4 mt-48">
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4 pt-20">
       {/* Toast Notification */}
       {showToast && (
         <div className={`fixed top-4 right-4 z-50 px-6 py-3 rounded-lg shadow-lg ${
