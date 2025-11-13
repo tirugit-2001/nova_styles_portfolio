@@ -474,7 +474,11 @@ export default function ConstructionContactForm() {
     };
 
     try {
-      const API_URL = `${import.meta.env.VITE_BACKEND_URL}/api/v1/content/construction-form`;
+      // Use proxy in development and production (Vercel serverless function)
+      const isDevelopment = import.meta.env.DEV;
+      const API_URL = isDevelopment
+        ? '/api/v1/content/construction-form' // Use Vite proxy in development
+        : '/api/construction-form'; // Use Vercel serverless function in production
       
       const response = await axios.post(API_URL, requestData, {
         headers: {

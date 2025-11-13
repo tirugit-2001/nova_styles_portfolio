@@ -27,13 +27,15 @@ const PortfolioWork = () => {
         setLoading(true);
         setError(null);
         
-        // Use proxy in development, direct URL in production
+        // Use proxy in development and production (Vercel serverless function)
         const isDevelopment = import.meta.env.DEV;
         const baseURL = isDevelopment 
           ? '/api/v1' // Use Vite proxy in development
-          : `${import.meta.env.VITE_BACKEND_URL || 'https://nova-styles-backend.onrender.com/api/v1'}`;
+          : '/api'; // Use Vercel serverless function in production
         
-        const API_URL = `${baseURL}/portfolioContent/portfolio`;
+        const API_URL = isDevelopment 
+          ? `${baseURL}/portfolioContent/portfolio`
+          : `${baseURL}/portfolio`; // Vercel API route
         
         // Add timeout and better error handling
         const response = await axios.get(API_URL, {
