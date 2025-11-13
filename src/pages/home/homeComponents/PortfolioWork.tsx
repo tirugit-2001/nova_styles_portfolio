@@ -27,7 +27,7 @@ const PortfolioWork = () => {
         setLoading(true);
         setError(null);
         
-        const API_URL = `${import.meta.env.VITE_BACKEND_URL || 'http://localhost:8500'}/api/v1/portfolioContent/portfolio`;
+        const API_URL = `${import.meta.env.VITE_BACKEND_URL || 'https://nova-styles-backend.onrender.com/api/v1'}/portfolioContent/portfolio`;
         
         const response = await axios.get(API_URL);
         
