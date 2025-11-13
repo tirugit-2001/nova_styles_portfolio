@@ -27,9 +27,21 @@ const PortfolioWork = () => {
         setLoading(true);
         setError(null);
         
-        const API_URL = `${import.meta.env.VITE_BACKEND_URL || 'https://nova-styles-backend.onrender.com/api/v1'}/portfolioContent/portfolio`;
+        // Use proxy in development, direct URL in production
+        const isDevelopment = import.meta.env.DEV;
+        const baseURL = isDevelopment 
+          ? '/api/v1' // Use Vite proxy in development
+          : `${import.meta.env.VITE_BACKEND_URL || 'https://nova-styles-backend.onrender.com/api/v1'}`;
         
-        const response = await axios.get(API_URL);
+        const API_URL = `${baseURL}/portfolioContent/portfolio`;
+        
+        // Add timeout and better error handling
+        const response = await axios.get(API_URL, {
+          timeout: 30000, // 30 second timeout
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
         
         if (response.data.success && response.data.portfolios) {
           // Map backend data to frontend format
@@ -47,7 +59,23 @@ const PortfolioWork = () => {
         }
       } catch (err: any) {
         console.error('Error fetching portfolios:', err);
-        setError(err.response?.data?.message || 'Failed to load portfolio items');
+        
+        // Better error messages for CORS and network issues
+        let errorMessage = 'Failed to load portfolio items';
+        
+        if (err.code === 'ECONNABORTED' || err.message?.includes('timeout')) {
+          errorMessage = 'Request timed out. Please check your connection and try again.';
+        } else if (err.message?.includes('CORS') || err.code === 'ERR_NETWORK') {
+          errorMessage = 'CORS Error: Backend server needs to allow requests from this origin. Please contact the backend team.';
+        } else if (err.response?.status === 404) {
+          errorMessage = 'API endpoint not found. Please check the backend URL.';
+        } else if (err.response?.data?.message) {
+          errorMessage = err.response.data.message;
+        } else if (err.message) {
+          errorMessage = err.message;
+        }
+        
+        setError(errorMessage);
         // Fallback to empty array on error
         setPortfolioItems([]);
       } finally {

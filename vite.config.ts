@@ -8,5 +8,14 @@ export default defineConfig({
     host: true, // Listen on all addresses
     port: 5173, // Default Vite port
     strictPort: false, // Allow other ports if 5173 is taken
+    proxy: {
+      // Proxy API requests to backend to avoid CORS issues in development
+      '/api': {
+        target: 'https://nova-styles-backend.onrender.com',
+        changeOrigin: true,
+        secure: true,
+        rewrite: (path) => path,
+      },
+    },
   },
 });
