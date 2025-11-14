@@ -83,7 +83,7 @@ const ServiceSection = () => {
                       {service.description}
                     </p>
                     <p className="text-base md:text-lg font-semibold text-brand mb-4">
-                      {service.price}
+                      {/* {service.price} */}
                     </p>
                   </div>
                   {/* Learn More Link */}

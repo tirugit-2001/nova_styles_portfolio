@@ -1,6 +1,5 @@
 import { useRef, useState } from "react";
 import { Phone } from "lucide-react";
-import whatsapp from "../../../assets/images/whatsapplogo.png";
 
 const InteriorDesgnInteriorScroll = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
