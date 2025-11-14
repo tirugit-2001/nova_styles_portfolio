@@ -5,7 +5,7 @@ const ServiceSection = () => {
     {
       id: 1,
       title: "Interior Solutions",
-      price: "Starting ₹4,50,000",
+      // price: "Starting ₹4,50,000",
       image: "/interior_solution.jpg",
       description: "home interiors delivered the hassle-free way",
       link: "/interiorHome"
@@ -13,7 +13,7 @@ const ServiceSection = () => {
     {
       id: 2,
       title: "Residential Construction Services",
-      price: "Starting ₹4,50,000",
+      // price: "Starting ₹4,50,000",
       image: "/Residential_construction.jpg",
       description: "Dream homes built with quality and care",
       link: "/construction"
@@ -21,7 +21,7 @@ const ServiceSection = () => {
     {
       id: 3,
       title: "Home Renovation Services",
-      price: "Starting ₹4,50,000",
+      // price: "Starting ₹4,50,000",
       image: "/home_renovation.jpg",
       description: "Transform your space the effortless way",
       link: "/interiorHome"
@@ -29,7 +29,7 @@ const ServiceSection = () => {
     {
       id: 4,
       title: "Nova Interior Products",
-      price: "Starting ₹4,50,000",
+      // price: "Starting ₹4,50,000",
       image: "/nova_interior_products.jpg",
       description: "Decor & furnishings made for modern living",
       link: "https://app.nova-styles.com",

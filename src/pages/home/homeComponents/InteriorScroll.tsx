@@ -70,7 +70,7 @@ const InteriorScroll = () => {
               rel="noopener noreferrer"
             >
               <button className="w-full sm:w-auto px-8 py-4 bg-brand text-white hover:bg-brand-dark transition-all duration-300 font-semibold text-lg shadow-lg hover:shadow-xl flex items-center justify-center gap-3">
-                <img src={whatsapp} alt="WhatsApp" className="w-6" />
+                <img src="/whatsapp_logo.png" alt="WhatsApp" className="w-8 h-8" />
                 Chat on WhatsApp
               </button>
             </a>
@@ -130,7 +130,7 @@ const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
   return (
     <div
       ref={containerRef}
-      className="relative w-full h-[400px] md:h-[500px] overflow-hidden rounded-xl shadow-lg select-none"
+      className="relative w-full h-[400px] md:h-[500px] overflow-hidden shadow-lg select-none"
       onMouseDown={startDrag}
       onTouchStart={startDrag}
     >

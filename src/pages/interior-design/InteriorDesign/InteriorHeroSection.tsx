@@ -198,7 +198,7 @@ const InteriorHeroSection = () => {
       </div>
 
       {/* Contact Form Section - Below banner on mobile */}
-      <div className="lg:hidden relative z-10 container mx-auto px-4 md:px-8 -mt-8">
+      <div className="lg:hidden relative z-10 container mx-auto px-4 md:px-8 -mt-28">
         <div className="max-w-md mx-auto">
           <form
             onSubmit={handleSubmit}

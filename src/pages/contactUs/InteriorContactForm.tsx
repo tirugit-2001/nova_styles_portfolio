@@ -46,7 +46,7 @@ export default function InteriorDesignForm() {
     {
       name: "Prelam 1BHK",
       subtitle: "Essential Quality",
-      color: "from-blue-500 to-blue-600",
+      color: "bg-[#6A8DE1]",
       totalPrice: "₹1,74,350",
       items: [
         { label: "Kitchen - 3 draws, All Shutters", qty: "40 sft", price: "₹68,000" },
@@ -60,7 +60,7 @@ export default function InteriorDesignForm() {
     {
       name: "Basic 1BHK",
       subtitle: "Value for Money",
-      color: "from-green-500 to-green-600",
+      color: "bg-[#6B9B6A]",
       totalPrice: "₹1,99,550",
       items: [
         { label: "Kitchen - 3 draws, All Shutters", qty: "40 sft", price: "₹74,000" },
@@ -74,7 +74,7 @@ export default function InteriorDesignForm() {
     {
       name: "Standard 1BHK",
       subtitle: "Most Popular",
-      color: "from-purple-500 to-purple-600",
+      color: "bg-[#A07CCF]",
       popular: true,
       totalPrice: "₹2,71,150",
       items: [
@@ -89,7 +89,7 @@ export default function InteriorDesignForm() {
     {
       name: "Premium 1BHK",
       subtitle: "Luxury Finish",
-      color: "from-amber-500 to-amber-600",
+      color: "bg-[#C18A3F]",
       totalPrice: "₹3,14,500",
       items: [
         { label: "Kitchen - 3 draws, All Shutters", qty: "60 sft", price: "₹1,47,000" },
@@ -497,7 +497,7 @@ const handleSubmit = async () => {
           {currentPackages.map((pkg, index) => (
             <div
               key={index}
-              className={`rounded-2xl overflow-hidden shadow-lg transition-all transform hover:scale-105 cursor-pointer ${
+              className={`rounded-xl overflow-hidden shadow-lg transition-all transform hover:scale-105 cursor-pointer ${
                 formData.selectedPackage === pkg.name
                   ? "ring-4 ring-purple-500"
                   : ""

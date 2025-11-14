@@ -215,7 +215,7 @@ const NavBar = () => {
           {/* Right Side Actions */}
           <div className="flex items-center gap-4">
             <a href="/contactUs">
-              <button className="hidden md:block px-6 py-2  text-brand border border-brand rounded hover:bg-brand hover:text-white transition-colors font-medium">
+              <button className="hidden md:block px-6 py-2  text-brand border border-brand hover:bg-brand hover:text-white transition-colors font-medium">
                 Get Free Estimate
               </button>
             </a>
@@ -253,7 +253,7 @@ const NavBar = () => {
         {isMobileMenuOpen === false && (
           <div className={`border border-gray-200`}></div>
         )}
-        <div className="mx-4 hidden lg:flex items-center justify-between pt-4">
+        <div className="mx-4 hidden lg:flex items-center justify-between">
   {/* Left Section: Scrollable Categories + Arrows */}
   <div className="flex items-center gap-4 flex-1 min-w-0">
     {/* Left Scroll Button */}

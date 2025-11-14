@@ -124,7 +124,7 @@ const InteriorClientTalk = () => {
 
           {/* Mobile View - 1 Card */}
           <div className="md:hidden">
-            <div className="bg-white rounded-lg overflow-hidden shadow-lg">
+            <div className="bg-white overflow-hidden shadow-lg">
               <div className="relative h-96">
                 <img
                   src={testimonials[currentIndex % testimonials.length].image}
