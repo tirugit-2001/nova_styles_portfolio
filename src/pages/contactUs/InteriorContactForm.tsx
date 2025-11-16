@@ -17,6 +17,7 @@ export default function InteriorDesignForm() {
     pincode: "",
     whatsappUpdates: false,
   });
+  const [showSuccess, setShowSuccess] = useState(false);
 
   // Read from localStorage on component mount
   useEffect(() => {
@@ -407,7 +408,7 @@ const handleSubmit = async () => {
     selectedPackage: formData.selectedPackage,
     addons: formData.addons || [],
     name: formData.name,
-    email: formData.email,
+    email: formData.email.trim(),
     mobile: formData.mobile,
     pincode: formData.pincode || "",
     whatsappUpdates: formData.whatsappUpdates || false,
@@ -422,6 +423,8 @@ const handleSubmit = async () => {
     toast.success(
       response.data.message || "Form submitted successfully! Our team will contact you shortly."
     );
+    setShowSuccess(true);
+    setTimeout(() => setShowSuccess(false), 3000);
     setFormData({
       floorplan: "",
       purpose: "",
@@ -777,6 +780,12 @@ const handleSubmit = async () => {
 
   return (
     <>
+      {/* Success Popup */}
+      {showSuccess && (
+        <div className="fixed top-6 right-6 z-50 bg-green-600 text-white px-5 py-3 rounded shadow-lg">
+          Contact form submitted. Our team will reach out shortly.
+        </div>
+      )}
       <div className="min-h-screen bg-[#F9F9F9] flex items-center justify-center p-4 pt-10">
         <Toaster richColors position="top-center" />
         <div className="bg-white  shadow-lg  p-8 w-full max-w-4xl ">

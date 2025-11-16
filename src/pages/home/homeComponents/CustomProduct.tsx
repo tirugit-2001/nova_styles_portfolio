@@ -16,7 +16,7 @@ const CustomProduct: React.FC<CustomProductProps> = ({
   // subtitle2 = "Upload your image or reference and our team will create a custom wallpaper just for you.",
   startingPrice = "4,50,000",
   buttonText = "Get Free Estimation",
-  imageUrl = "/dreamhome.jpg",
+  imageUrl = "/interior_page_1.png",
   onButtonClick
 }) => {
   return (

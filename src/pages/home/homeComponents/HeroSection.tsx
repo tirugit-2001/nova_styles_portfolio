@@ -29,36 +29,36 @@ const HeroSection = () => {
 
   const slides = [
     {
-      title: "Complete Home Interior Design",
+      title: "Complete Home Interior ",
       subtitle: "Transform your 2BHK, 3BHK or Villa with end-to-end interior solutions",
       price: "Starting ₹4,50,000",
       image: "/hero1img.jpg",
     },
     {
-      title: "Complete Home Interior Design",
-      subtitle: "Build your dream home with NovaStyles Construction Experts",
+      title: "Home Renovation & Remodeling",
+      subtitle: "Redesign your existing space with NovaStyles Renovation Services",
       price: "Starting ₹1,000 / sq.ft",
       image: "/hero2img.jpg",
     },
     {
-      title: "Home Renovation & Remodeling",
-      subtitle: "Redesign your existing space with NovaStyles Renovation Servicess",
+      title: "Designer Wallpapers, Flooring & Furnishings",
+      subtitle: "Shop NovaStyles Interiors — wallpapers, flooring, furniture & more",
       price: "Book your free consultation",
       image: "/hero3img.jpg",
     },
     {
-      title: "Designer Wallpapers, Flooring & Furnishing",
-      subtitle: "Shop NovaStyles Interiors — wallpapers, flooring, furniture & more",
+      title: "Complete Home Construction",
+      subtitle: "Build your dream home with NovaStyles Construction Experts",
       price: "Starting ₹450 / sq.ft",
-      image: "/hero4img.jpg",
+      image: "/heroimage4_new.png",
       // buttonTxt:"Shop NovaStyles Products"
     }
   ];
 
   const stats = [
-    { number: "100+", label: "Homes Project Completed" },
+    { number: "50+", label: "Homes Project Completed" },
     { number: "05 Year", label: "Interior & Construction Warranty" },
-    { number: "45- Days", label: "Guaranteed Project Completion" },
+    { number: "45 Days", label: "Guaranteed Project Completion" },
     { number: "100%", label: "Customer Satisfaction Assurance" },
   ];
 

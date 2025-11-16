@@ -14,7 +14,7 @@ const ServiceSection = () => {
       id: 2,
       title: "Residential Construction Services",
       // price: "Starting ₹4,50,000",
-      image: "/Residential_construction.jpg",
+      image: "/residential_construction_services.png",
       description: "Dream homes built with quality and care",
       link: "/construction"
     },
@@ -30,7 +30,7 @@ const ServiceSection = () => {
       id: 4,
       title: "Nova Interior Products",
       // price: "Starting ₹4,50,000",
-      image: "/nova_interior_products.jpg",
+      image: "/nova_interior_product.jpg",
       description: "Decor & furnishings made for modern living",
       link: "https://app.nova-styles.com",
       isExternal: true
