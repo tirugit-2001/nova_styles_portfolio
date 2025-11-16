@@ -15,13 +15,13 @@ const AboutHero: React.FC<AboutHeroProps> = ({ testimonials }) => {
   const defaultTestimonials: Testimonial[] = [
     {
       id: 1,
-      image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=800&q=80',
+      image: '/aboutus1.jpg',
       quote: '“Nova Styles transformed our small 2 BHK into a beautiful, functional home”',
       author: '- Rajesh & Priya Nair'
     },
     {
       id: 2,
-      image: 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1200&q=80',
+      image: '/aboutus2.jpg',
       quote: '“Our small 2 BHK into a beautiful, functional home”'
     },
     {
@@ -31,7 +31,7 @@ const AboutHero: React.FC<AboutHeroProps> = ({ testimonials }) => {
     },
     {
       id: 4,
-      image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80',
+      image: '/aboutus2.jpg',
       quote: '“Our small 2 BHK into a beautiful, functional home”'
     }
   ];
