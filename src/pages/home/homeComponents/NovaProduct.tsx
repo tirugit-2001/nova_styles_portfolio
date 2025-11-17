@@ -12,6 +12,7 @@ interface Product {
 }
 
 const BACKEND_PRODUCTS_URL = `${import.meta.env.VITE_BACKEND_URL}/api/v1/product`;
+const STORE_REDIRECT_URL = 'https://store.novastylesinterior.com/';
 
 function normalizeProduct(raw: any): Product {
   // Defensive mapping in case API field names differ
@@ -137,8 +138,8 @@ const NovaProductList: React.FC = () => {
     };
   }, []);
 
-  const redirectToBackend = () => {
-    window.location.href = BACKEND_PRODUCTS_URL;
+  const redirectToStore = () => {
+    window.location.href = STORE_REDIRECT_URL;
   };
 
   if (loading) {
@@ -181,7 +182,7 @@ const NovaProductList: React.FC = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-24 justify-items-center ">
           {products.map((product) => (
-            <NovaProductCard key={product.id} product={product} onClick={redirectToBackend} />
+            <NovaProductCard key={product.id} product={product} onClick={redirectToStore} />
           ))}
         </div>
       </div>
