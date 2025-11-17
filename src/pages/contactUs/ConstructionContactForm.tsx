@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ArrowLeft } from "lucide-react";
-import axios from "axios";
+import { axios } from "../../service/axios";
 
 type BuildingType = "Ground Floor" | "Duplex Home" | "G+2 or More Floors";
 type PackageName = "Basic" | "Standard" | "Premium";
@@ -130,7 +130,7 @@ export default function ConstructionContactForm() {
       const rate = selectedPackage ? getRate(selectedPackage) : null;
       const total = selectedPackage ? estimate(selectedPackage) : null;
       const normalizedEmail = email.trim();
-      await axios.post("/api/v1/content/construction-form", {
+      await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/content/construction-form`, {
         buildingType,
         sqft,
         selectedPackage,
