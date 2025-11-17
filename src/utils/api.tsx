@@ -33,6 +33,6 @@ export const requestHandler = async (
 
 
 export const getInteriorPortfolio = async () => {
-  const response = await axios.get(`/portfolioContent/portfolio`);
+  const response = await axios.get(`api/v1/portfolioContent/portfolio`);
   return response
 }
