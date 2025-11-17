@@ -113,14 +113,22 @@ const NovaProductList: React.FC = () => {
         const url = httpClient.defaults.baseURL
           ? '/api/v1/product'
           : BACKEND_PRODUCTS_URL;
-        const res = await httpClient.get(url);
+        const res = await httpClient.get(url, {
+          params: {
+            page: 1,
+            limit: 8,
+          },
+        });
         const rows = extractProducts(res.data);
         const mapped = rows.map(normalizeProduct);
         if (isMounted) setProducts(mapped);
       } catch (err) {
         // Fallback to direct fetch if axios baseURL misconfigured
         try {
-          const res = await fetch(BACKEND_PRODUCTS_URL);
+          const fallbackUrl = new URL(BACKEND_PRODUCTS_URL);
+          fallbackUrl.searchParams.set('page', '1');
+          fallbackUrl.searchParams.set('limit', '8');
+          const res = await fetch(fallbackUrl);
           const json = await res.json();
           const rows = extractProducts(json);
           const mapped = rows.map(normalizeProduct);
