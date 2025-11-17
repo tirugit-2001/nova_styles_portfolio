@@ -11,7 +11,7 @@ interface Product {
   pricePerSqFt?: string;
 }
 
-const BACKEND_PRODUCTS_URL = 'https://nova-styles-backend.onrender.com/api/v1/product';
+const BACKEND_PRODUCTS_URL = `${import.meta.env.VITE_BACKEND_URL}/api/v1/product`;
 
 function normalizeProduct(raw: any): Product {
   // Defensive mapping in case API field names differ
