@@ -1,108 +1,142 @@
 import { ArrowRight } from "lucide-react";
 import GalleryModal from "./gallaryModal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getInteriorPortfolio, requestHandler } from "../../utils/api";
 
 export default function PortfolioSection() {
   const [selectedGallery, setSelectedGallery] = useState<string[] | null>(null);
-  const portfolioItems = [
-    {
-      id: 1,
-      image:
-        "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=500&h=400&fit=crop",
-      title: "Modern 4 BHK",
-      location: "Penthouse, Bangalore, pinya",
-      gallery: [
-        "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=500&h=400&fit=crop",
-        "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=500&h=400&fit=crop",
-        "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=500&h=400&fit=crop",
+  const [portfolioItems, setPortfolioItems] = useState<any[]>([]);
+  // const portfolioItems = [
+  //   {
+  //     id: 1,
+  //     image:
+  //       "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=500&h=400&fit=crop",
+  //     title: "Modern 4 BHK",
+  //     location: "Penthouse, Bangalore, pinya",
+  //     gallery: [
+  //       "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=500&h=400&fit=crop",
+  //       "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=500&h=400&fit=crop",
+  //       "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=500&h=400&fit=crop",
         
-      ],
-    },
-    {
-      id: 2,
-      image:
-        "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=500&h=400&fit=crop",
-      title: "Modern 4 BHK",
-      location: "Penthouse, Bangalore",
-      gallery: [
-        "https://images.unsplash.com/photos/gray-steel-3-door-refrigerator-near-modular-kitchen-MP0bgaS_d1c",
-        "https://unsplash.com/photos/white-over-the-range-oven-GliaHAJ3_5A",
-        "https://unsplash.com/photos/a-kitchen-with-two-stools-next-to-a-counter-XQ4cYH7Jhjo",
-      ],
-    },
-    {
-      id: 3,
-      image:
-        "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=500&h=400&fit=crop",
-      title: "Modern 4 BHK",
-      location: "Farmhouse, Bangalore",
-      gallery: [
-        "https://images.unsplash.com/photo-1600210493000-111?w=600&h=400&fit=crop",
-        "https://images.unsplash.com/photo-1600210493001-222?w=600&h=400&fit=crop",
-        "https://images.unsplash.com/photo-1600210493002-333?w=600&h=400&fit=crop",
-      ],
-    },
-    {
-      id: 4,
-      image:
-        "https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=500&h=400&fit=crop",
-      title: "Modern 3 BHK",
-      location: "Penthouse, Bangalore",
-      gallery: [
-        "https://images.unsplash.com/photo-1600210493000-111?w=600&h=400&fit=crop",
-        "https://images.unsplash.com/photo-1600210493001-222?w=600&h=400&fit=crop",
-        "https://images.unsplash.com/photo-1600210493002-333?w=600&h=400&fit=crop",
-      ],
-    },
-    {
-      id: 5,
-      image:
-        "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=500&h=400&fit=crop",
-      title: "Modern 4 BHK",
-      location: "Penthouse, Bangalore",
-      gallery: [
-        "https://images.unsplash.com/photo-1600210493000-111?w=600&h=400&fit=crop",
-        "https://images.unsplash.com/photo-1600210493001-222?w=600&h=400&fit=crop",
-        "https://images.unsplash.com/photo-1600210493002-333?w=600&h=400&fit=crop",
-      ],
-    },
-    {
-      id: 6,
-      image:
-        "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=500&h=400&fit=crop",
-      title: "Modern 4 BHK",
-      location: "Penthouse, Bangalore",
-      gallery: [
-        "https://images.unsplash.com/photo-1600210493000-111?w=600&h=400&fit=crop",
-        "https://images.unsplash.com/photo-1600210493001-222?w=600&h=400&fit=crop",
-        "https://images.unsplash.com/photo-1600210493002-333?w=600&h=400&fit=crop",
-      ],
-    },
-    {
-      id: 7,
-      image:
-        "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=500&h=400&fit=crop",
-      title: "Modern 4 BHK",
-      location: "Farmhouse, Bangalore",
-      gallery: [
-        "https://images.unsplash.com/photo-1600210493000-111?w=600&h=400&fit=crop",
-        "https://images.unsplash.com/photo-1600210493001-222?w=600&h=400&fit=crop",
-        "https://images.unsplash.com/photo-1600210493002-333?w=600&h=400&fit=crop",
-      ],
-    },
-    {
-      id: 8,
-      image:
-        "https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=500&h=400&fit=crop",
-      title: "Modern 3 BHK",
-      location: "Penthouse, Bangalore",
-      gallery: [
-        "https://images.unsplash.com/photo-1600210493000-111?w=600&h=400&fit=crop",
-        "https://images.unsplash.com/photo-1600210493001-222?w=600&h=400&fit=crop",
-        "https://images.unsplash.com/photo-1600210493002-333?w=600&h=400&fit=crop",
-      ],
-    },
-  ];
+  //     ],
+  //   },
+  //   {
+  //     id: 2,
+  //     image:
+  //       "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=500&h=400&fit=crop",
+  //     title: "Modern 4 BHK",
+  //     location: "Penthouse, Bangalore",
+  //     gallery: [
+  //       "https://images.unsplash.com/photos/gray-steel-3-door-refrigerator-near-modular-kitchen-MP0bgaS_d1c",
+  //       "https://unsplash.com/photos/white-over-the-range-oven-GliaHAJ3_5A",
+  //       "https://unsplash.com/photos/a-kitchen-with-two-stools-next-to-a-counter-XQ4cYH7Jhjo",
+  //     ],
+  //   },
+  //   {
+  //     id: 3,
+  //     image:
+  //       "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=500&h=400&fit=crop",
+  //     title: "Modern 4 BHK",
+  //     location: "Farmhouse, Bangalore",
+  //     gallery: [
+  //       "https://images.unsplash.com/photo-1600210493000-111?w=600&h=400&fit=crop",
+  //       "https://images.unsplash.com/photo-1600210493001-222?w=600&h=400&fit=crop",
+  //       "https://images.unsplash.com/photo-1600210493002-333?w=600&h=400&fit=crop",
+  //     ],
+  //   },
+  //   {
+  //     id: 4,
+  //     image:
+  //       "https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=500&h=400&fit=crop",
+  //     title: "Modern 3 BHK",
+  //     location: "Penthouse, Bangalore",
+  //     gallery: [
+  //       "https://images.unsplash.com/photo-1600210493000-111?w=600&h=400&fit=crop",
+  //       "https://images.unsplash.com/photo-1600210493001-222?w=600&h=400&fit=crop",
+  //       "https://images.unsplash.com/photo-1600210493002-333?w=600&h=400&fit=crop",
+  //     ],
+  //   },
+  //   {
+  //     id: 5,
+  //     image:
+  //       "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=500&h=400&fit=crop",
+  //     title: "Modern 4 BHK",
+  //     location: "Penthouse, Bangalore",
+  //     gallery: [
+  //       "https://images.unsplash.com/photo-1600210493000-111?w=600&h=400&fit=crop",
+  //       "https://images.unsplash.com/photo-1600210493001-222?w=600&h=400&fit=crop",
+  //       "https://images.unsplash.com/photo-1600210493002-333?w=600&h=400&fit=crop",
+  //     ],
+  //   },
+  //   {
+  //     id: 6,
+  //     image:
+  //       "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=500&h=400&fit=crop",
+  //     title: "Modern 4 BHK",
+  //     location: "Penthouse, Bangalore",
+  //     gallery: [
+  //       "https://images.unsplash.com/photo-1600210493000-111?w=600&h=400&fit=crop",
+  //       "https://images.unsplash.com/photo-1600210493001-222?w=600&h=400&fit=crop",
+  //       "https://images.unsplash.com/photo-1600210493002-333?w=600&h=400&fit=crop",
+  //     ],
+  //   },
+  //   {
+  //     id: 7,
+  //     image:
+  //       "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=500&h=400&fit=crop",
+  //     title: "Modern 4 BHK",
+  //     location: "Farmhouse, Bangalore",
+  //     gallery: [
+  //       "https://images.unsplash.com/photo-1600210493000-111?w=600&h=400&fit=crop",
+  //       "https://images.unsplash.com/photo-1600210493001-222?w=600&h=400&fit=crop",
+  //       "https://images.unsplash.com/photo-1600210493002-333?w=600&h=400&fit=crop",
+  //     ],
+  //   },
+  //   {
+  //     id: 8,
+  //     image:
+  //       "https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=500&h=400&fit=crop",
+  //     title: "Modern 3 BHK",
+  //     location: "Penthouse, Bangalore",
+  //     gallery: [
+  //       "https://images.unsplash.com/photo-1600210493000-111?w=600&h=400&fit=crop",
+  //       "https://images.unsplash.com/photo-1600210493001-222?w=600&h=400&fit=crop",
+  //       "https://images.unsplash.com/photo-1600210493002-333?w=600&h=400&fit=crop",
+  //     ],
+  //   },
+  // ];
+
+  const getPortfolioItems = async () => {
+    requestHandler(
+      async () => await getInteriorPortfolio(),
+      (data) => {
+        if (data?.portfolios && Array.isArray(data.portfolios)) {
+          const formattedPortfolios = data.portfolios.map((item: any) => ({
+            ...item,
+            id: item._id || item.id,
+            gallery:
+              Array.isArray(item.images) && item.images.length > 0
+                ? item.images
+                : item.image
+                  ? [item.image]
+                  : [],
+          }));
+          setPortfolioItems(formattedPortfolios);
+        } else {
+          console.warn("No portfolios found in response", data);
+        }
+      },
+      (error) => {
+        console.log(error);
+      }
+    )
+  }
+
+  useEffect(() => {
+    getPortfolioItems();
+  }, []);
+
+  // const handleGalaryModel = (images: string[])
 
   return (
     <>
@@ -124,7 +158,18 @@ export default function PortfolioSection() {
               <div
                 key={item.id}
                 className="group relative bg-white overflow-hidden  hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 cursor-pointer"
-                onClick={() => setSelectedGallery(item.gallery)}
+                onClick={() => {
+                  const images = item.gallery && item.gallery.length > 0
+                    ? item.gallery
+                    : item.images && item.images.length > 0
+                      ? item.images
+                      : item.image
+                        ? [item.image]
+                        : [];
+                  if (images.length > 0) {
+                    setSelectedGallery(images);
+                  }
+                }}
               >
                 {/* Image Container */}
                 <div className="relative h-72 md:h-96 overflow-hidden">

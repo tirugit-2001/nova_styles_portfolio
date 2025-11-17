@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { ChevronRight } from 'lucide-react';
-import axios from 'axios';
+import { getInteriorPortfolio, requestHandler } from '../../../utils/api';
 
 // Define the portfolio item type
 interface PortfolioItem {
@@ -20,78 +20,34 @@ const PortfolioWork = () => {
 
   const categories = ['All', 'Living Room', 'Bedroom', 'Kitchen', 'Bathroom', 'Office'];
 
-  // Fetch portfolio data from backend
-  useEffect(() => {
-    const fetchPortfolios = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-        
-        // Use proxy in development and production (Vercel serverless function)
-        const isDevelopment = import.meta.env.DEV;
-        const baseURL = isDevelopment 
-          ? '/api/v1' // Use Vite proxy in development
-          : '/api'; // Use Vercel serverless function in production
-        
-        const API_URL = isDevelopment 
-          ? `${baseURL}/portfolioContent/portfolio`
-          : `${baseURL}/portfolio`; // Vercel API route
-        
-        // Add timeout and better error handling
-        const response = await axios.get(API_URL, {
-          timeout: 30000, // 30 second timeout
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
-        
-        if (response.data.success && response.data.portfolios) {
-          // Map backend data to frontend format
-          const mappedPortfolios = response.data.portfolios.map((item: any) => ({
-            id: item._id || item.id,
-            title: item.title,
-            location: item.location,
-            category: item.category,
-            image: item.image,
-          }));
-          
-          setPortfolioItems(mappedPortfolios);
-        } else {
-          setError('No portfolio data available');
-        }
-      } catch (err: any) {
-        console.error('Error fetching portfolios:', err);
-        
-        // Better error messages for CORS and network issues
-        let errorMessage = 'Failed to load portfolio items';
-        
-        if (err.code === 'ECONNABORTED' || err.message?.includes('timeout')) {
-          errorMessage = 'Request timed out. Please check your connection and try again.';
-        } else if (err.message?.includes('CORS') || err.code === 'ERR_NETWORK') {
-          errorMessage = 'CORS Error: Backend server needs to allow requests from this origin. Please contact the backend team.';
-        } else if (err.response?.status === 404) {
-          errorMessage = 'API endpoint not found. Please check the backend URL.';
-        } else if (err.response?.data?.message) {
-          errorMessage = err.response.data.message;
-        } else if (err.message) {
-          errorMessage = err.message;
-        }
-        
-        setError(errorMessage);
-        // Fallback to empty array on error
-        setPortfolioItems([]);
-      } finally {
+  const getMainPortfolioItems = async () => {
+    setLoading(true);
+    setError(null);
+    requestHandler(
+      async () => await getInteriorPortfolio(),
+      (data) => {
+        console.log(data);
+        // Filter portfolios where showOnMainHome === true
+        const filteredItems = data.portfolios.filter((item: any) => item.showOnMainHome === true);
+        setPortfolioItems(filteredItems);
+        setLoading(false);
+      },
+      (error) => {
+        console.log(error);
+        setError(error);
         setLoading(false);
       }
-    };
+    )
+  }
 
-    fetchPortfolios();
-  }, []); // Run once on component mount
+  useEffect(() => {
+    getMainPortfolioItems();
+  }, []);
 
   // Filter items by selected category
   const filteredItems = selectedCategory === 'All' 
     ? portfolioItems 
-    : portfolioItems.filter(item => item.category === selectedCategory);
+    : portfolioItems.filter((item: PortfolioItem) => item.category === selectedCategory);
 
   return (
     <section className="py-16 md:py-24 bg-[#F4F4F4]">
@@ -164,7 +120,7 @@ const PortfolioWork = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
             {filteredItems.map((item, index) => (
               <div
-                key={item.id || index}
+                key={item._id || item.id || index}
                 className="group relative bg-white overflow-hidden brand-lg hover:brand-2xl transition-all duration-500 transform hover:-translate-y-2"
                 style={{
                   animation: `fadeIn 0.5s ease-out ${index * 0.1}s both`,

@@ -1,73 +1,71 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ChevronRight } from 'lucide-react';
+import { getInteriorPortfolio, requestHandler } from '../../../utils/api';
+
+interface PortfolioItem {
+  _id: string;
+  title: string;
+  location: string;
+  category: string;
+  image: string;
+  showOnInteriorHome: boolean;
+  showOnMainHome?: boolean;
+  showOnConstruction?: boolean;
+}
 
 const InteriorPortfolioWork = () => {
   const [selectedCategory, setSelectedCategory] = useState('All');
+  const [portfolioItems, setPortfolioItems] = useState<PortfolioItem[]>([]);
 
   const categories = ['All', 'Living Room', 'Bedroom', 'Kitchen', 'Bathroom', 'Office'];
 
-  const portfolioItems = [
-    {
-      id: 1,
-      title: "Modern 4 BHK",
-      location: "Penthouse, Bangalore",
-      category: "Living Room",
-      image: "https://images.unsplash.com/photo-1600210492493-0946911123ea?w=800&h=600&fit=crop"
-    },
-    {
-      id: 2,
-      title: "Modern 4 BHK",
-      location: "Penthouse, Bangalore",
-      category: "Living Room",
-      image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop"
-    },
-    {
-      id: 3,
-      title: "Modern 4 BHK",
-      location: "Penthouse, Bangalore",
-      category: "Living Room",
-      image: "https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?w=800&h=600&fit=crop"
-    },
-    {
-      id: 4,
-      title: "Modern 4 BHK",
-      location: "Penthouse, Bangalore",
-      category: "Bedroom",
-      image: "https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=800&h=600&fit=crop"
-    },
-    {
-      id: 5,
-      title: "Luxury Villa",
-      location: "Apartment, Mumbai",
-      category: "Kitchen",
-      image: "https://images.unsplash.com/photo-1556912173-3bb406ef7e77?w=800&h=600&fit=crop"
-    },
-    {
-      id: 6,
-      title: "Contemporary Home",
-      location: "Villa, Delhi",
-      category: "Bedroom",
-      image: "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=800&h=600&fit=crop"
-    },
-    {
-      id: 7,
-      title: "Minimalist Design",
-      location: "Studio, Pune",
-      category: "Office",
-      image: "https://images.unsplash.com/photo-1556912173-3bb406ef7e77?w=800&h=600&fit=crop"
-    },
-    {
-      id: 8,
-      title: "Elegant Interior",
-      location: "Apartment, Chennai",
-      category: "Bathroom",
-      image: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&h=600&fit=crop"
-    }
-  ];
+ 
+
+  function getAllPortfolio() {
+    console.log("getAllPortfolio called");
+    requestHandler(
+      async () => await getInteriorPortfolio(),
+      (data) => {
+        console.log("Success callback called with data:", data);
+        console.log("Data type:", typeof data);
+        console.log("Has portfolios?", data?.portfolios);
+        console.log("Is portfolios array?", Array.isArray(data?.portfolios));
+        
+        // Filter portfolios where showOnInteriorHome === true
+        if (data?.portfolios && Array.isArray(data.portfolios)) {
+          const filteredPortfolios = data.portfolios.filter(
+            (item: PortfolioItem) => item.showOnInteriorHome === true
+          );
+          console.log("Filtered portfolios:", filteredPortfolios);
+          console.log("Filtered count:", filteredPortfolios.length);
+          setPortfolioItems(filteredPortfolios);
+        } else {
+          console.warn("Portfolios not found or not an array. Data structure:", data);
+        }
+      },
+      (errorMessage) => {
+        console.error("Error callback:", errorMessage || "Failed to fetch portfolio content");
+      }
+    );
+  }
+   // ✅ Fetch all portfolio records
+   useEffect(() => {
+    console.log("useEffect triggered - calling getAllPortfolio");
+    getAllPortfolio();
+  }, []);
+
+  // Monitor portfolioItems state changes
+  useEffect(() => {
+    console.log("portfolioItems state updated:", portfolioItems);
+    console.log("portfolioItems length:", portfolioItems.length);
+  }, [portfolioItems]);
 
   const filteredItems = selectedCategory === 'All' 
     ? portfolioItems 
     : portfolioItems.filter(item => item.category === selectedCategory);
+  
+  console.log("filteredItems:", filteredItems);
+  console.log("filteredItems length:", filteredItems.length);
 
   return (
     <section className="py-16 md:py-24 bg-[#F4F4F4]">
@@ -107,7 +105,7 @@ const InteriorPortfolioWork = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
           {filteredItems.map((item, index) => (
             <div
-              key={item.id}
+              key={item._id}
               className="group relative bg-white overflow-hidden brand-lg hover:brand-2xl transition-all duration-500 transform hover:-translate-y-2"
               style={{
                 animation: `fadeIn 0.5s ease-out ${index * 0.1}s both`,
