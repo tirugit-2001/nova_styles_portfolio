@@ -82,6 +82,21 @@ const NovaProductCard: React.FC<{ product: Product; onClick: () => void }> = ({ 
   );
 };
 
+function extractProducts(payload: any): any[] {
+  if (!payload) return [];
+  const candidates = [
+    payload.data?.products,
+    payload.data?.data,
+    payload.products,
+    payload.data,
+    payload,
+  ];
+  for (const candidate of candidates) {
+    if (Array.isArray(candidate)) return candidate;
+  }
+  return [];
+}
+
 const NovaProductList: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -98,7 +113,7 @@ const NovaProductList: React.FC = () => {
           ? '/api/v1/product'
           : BACKEND_PRODUCTS_URL;
         const res = await httpClient.get(url);
-        const rows = Array.isArray(res.data?.data) ? res.data.data : Array.isArray(res.data) ? res.data : [];
+        const rows = extractProducts(res.data);
         const mapped = rows.map(normalizeProduct);
         if (isMounted) setProducts(mapped);
       } catch (err) {
@@ -106,7 +121,7 @@ const NovaProductList: React.FC = () => {
         try {
           const res = await fetch(BACKEND_PRODUCTS_URL);
           const json = await res.json();
-          const rows = Array.isArray(json?.data) ? json.data : Array.isArray(json) ? json : [];
+          const rows = extractProducts(json);
           const mapped = rows.map(normalizeProduct);
           if (isMounted) setProducts(mapped);
         } catch (e) {
