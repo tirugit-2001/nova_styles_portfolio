@@ -11,6 +11,13 @@ const InteriorHeroSection = () => {
     pincode: "",
   });
 
+  const stats = [
+    { number: "15+", label: "Homes Project Completed" },
+    { number: "05 Year", label: "Interior & Construction Warranty" },
+    { number: "45 Days", label: "Guaranteed Project Completion" },
+    { number: "100%", label: "Customer Satisfaction Assurance" },
+  ];
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
     setFormData((prev) => ({
@@ -221,7 +228,25 @@ const InteriorHeroSection = () => {
           </form>
         </div>
       </div>
-    </div>
+ {/* Stats Section */}
+ <div className="bg-white py-8 md:py-12 border-t border-gray-200">
+ <div className="max-w-full mx-auto px-4 md:px-8">
+   <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12">
+     {stats.map((stat, index) => (
+       <div key={index} className="text-center">
+         <div className="text-xl md:text-xl lg:text-2xl font-bold text-[#7C947A] mb-2">
+           {stat.number}
+         </div>
+         <div className="text-base md:text-lg text-black font-medium">
+           {stat.label}
+         </div>
+       </div>
+     ))}
+   </div>
+ </div>
+</div>
+
+</div>
   );
 };
 

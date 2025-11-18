@@ -11,6 +11,13 @@ const ConsHeroSection = () => {
     pincode: "",
   });
 
+  const stats = [
+    { number: "15+", label: "Homes Project Completed" },
+    { number: "05 Year", label: "Interior & Construction Warranty" },
+    { number: "45 Days", label: "Guaranteed Project Completion" },
+    { number: "100%", label: "Customer Satisfaction Assurance" },
+  ];
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
     setFormData((prev) => ({
@@ -27,54 +34,6 @@ const ConsHeroSection = () => {
     navigate("/ContactUs/construction");
   };
 
-  const slides = [
-    {
-      title: "Complete Home Interior Design",
-      subtitle: "Transform your 2BHK, 3BHK or Villa with end-to-end interior solution",
-      price: "Starting ₹4,50,000",
-      image: "/constrution_hero1.jpg"
-    }, 
-    {
-      title: "Luxury Living Spaces",
-      subtitle: "Create stunning interiors that reflect your unique style and personality",
-      price: "Starting ₹4,50,000",
-      image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&h=800&fit=crop"
-    },
-    
-    // {
-    //   title: "Modern Kitchen Designs",
-    //   subtitle: "Functional and beautiful kitchen solutions for your dream home",
-    //   price: "Starting ₹4,50,000",
-    //   image: "https://images.unsplash.com/photo-1556912173-3bb406ef7e77?w=1200&h=800&fit=crop"
-    // }
-  ];
-
-  // const stats = [
-  //   { number: "500+", label: "Homes Completed" },
-  //   { number: "05 Year", label: "Warranty" },
-  //   { number: "05 Year", label: "Warranty" },
-  //   { number: "45- Days", label: "Completion" }
-  // ];
-
-  // useEffect(() => {
-  //   const timer = setInterval(() => {
-  //     setCurrentSlide((prev) => (prev + 1) % slides.length);
-  //   }, 3000);
-
-  //   return () => clearInterval(timer);
-  // }, [slides.length]);
-
-  // const nextSlide = () => {
-  //   setCurrentSlide((prev) => (prev + 1) % slides.length);
-  // };
-
-  // const prevSlide = () => {
-  //   setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
-  // };
-
-  // const goToSlide = (index: number) => {
-  //   setCurrentSlide(index);
-  // };
 
   return (
     <div className="relative w-full">
@@ -84,7 +43,7 @@ const ConsHeroSection = () => {
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: `url(${slides[0].image})`,
+            backgroundImage: `url(${'/constrution_hero1.jpg'})`,
           }}
         >
           <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-transparent" />
@@ -97,14 +56,14 @@ const ConsHeroSection = () => {
             <div className="flex items-center">
               <div className="text-white">
                 <p className="text-sm md:text-2xl lg:text-2xl text-[#DFE6DE] font-medium tracking-wide mb-2">
-                  {slides[0].title}
+                Complete Home Construction
                 </p>
                 <h1 className="text-2xl md:text-3xl lg:text-5xl font-satoshi font-medium mb-4 leading-tight">
-                  {slides[0].subtitle}
+                  Build your dream home with NovaStyles Construction Experts
                 </h1>
-                <p className="text-xl md:text-2xl lg:text-3xl font-medium mb-2">
+                {/* <p className="text-xl md:text-2xl lg:text-3xl font-medium mb-2">
                   {slides[0].price}
-                </p>
+                </p> */}
               </div>
             </div>
 
@@ -272,7 +231,26 @@ const ConsHeroSection = () => {
           </form>
         </div>
       </div>
+
+      {/* Stats Section */}
+        <div className="bg-white py-8 md:py-12 border-t border-gray-200">
+        <div className="max-w-full mx-auto px-4 md:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12">
+            {stats.map((stat, index) => (
+              <div key={index} className="text-center">
+                <div className="text-xl md:text-xl lg:text-2xl font-bold text-[#7C947A] mb-2">
+                  {stat.number}
+                </div>
+                <div className="text-base md:text-lg text-black font-medium">
+                  {stat.label}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
     </div>
+
   );
 };
 

@@ -24,63 +24,124 @@ const menuItems = [
     hasDropdown: true,
     isMegaMenu: true,
     groups: [
+      // All Nova Products should redirect to the official store
+      // https://store.novastylesinterior.com
       {
         title: "Wall papers",
         items: [
-          { label: "Ready available wall papers", path: "/interiorHome" },
-          { label: "Customised wall papers", path: "/interiorHome" },
+          {
+            label: "Ready available wall papers",
+            path: "https://store.novastylesinterior.com/",
+          },
+          {
+            label: "Customised wall papers",
+            path: "https://store.novastylesinterior.com/",
+          },
         ],
       },
       {
         title: "Wooden flooring",
         items: [
-          { label: "Laminated wooden flooring", path: "/flooring/laminated" },
-          { label: "SPC flooring", path: "/flooring/spc" },
+          {
+            label: "Laminated wooden flooring",
+            path: "https://store.novastylesinterior.com/",
+          },
+          {
+            label: "SPC flooring",
+            path: "https://store.novastylesinterior.com/",
+          },
           {
             label: "Engineered wooden flooring",
-            path: "/flooring/engineered",
+            path: "https://store.novastylesinterior.com/",
           },
-          { label: "Hardwood flooring", path: "/flooring/hardwood" },
-          { label: "Carpet flooring", path: "/flooring/carpet" },
-          { label: "Vinyl flooring", path: "/flooring/vinyl" },
+          {
+            label: "Hardwood flooring",
+            path: "https://store.novastylesinterior.com/",
+          },
+          {
+            label: "Carpet flooring",
+            path: "https://store.novastylesinterior.com/",
+          },
+          {
+            label: "Vinyl flooring",
+            path: "https://store.novastylesinterior.com/",
+          },
         ],
       },
       {
         title: "Wall decors",
         items: [
-          { label: "Canvas prints", path: "/canvasPrint" },
-          { label: "Wall decor items", path: "/wallDecor" },
+          {
+            label: "Canvas prints",
+            path: "https://store.novastylesinterior.com/",
+          },
+          {
+            label: "Wall decor items",
+            path: "https://store.novastylesinterior.com/",
+          },
         ],
       },
       {
         title: "Wall panels",
-        items: [{ label: "PVC fluted panels", path: "/pvcFluted" }],
+        items: [
+          {
+            label: "PVC fluted panels",
+            path: "https://store.novastylesinterior.com/",
+          },
+        ],
       },
       {
         title: "Soft furnishings",
         items: [
-          { label: "Curtains", path: "/furnishings/curtains" },
-          { label: "Cushions", path: "/furnishings/cushions" },
-          { label: "Rugs/Carpets", path: "/furnishings/rugs" },
-          { label: "Headboard", path: "/furnishings/headboard" },
+          {
+            label: "Curtains",
+            path: "https://store.novastylesinterior.com/",
+          },
+          {
+            label: "Cushions",
+            path: "https://store.novastylesinterior.com/",
+          },
+          {
+            label: "Rugs/Carpets",
+            path: "https://store.novastylesinterior.com/",
+          },
+          {
+            label: "Headboard",
+            path: "https://store.novastylesinterior.com/",
+          },
         ],
       },
       {
         title: "Furniture",
         items: [
-          { label: "Sofas", path: "/furniture/sofas" },
-          { label: "Chairs", path: "/furniture/chairs" },
-          { label: "Beds", path: "/furniture/beds" },
-          { label: "Console units", path: "/furniture/console" },
+          { label: "Sofas", path: "https://store.novastylesinterior.com/" },
+          { label: "Chairs", path: "https://store.novastylesinterior.com/" },
+          { label: "Beds", path: "https://store.novastylesinterior.com/" },
+          {
+            label: "Console units",
+            path: "https://store.novastylesinterior.com/",
+          },
         ],
       },
       {
         title: "Lighting",
         items: [
-          { label: "Ceiling Lights", path: "/lighting/ceiling" },
-          { label: "Wall Lights", path: "/lighting/wall" },
-          { label: "Table Lamps", path: "/lighting/table" },
-          { label: "Floor Lamps", path: "/lighting/floor" },
+          {
+            label: "Ceiling Lights",
+            path: "https://store.novastylesinterior.com/",
+          },
+          {
+            label: "Wall Lights",
+            path: "https://store.novastylesinterior.com/",
+          },
+          {
+            label: "Table Lamps",
+            path: "https://store.novastylesinterior.com/",
+          },
+          {
+            label: "Floor Lamps",
+            path: "https://store.novastylesinterior.com/",
+          },
         ],
       },
     ],

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import {
   ChevronDown,
   // ShoppingCart,
@@ -7,13 +7,11 @@ import {
   Phone,
   Menu,
   X,
-  ChevronRight,
-  ChevronLeft,
   CircleUserRound,
 } from "lucide-react";
 import SignInForm from "../service/Email";
 import logo from "../../public/novalogo.png";
-import { menuItems, productCategories } from "../utils";
+import { menuItems } from "../utils";
 
 const NavBar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -29,13 +27,17 @@ const NavBar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(false);
   const [isScreenBelow700, setIsScreenBelow700] = useState(
     window.innerWidth < 700
   );
   const [showEmailDignIn, setEmailSignIn] = useState(false);
+
+  const getLinkProps = (path?: string) => {
+    if (path && path.startsWith("http")) {
+      return { target: "_blank", rel: "noopener noreferrer" as const };
+    }
+    return {};
+  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -44,33 +46,6 @@ const NavBar = () => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-
-  useEffect(() => {
-    const checkScroll = () => {
-      if (scrollRef.current) {
-        const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
-        setCanScrollLeft(scrollLeft > 0);
-        setCanScrollRight(scrollLeft + clientWidth < scrollWidth);
-      }
-    };
-    checkScroll();
-    scrollRef.current?.addEventListener("scroll", checkScroll);
-    window.addEventListener("resize", checkScroll);
-    return () => {
-      scrollRef.current?.removeEventListener("scroll", checkScroll);
-      window.removeEventListener("resize", checkScroll);
-    };
-  }, []);
-
-  const scroll = (direction: string) => {
-    if (scrollRef.current) {
-      const scrollAmount = 200;
-      scrollRef.current.scrollBy({
-        left: direction === "left" ? -scrollAmount : scrollAmount,
-        behavior: "smooth",
-      });
-    }
-  };
 
   return (
     <nav
@@ -101,7 +76,7 @@ const NavBar = () => {
       </div>
 
       {/* Main Navigation */}
-      <div className="bg-white px-4 md:px-8 pb-2">
+      <div className="bg-white px-4 md:px-8">
         <div className="max-w-full mx-auto flex items-center justify-between">
           <div className="flex gap-10">
             {/* Logo */}
@@ -129,6 +104,7 @@ const NavBar = () => {
                   ) : (
                     <a
                       href={item.path}
+                      {...getLinkProps(item.path)}
                       className="flex items-center gap-1 text-gray-700 hover:text-brand font-medium transition-colors py-2"
                     >
                       {item.title}
@@ -138,28 +114,32 @@ const NavBar = () => {
                   {/* Mega Menu (Nova Interiors only) */}
                   {item.isMegaMenu && openDropdown === item.title && (
                     <div className="absolute top-full left-0 w-[800px] bg-white rounded-lg shadow-xl py-6 px-6 border border-gray-100 grid grid-cols-2 gap-8">
-                      {item.groups.map((group) => (
-                        <div key={group.title}>
-                          <a
-                            className="font-medium"
-                            href={group.items.find((e) => e.path)?.path}
-                          >
-                            <h4 className="font-medium text-gray-800 mb-2">
-                              {group.title}
-                            </h4>
-                          </a>
-                          <ul className="space-y-1 text-sm text-gray-600">
-                            {group.items.map((subItem, idx) => (
-                              <li
-                                key={`${group.title}-${subItem.path || subItem.label}-${idx}`}
-                                className="hover:text-brand cursor-pointer transition-colors"
-                              >
-                                {subItem.label}
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      ))}
+                      {item.groups.map((group) => {
+                        const primaryGroupLink = group.items.find((e) => e.path)?.path;
+                        return (
+                          <div key={group.title}>
+                            <a
+                              className="font-medium"
+                              href={primaryGroupLink}
+                              {...getLinkProps(primaryGroupLink)}
+                            >
+                              <h4 className="font-medium text-gray-800 mb-2">
+                                {group.title}
+                              </h4>
+                            </a>
+                            <ul className="space-y-1 text-sm text-gray-600">
+                              {group.items.map((subItem, idx) => (
+                                <li
+                                  key={`${group.title}-${subItem.path || subItem.label}-${idx}`}
+                                  className="hover:text-brand cursor-pointer transition-colors"
+                                >
+                                  {subItem.label}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        );
+                      })}
                     </div>
                   )}
 
@@ -171,7 +151,7 @@ const NavBar = () => {
                           key={`${item.title}-${subItem.path || subItem.label}-${idx}`}
                           className="py-3 border-b last:border-0 hover:bg-amber-50 rounded-md px-2"
                         >
-                          <a href={subItem.path}>
+                          <a href={subItem.path} {...getLinkProps(subItem.path)}>
                             <h4 className="font-semibold text-gray-800 mb-1">
                               {subItem.label}
                             </h4>
@@ -197,6 +177,7 @@ const NavBar = () => {
                               <li key={`${group.title}-${subItem.path || subItem.label}-${idx}`}>
                                 <a
                                   href={subItem.path}
+                                  {...getLinkProps(subItem.path)}
                                   className="hover:text-brand cursor-pointer transition-colors"
                                 >
                                   {subItem.label}
@@ -253,57 +234,21 @@ const NavBar = () => {
         {isMobileMenuOpen === false && (
           <div className={`border border-gray-200`}></div>
         )}
-        <div className="mx-4 hidden lg:flex items-center justify-between">
+        {/* <div className="mx-4 hidden lg:flex items-center justify-between"> */}
   {/* Left Section: Scrollable Categories + Arrows */}
-  <div className="flex items-center gap-4 flex-1 min-w-0">
-    {/* Left Scroll Button */}
-    {canScrollLeft && (
-      <button
-        onClick={() => scroll("left")}
-        className="p-2 hover:bg-gray-100/40 rounded-full transition-colors bg-transparent"
-      >
-        <ChevronLeft size={20} className="text-gray-700" />
-      </button>
-    )}
-
-    {/* Scrollable Categories */}
-    <div
-      ref={scrollRef}
-      className="flex gap-6 overflow-x-auto scrollbar-hide scroll-smooth flex-1"
-    >
-      {productCategories.map((category, index) => (
-        <a
-          key={`${category.path}-${index}`}
-          href={category.path}
-          className="text-sm font-medium text-[#4D4D4D] hover:text-brand transition-colors whitespace-nowrap"
-        >
-          {category.label}
-        </a>
-      ))}
-    </div>
-
-    {/* Right Scroll Button */}
-    {canScrollRight && (
-      <button
-        onClick={() => scroll("right")}
-        className="p-2 hover:bg-gray-100/40 rounded-full transition-colors bg-transparent"
-      >
-        <ChevronRight size={20} className="text-gray-700" />
-      </button>
-    )}
-  </div>
+ 
 
   {/* Right Section: Fixed Sign In Button */}
-  <div className="flex items-center gap-4 ml-6 shrink-0">
-    <button
+  {/* <div className="flex items-center gap-4 ml-6 shrink-0"> */}
+    {/* <button
       className="p-2 hover:bg-gray-100/40 rounded-full transition-colors flex gap-2 items-center"
       onClick={() => setEmailSignIn(true)}
     >
       <CircleUserRound size={20} className="text-gray-700" />
       <span>Sign In</span>
-    </button>
-  </div>
-</div>
+    </button> */}
+  {/* </div> */}
+{/* </div> */}
 
       </div>
 
@@ -342,6 +287,7 @@ const NavBar = () => {
                             <a
                               key={`${item.title}-${subItem.path || subItem.label}-${idx}`}
                               href={subItem.path ? subItem.path : "#"}
+                              {...getLinkProps(subItem.path)}
                               className="block p-4 bg-gray-50 rounded-lg border border-gray-100 hover:bg-amber-50 hover:border-brand transition-all duration-200"
                               onClick={() => setIsMobileMenuOpen(false)}
                             >
@@ -369,6 +315,7 @@ const NavBar = () => {
                                   <a
                                     key={`${group.title}-${subItem.path || subItem.label}-${idx}`}
                                     href={subItem.path ? subItem.path : "#"}
+                                    {...getLinkProps(subItem.path)}
                                     className="block py-2 px-3 text-sm text-gray-600 hover:text-brand hover:bg-amber-50 rounded-md transition-colors"
                                     onClick={() => setIsMobileMenuOpen(false)}
                                   >
@@ -388,6 +335,7 @@ const NavBar = () => {
                             <a
                               key={`${item.title}-${subItem.path || subItem.label}-${idx}`}
                               href={subItem.path ? subItem.path : "#"}
+                              {...getLinkProps(subItem.path)}
                               className="block py-2 px-3 text-sm text-gray-600 hover:text-brand hover:bg-amber-50 rounded-md transition-colors"
                               onClick={() => setIsMobileMenuOpen(false)}
                             >
@@ -402,6 +350,7 @@ const NavBar = () => {
               ) : (
                 <a
                   href={item.path}
+                  {...getLinkProps(item.path)}
                   className="block text-gray-700 hover:text-amber-600 transition-colors py-2 font-medium"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
