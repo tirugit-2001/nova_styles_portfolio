@@ -53,12 +53,12 @@ const InteriorHeroSection = () => {
         <div className="relative h-full container mx-auto px-4 md:px-8 flex items-center">
           <div className="grid grid-cols-1 lg:grid-cols-2  w-full">
             {/* Left Side - Hero Content */}
-            <div className="ml-10 flex items-center justify-center">
+            <div className="ml-8 flex items-center justify-center">
               <div className="text-white ">
                 <p className="text-sm md:text-2xl lg:text-2xl text-[#DFE6DE] font-medium tracking-wide mb-2">
                   Complete Home Interior
                 </p>
-                <h1 className="text-2xl md:text-3xl lg:text-4xl font-satoshi font-bold mb-4 leading-tight">
+                <h1 className="text-2xl md:text-3xl lg:text-5xl font-satoshi font-medium mb-4 leading-tight">
                   Transform Your 1BHK, 2BHK or 3BHK  with NovaStyles Modular Interiors
                 </h1>
               </div>

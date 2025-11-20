@@ -45,6 +45,9 @@ const HeroSection = () => {
       subtitle: "Shop NovaStyles Interiors — wallpapers, flooring, furniture & more",
       price: "Book your free consultation",
       image: "/hero3img.jpg",
+      buttonText: "Shop NovaStyles Store",
+      link: "https://store.novastylesinterior.com/",
+      external: true,
     },
     {
       title: "Complete Home Construction",
@@ -116,9 +119,14 @@ const HeroSection = () => {
                 <p className="text-base md:text-base mb-2 text-white font-semibold">
                   {slide.price}
                 </p>
-                <a href="/contactUs">
+                <a
+                  href={"https://store.novastylesinterior.com/"}
+                  target={slide.external ? "_blank" : undefined}
+                  rel={slide.external ? "noopener noreferrer" : undefined}
+                >
+                  <a href=""></a>
                   <button className="lg:px-8 lg:py-4 px-6 py-2 bg-brand text-white hover:bg-brand-dark transition-all duration-300 font-semibold lg:text-lg text-sm shadow-xl hover:shadow-2xl hover:scale-105">
-                    Get Free Estimate
+                    {slide.buttonText ?? "Get Free Estimate"}
                   </button>
                 </a>
               </div>

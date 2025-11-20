@@ -12,7 +12,7 @@ const ClientTalk = () => {
     {
       id: 1,
       name: "Rajesh & Priya Nair",
-      image: "/clientTalk1.jpg",
+      image: "/customerTalk.jpg",
       quote: "“NovaStyles transformed our small 2BHK into a beautiful, functional home we love.”",
       rating: 5
     },
@@ -33,7 +33,7 @@ const ClientTalk = () => {
     {
       id: 4,
       name: "Amit & Sneha Sharma",
-      image: "/clintTalk1.jpg",
+      image: "/constrution_hero1.jpg",
       quote: "“NovaStyles transformed our small 2BHK into a beautiful, functional home we love.”",
       rating: 5
     },

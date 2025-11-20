@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { ArrowLeft, Home, Check } from "lucide-react";
+import { useState, useEffect, type ChangeEvent } from "react";
+import { ArrowLeft, Home, Check, Upload, FileText, X } from "lucide-react";
 import { Toaster, toast } from "sonner";
 import apiClient from "../../utils/axios";
 
@@ -20,6 +20,8 @@ export default function InteriorDesignForm() {
     message: "",
   });
   const [showSuccess, setShowSuccess] = useState(false);
+  const [pdfFile, setPdfFile] = useState<File | null>(null);
+  const [fileError, setFileError] = useState("");
 
   // Read from localStorage on component mount
   useEffect(() => {
@@ -368,6 +370,40 @@ const toggleAddon = (addonId: string) => {
   }));
 };
 
+const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const file = e.target.files?.[0];
+  setFileError("");
+
+  if (!file) {
+    setPdfFile(null);
+    return;
+  }
+
+  if (file.type !== "application/pdf") {
+    setFileError("Please upload a PDF file only");
+    setPdfFile(null);
+    e.target.value = "";
+    return;
+  }
+
+  const maxSize = 10 * 1024 * 1024;
+  if (file.size > maxSize) {
+    setFileError("File size should be less than 10MB");
+    setPdfFile(null);
+    e.target.value = "";
+    return;
+  }
+
+  setPdfFile(file);
+};
+
+const handleRemoveFile = () => {
+  setPdfFile(null);
+  setFileError("");
+  const fileInput = document.getElementById("interior-pdf-upload") as HTMLInputElement | null;
+  if (fileInput) fileInput.value = "";
+};
+
 const handleNext = () => {
   // If on step 0 and customised-premium is selected, jump to step 5 (contact form)
   if (currentStep === 0 && formData.interiorType === "customised-premium") {
@@ -413,12 +449,13 @@ const handleSubmit = async () => {
   }
 
   setIsSubmitting(true);
+  const normalizedEmail = formData.email.trim();
 
   // Prepare base data that's always sent
   const requestData: any = {
     interiorType: formData.interiorType || "",
     name: formData.name,
-    email: formData.email.trim(),
+    email: normalizedEmail,
     mobile: formData.mobile,
     pincode: formData.pincode || "",
     whatsappUpdates: formData.whatsappUpdates || false,
@@ -453,7 +490,31 @@ const handleSubmit = async () => {
   }
 
   try {
-    const response = await apiClient.post("/api/v1/content/contact-form", requestData);
+    let response;
+    if (pdfFile) {
+      const multipartData = new FormData();
+      Object.entries(requestData).forEach(([key, value]) => {
+        if (Array.isArray(value)) {
+          value.forEach((item) => multipartData.append(`${key}[]`, String(item ?? "")));
+        } else if (typeof value === "object" && value !== null) {
+          multipartData.append(key, JSON.stringify(value));
+        } else if (
+          typeof value === "boolean" ||
+          typeof value === "number"
+        ) {
+          multipartData.append(key, String(value));
+        } else {
+          multipartData.append(key, String(value ?? ""));
+        }
+      });
+      multipartData.append("planPdf", pdfFile);
+
+      response = await apiClient.post("/api/v1/content/contact-form", multipartData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+    } else {
+      response = await apiClient.post("/api/v1/content/contact-form", requestData);
+    }
     toast.success(
       response.data.message || "Form submitted successfully! Our team will contact you shortly."
     );
@@ -472,6 +533,10 @@ const handleSubmit = async () => {
       whatsappUpdates: false,
       message: "",
     });
+    setPdfFile(null);
+    setFileError("");
+    const fileInput = document.getElementById("interior-pdf-upload") as HTMLInputElement | null;
+    if (fileInput) fileInput.value = "";
     setCurrentStep(0);
   } catch (error: any) {
     console.error("Failed to submit form:", error);
@@ -853,6 +918,60 @@ const handleSubmit = async () => {
         rows={4}
         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent outline-none resize-none"
       />
+
+      <div className="space-y-2">
+        <div className="flex items-center gap-2 text-sm font-semibold text-gray-800">
+          <Upload className="w-4 h-4" />
+          Upload your interior plan (PDF)
+        </div>
+        <p className="text-xs text-gray-500">Optional. Max 10MB. PDF files only.</p>
+        <div className="border-2 border-dashed border-gray-300 rounded-xl p-4 text-center">
+          {!pdfFile ? (
+            <>
+              <input
+                type="file"
+                id="interior-pdf-upload"
+                accept=".pdf,application/pdf"
+                onChange={handleFileChange}
+                className="hidden"
+              />
+              <label
+                htmlFor="interior-pdf-upload"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-yellow-500 hover:bg-yellow-600 text-white rounded-lg cursor-pointer font-medium transition"
+              >
+                <Upload className="w-4 h-4" />
+                Select PDF
+              </label>
+              <p className="text-xs text-gray-500 mt-2">
+                Attach your layout, floor plan, or inspiration brief.
+              </p>
+            </>
+          ) : (
+            <div className="flex items-center justify-between bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-left">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-yellow-100 text-yellow-600 flex items-center justify-center">
+                  <FileText className="w-5 h-5" />
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-gray-800">{pdfFile.name}</p>
+                  <p className="text-xs text-gray-500">
+                    {(pdfFile.size / (1024 * 1024)).toFixed(2)} MB
+                  </p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={handleRemoveFile}
+                className="text-gray-400 hover:text-red-500"
+                aria-label="Remove file"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+          )}
+        </div>
+        {fileError && <p className="text-xs text-red-500">{fileError}</p>}
+      </div>
 
       <p className="text-xs text-gray-500 text-center">
         By submitting this form, you agree to the privacy policy & terms and
