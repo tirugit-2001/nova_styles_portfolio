@@ -53,7 +53,7 @@ const PortfolioWork = () => {
     <section className="py-16 md:py-24 bg-[#F4F4F4]">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-12 md:mb-16">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
           <div>
             <h2 className="text-2xl md:text-2xl lg:text-3xl font-bold text-gray-800 mb-4">
               Glimpse of Our Works

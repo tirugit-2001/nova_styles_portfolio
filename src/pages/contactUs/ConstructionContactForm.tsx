@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Upload, X, FileText } from "lucide-react";
 import { axios } from "../../service/axios";
 
 type BuildingType = "Ground Floor" | "Duplex Home" | "G+2 or More Floors";
@@ -88,6 +88,8 @@ export default function ConstructionContactForm() {
   const [pincode, setPincode] = useState("");
   const [whatsappUpdates, setWhatsappUpdates] = useState(false);
   const [suggestions, setSuggestions] = useState("");
+  const [pdfFile, setPdfFile] = useState<File | null>(null);
+  const [fileError, setFileError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
 
@@ -123,6 +125,44 @@ export default function ConstructionContactForm() {
     return true;
   };
 
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    setFileError("");
+    
+    if (!file) {
+      setPdfFile(null);
+      return;
+    }
+
+    // Validate file type
+    if (file.type !== "application/pdf") {
+      setFileError("Please upload a PDF file only");
+      setPdfFile(null);
+      e.target.value = "";
+      return;
+    }
+
+    // Validate file size (max 10MB)
+    const maxSize = 10 * 1024 * 1024; // 10MB
+    if (file.size > maxSize) {
+      setFileError("File size should be less than 10MB");
+      setPdfFile(null);
+      e.target.value = "";
+      return;
+    }
+
+    setPdfFile(file);
+  };
+
+  const handleRemoveFile = () => {
+    setPdfFile(null);
+    setFileError("");
+    const fileInput = document.getElementById("pdf-upload") as HTMLInputElement;
+    if (fileInput) {
+      fileInput.value = "";
+    }
+  };
+
   const handleSubmit = async () => {
     if (!validateContact()) return;
     try {
@@ -130,19 +170,44 @@ export default function ConstructionContactForm() {
       const rate = selectedPackage ? getRate(selectedPackage) : null;
       const total = selectedPackage ? estimate(selectedPackage) : null;
       const normalizedEmail = email.trim();
-      await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/content/construction-form`, {
-        buildingType,
-        sqft,
-        selectedPackage,
-        ratePerSqft: rate || 0,
-        estimatedPrice: total || 0,
-        name,
-        email: normalizedEmail,
-        mobile,
-        pincode: pincode || "",
-        whatsappUpdates: Boolean(whatsappUpdates),
-        suggestions: suggestions || "",
-      });
+
+      // If file is present, use FormData, otherwise use JSON
+      if (pdfFile) {
+        const formData = new FormData();
+        formData.append("buildingType", buildingType || "");
+        formData.append("sqft", sqft.toString());
+        formData.append("selectedPackage", selectedPackage || "");
+        formData.append("ratePerSqft", (rate || 0).toString());
+        formData.append("estimatedPrice", (total || 0).toString());
+        formData.append("name", name);
+        formData.append("email", normalizedEmail);
+        formData.append("mobile", mobile);
+        formData.append("pincode", pincode || "");
+        formData.append("whatsappUpdates", String(Boolean(whatsappUpdates)));
+        formData.append("suggestions", suggestions || "");
+        formData.append("planPdf", pdfFile);
+
+        await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/content/construction-form`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+      } else {
+        await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/content/construction-form`, {
+          buildingType,
+          sqft,
+          selectedPackage,
+          ratePerSqft: rate || 0,
+          estimatedPrice: total || 0,
+          name,
+          email: normalizedEmail,
+          mobile,
+          pincode: pincode || "",
+          whatsappUpdates: Boolean(whatsappUpdates),
+          suggestions: suggestions || "",
+        });
+      }
+
       setShowSuccess(true);
       setTimeout(() => setShowSuccess(false), 3000);
       // Reset
@@ -156,6 +221,8 @@ export default function ConstructionContactForm() {
       setPincode("");
       setWhatsappUpdates(false);
       setSuggestions("");
+      setPdfFile(null);
+      setFileError("");
     } catch (err: any) {
       console.error(err);
       alert(
@@ -393,6 +460,59 @@ export default function ConstructionContactForm() {
                 rows={4}
                 className="w-full px-4 py-3 border border-gray-300 focus:ring-2 focus:ring-yellow-500 focus:border-transparent outline-none rounded-lg"
               />
+              
+              {/* PDF File Upload */}
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Upload Home Plan (PDF) - Optional
+                </label>
+                {!pdfFile ? (
+                  <div className="relative">
+                    <input
+                      type="file"
+                      id="pdf-upload"
+                      accept=".pdf,application/pdf"
+                      onChange={handleFileChange}
+                      className="hidden"
+                    />
+                    <label
+                      htmlFor="pdf-upload"
+                      className="flex items-center justify-center gap-2 w-full px-4 py-3 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-brand hover:bg-gray-50 transition-colors"
+                    >
+                      <Upload className="w-5 h-5 text-gray-400" />
+                      <span className="text-sm text-gray-600">
+                        Click to upload PDF plan (Max 10MB)
+                      </span>
+                    </label>
+                  </div>
+                ) : (
+                  <div className="flex items-center justify-between p-3 bg-green-50 border border-green-200 rounded-lg">
+                    <div className="flex items-center gap-2 flex-1">
+                      <FileText className="w-5 h-5 text-green-600" />
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium text-gray-800 truncate">
+                          {pdfFile.name}
+                        </p>
+                        <p className="text-xs text-gray-500">
+                          {(pdfFile.size / 1024 / 1024).toFixed(2)} MB
+                        </p>
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={handleRemoveFile}
+                      className="ml-2 p-1 text-red-600 hover:text-red-700 hover:bg-red-50 rounded transition-colors"
+                      aria-label="Remove file"
+                    >
+                      <X className="w-5 h-5" />
+                    </button>
+                  </div>
+                )}
+                {fileError && (
+                  <p className="text-xs text-red-600 mt-1">{fileError}</p>
+                )}
+              </div>
+
               <p className="text-xs text-gray-500 text-center">
                 By submitting this form, you agree to the privacy policy & terms and conditions
               </p>

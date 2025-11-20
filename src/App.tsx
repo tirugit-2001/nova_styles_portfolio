@@ -22,7 +22,7 @@ function App() {
       {/* <CartProvider> */}
         <NavBar />
         {/* Main content wrapper with padding for fixed navbar - ensures no content is hidden behind navbar */}
-        <main className="pt-[110px] sm:pt-[120px] md:pt-[140px] lg:pt-[190px]">
+        <main className="pt-[90px] sm:pt-[120px] md:pt-[140px] lg:pt-[145px]">
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/aboutus" element={<AboutUs />} />

@@ -4,9 +4,10 @@ import { Toaster, toast } from "sonner";
 import apiClient from "../../utils/axios";
 
 export default function InteriorDesignForm() {
-  const [currentStep, setCurrentStep] = useState(1);
+  const [currentStep, setCurrentStep] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
+    interiorType: "",
     floorplan: "",
     purpose: "",
     selectedPackage: "",
@@ -16,6 +17,7 @@ export default function InteriorDesignForm() {
     mobile: "",
     pincode: "",
     whatsappUpdates: false,
+    message: "",
   });
   const [showSuccess, setShowSuccess] = useState(false);
 
@@ -367,13 +369,39 @@ const toggleAddon = (addonId: string) => {
 };
 
 const handleNext = () => {
+  // If on step 0 and customised-premium is selected, jump to step 5 (contact form)
+  if (currentStep === 0 && formData.interiorType === "customised-premium") {
+    setCurrentStep(5);
+    return;
+  }
+  
+  // If on step 0 and modular is selected, go to step 1 (floorplan)
+  if (currentStep === 0 && formData.interiorType === "modular") {
+    setCurrentStep(1);
+    return;
+  }
+  
+  // For modular path: continue through steps 1-4
+  if (formData.interiorType === "modular" && currentStep < 5) {
+    setCurrentStep(currentStep + 1);
+    return;
+  }
+  
+  // Default: if already at step 5, stay there
   if (currentStep < 5) {
     setCurrentStep(currentStep + 1);
   }
 };
 
 const handleBack = () => {
-  if (currentStep > 1) {
+  // If on step 5 and customised-premium is selected, go back to step 0
+  if (currentStep === 5 && formData.interiorType === "customised-premium") {
+    setCurrentStep(0);
+    return;
+  }
+  
+  // Don't allow going back from step 0
+  if (currentStep > 0) {
     setCurrentStep(currentStep - 1);
   }
 };
@@ -386,37 +414,43 @@ const handleSubmit = async () => {
 
   setIsSubmitting(true);
 
-  // Get selected package and addons for pricing
-  const selectedPackage = getSelectedPackage();
-  const selectedAddons = getSelectedAddons();
-  const totalPrice = calculateTotalPrice();
-  
-  // Calculate package price
-  const packagePrice = selectedPackage 
-    ? parseInt(selectedPackage.totalPrice.replace(/[₹,]/g, ''))
-    : 0;
-  
-  // Calculate addons total
-  const addonsTotal = selectedAddons.reduce((total: number, addon: any) => {
-    return total + parseInt(addon.price.replace(/[₹,]/g, ''));
-  }, 0);
-
-  // Prepare the data to send to backend
-  const requestData = {
-    floorplan: formData.floorplan,
-    purpose: formData.purpose || "",
-    selectedPackage: formData.selectedPackage,
-    addons: formData.addons || [],
+  // Prepare base data that's always sent
+  const requestData: any = {
+    interiorType: formData.interiorType || "",
     name: formData.name,
     email: formData.email.trim(),
     mobile: formData.mobile,
     pincode: formData.pincode || "",
     whatsappUpdates: formData.whatsappUpdates || false,
-    // Add pricing fields
-    packagePrice: packagePrice,
-    addonsTotal: addonsTotal,
-    totalPrice: totalPrice,
+    message: formData.message || "",
   };
+
+  // Only include package-related fields for "modular" interior type
+  if (formData.interiorType === "modular") {
+    // Get selected package and addons for pricing
+    const selectedPackage = getSelectedPackage();
+    const selectedAddons = getSelectedAddons();
+    const totalPrice = calculateTotalPrice();
+    
+    // Calculate package price
+    const packagePrice = selectedPackage 
+      ? parseInt(selectedPackage.totalPrice.replace(/[₹,]/g, ''))
+      : 0;
+    
+    // Calculate addons total
+    const addonsTotal = selectedAddons.reduce((total: number, addon: any) => {
+      return total + parseInt(addon.price.replace(/[₹,]/g, ''));
+    }, 0);
+
+    // Add modular-specific fields
+    requestData.floorplan = formData.floorplan || "";
+    requestData.purpose = formData.purpose || "";
+    requestData.selectedPackage = formData.selectedPackage || "";
+    requestData.addons = formData.addons || [];
+    requestData.packagePrice = packagePrice;
+    requestData.addonsTotal = addonsTotal;
+    requestData.totalPrice = totalPrice;
+  }
 
   try {
     const response = await apiClient.post("/api/v1/content/contact-form", requestData);
@@ -426,6 +460,7 @@ const handleSubmit = async () => {
     setShowSuccess(true);
     setTimeout(() => setShowSuccess(false), 3000);
     setFormData({
+      interiorType: "",
       floorplan: "",
       purpose: "",
       selectedPackage: "",
@@ -435,8 +470,9 @@ const handleSubmit = async () => {
       mobile: "",
       pincode: "",
       whatsappUpdates: false,
+      message: "",
     });
-    setCurrentStep(1);
+    setCurrentStep(0);
   } catch (error: any) {
     console.error("Failed to submit form:", error);
     let errorMessage = "Failed to submit form. Please try again or contact support.";
@@ -456,6 +492,38 @@ const handleSubmit = async () => {
     setIsSubmitting(false);
   }
 };
+
+  const renderStep0 = () => (
+    <div className="space-y-10">
+      <div>
+        <div className="flex items-center gap-2 mb-4">
+          <Home className="w-5 h-5 text-slate-600" /> Select Interior Type
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <button
+            onClick={() => setFormData({ ...formData, interiorType: "modular" })}
+            className={`py-6 px-6 border-2 font-semibold transition-all transform hover:scale-105 ${
+              formData.interiorType === "modular"
+                ? " bg-brand text-white shadow-lg"
+                : "border-slate-200 bg-white hover:border-slate-300 text-slate-700"
+            }`}
+          >
+            Modular Interior
+          </button>
+          <button
+            onClick={() => setFormData({ ...formData, interiorType: "customised-premium" })}
+            className={`py-6 px-6 border-2 font-semibold transition-all transform hover:scale-105 ${
+              formData.interiorType === "customised-premium"
+                ? " bg-brand text-white shadow-lg"
+                : "border-slate-200 bg-white hover:border-slate-300 text-slate-700"
+            }`}
+          >
+            Customised Premium Interiors
+          </button>
+        </div>
+      </div>
+    </div>
+  );
 
   const renderStep1 = () => (
     <div className="space-y-10">
@@ -488,49 +556,50 @@ const handleSubmit = async () => {
     const currentPackages = getCurrentPackages();
     
     return (
-      <div className="space-y-6">
-        <div className="text-center mb-8">
-          <h3 className="text-2xl font-bold text-slate-800 mb-2">
+      <div className="space-y-4">
+        <div className="text-center mb-4">
+          <h3 className="text-xl font-bold text-slate-800 mb-1">
             Choose Your Perfect Package
           </h3>
-          <p className="text-slate-600">Estimated pricing for {formData.floorplan}</p>
+          <p className="text-sm text-slate-600">Estimated pricing for {formData.floorplan}</p>
         </div>
 
-        <div className={`grid grid-cols-1 ${currentPackages.length === 3 ? 'md:grid-cols-3' : currentPackages.length === 2 ? 'md:grid-cols-2' : ''} gap-6`}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {currentPackages.map((pkg, index) => (
             <div
               key={index}
-              className={`rounded-xl overflow-hidden shadow-lg transition-all transform hover:scale-105 cursor-pointer ${
+              className={`rounded-lg overflow-hidden shadow-md transition-all transform hover:scale-[1.02] cursor-pointer border-2 ${
                 formData.selectedPackage === pkg.name
-                  ? "ring-4 ring-purple-500"
-                  : ""
+                  ? "ring-2 ring-brand border-brand shadow-lg scale-[1.02]"
+                  : "border-slate-200 hover:border-brand/30"
               }`}
               onClick={() => {
                 setFormData({ ...formData, selectedPackage: pkg.name, addons: [] });
               }}
             >
               {(pkg as any).popular && (
-                <div className="bg-gradient-to-r from-purple-500 to-purple-600 text-white text-center py-2 text-sm font-semibold">
+                <div className="bg-gradient-to-r from-purple-500 to-purple-600 text-white text-center py-1.5 text-xs font-semibold">
                   ⭐ MOST POPULAR
                 </div>
               )}
               
-              <div className={`bg-gradient-to-r ${pkg.color} p-6 text-white`}>
-                <Home className="w-8 h-8 mb-3" />
-                <h4 className="text-2xl font-bold mb-1">{pkg.name}</h4>
-                <p className="text-white/90 text-sm mb-3">{pkg.subtitle}</p>
-                <div className="text-3xl font-bold">{pkg.totalPrice}</div>
+              <div className={`bg-gradient-to-r ${pkg.color} p-4 text-white`}>
+                <div className="mb-2">
+                  <h4 className="text-lg font-bold mb-0.5 leading-tight">{pkg.name}</h4>
+                  <p className="text-white/90 text-xs leading-tight">{pkg.subtitle}</p>
+                </div>
+                <div className="text-2xl font-bold">{pkg.totalPrice}</div>
               </div>
 
-              <div className="bg-white p-6">
-                <div className="space-y-3 mb-6">
+              <div className="bg-white p-4">
+                <div className="grid grid-cols-2 gap-x-3 gap-y-1.5 mb-4">
                   {pkg.items.map((item, idx) => (
-                    <div key={idx} className="border-l-2 border-slate-200 pl-3">
-                      <div className="flex items-start gap-2">
-                        <Check className="w-4 h-4 text-green-500 mt-1 flex-shrink-0" />
-                        <div className="flex-1">
-                          <div className="text-sm font-medium text-slate-800">{item.label}</div>
-                          <div className="text-xs text-slate-500 mt-1">
+                    <div key={idx} className="border-l-2 border-slate-200 pl-1.5 py-0.5">
+                      <div className="flex items-start gap-1">
+                        <Check className="w-3 h-3 text-green-500 mt-0.5 flex-shrink-0" />
+                        <div className="flex-1 min-w-0">
+                          <div className="text-xs font-medium text-slate-800 leading-tight">{item.label}</div>
+                          <div className="text-xs text-slate-500 mt-0.5 leading-tight">
                             {item.qty} = <span className="font-semibold text-slate-700">{item.price}</span>
                           </div>
                         </div>
@@ -539,23 +608,29 @@ const handleSubmit = async () => {
                   ))}
                 </div>
 
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setFormData({
-                      ...formData,
-                      selectedPackage: pkg.name,
-                      addons: []
-                    });
-                    handleNext();
-                  }}
-                  className={`w-full bg-gradient-to-r ${pkg.color} hover:opacity-90 text-white py-3 rounded-xl font-semibold transition-all transform hover:scale-105 shadow-md`}
-                >
-                  Select Package
-                </button>
+                {formData.selectedPackage === pkg.name ? (
+                  <div className="w-full bg-brand text-white py-2.5 rounded-lg font-semibold text-sm text-center flex items-center justify-center gap-1.5">
+                    <Check className="w-4 h-4" />
+                    Selected
+                  </div>
+                ) : (
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setFormData({
+                        ...formData,
+                        selectedPackage: pkg.name,
+                        addons: []
+                      });
+                    }}
+                    className={`w-full bg-gradient-to-r ${pkg.color} hover:opacity-90 text-white py-2.5 rounded-lg font-semibold text-sm transition-all shadow-sm`}
+                  >
+                    Select Package
+                  </button>
+                )}
 
-                <p className="text-xs text-slate-500 mt-4 text-center">
-                  This is an estimate. Final pricing may vary.
+                <p className="text-xs text-slate-400 mt-2 text-center">
+                  *Estimate only
                 </p>
               </div>
             </div>
@@ -771,6 +846,14 @@ const handleSubmit = async () => {
         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent outline-none"
       />
 
+      <textarea
+        placeholder="Tell us about your requirements, what you'd like to add, or any specific details..."
+        value={formData.message}
+        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+        rows={4}
+        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent outline-none resize-none"
+      />
+
       <p className="text-xs text-gray-500 text-center">
         By submitting this form, you agree to the privacy policy & terms and
         conditions
@@ -793,9 +876,9 @@ const handleSubmit = async () => {
           <div className="flex items-center justify-between mb-8">
             <button
               onClick={handleBack}
-              disabled={currentStep === 1}
+              disabled={currentStep === 0}
               className={`p-2 rounded-lg ${
-                currentStep === 1
+                currentStep === 0
                   ? "text-gray-300 cursor-not-allowed"
                   : "text-gray-700 hover:bg-gray-100"
               }`}
@@ -805,6 +888,7 @@ const handleSubmit = async () => {
 
             <div className="text-center">
               <h2 className="text-2xl font-bold text-gray-800">
+                {currentStep === 0 && "Select Interior Type"}
                 {currentStep === 1 && "Lets Get Started"}
                 {currentStep === 2 &&
                   `Your requirements for ${formData.floorplan}`}
@@ -812,7 +896,29 @@ const handleSubmit = async () => {
                 {currentStep === 4 && "Review Your Selection"}
                 {currentStep === 5 && "Connect with Us"}
               </h2>
-              <p className="text-gray-500 mt-1">Step {currentStep} of 5</p>
+              <p className="text-gray-500 mt-1">
+                {(() => {
+                  if (currentStep === 0) {
+                    // On step 0, show step 1 of the appropriate total
+                    const totalSteps = formData.interiorType === "customised-premium" ? 2 : 
+                                     formData.interiorType === "modular" ? 5 : 1;
+                    return `Step 1 of ${totalSteps}`;
+                  }
+                  
+                  if (formData.interiorType === "customised-premium") {
+                    // For customised-premium: step 0 (selection) -> step 5 (contact) = 2 steps
+                    return "Step 2 of 2";
+                  }
+                  
+                  if (formData.interiorType === "modular") {
+                    // For modular: steps 1-5
+                    return `Step ${currentStep} of 5`;
+                  }
+                  
+                  // Default fallback
+                  return `Step ${currentStep} of 1`;
+                })()}
+              </p>
             </div>
 
             <div className="w-10"></div>
@@ -820,18 +926,39 @@ const handleSubmit = async () => {
 
           {/* Progress Bar */}
           <div className="flex gap-2 mb-8">
-            {[1, 2, 3, 4, 5].map((step) => (
-              <div
-                key={step}
-                className={`flex-1 h-2 rounded-full ${
-                  step <= currentStep ? "bg-brand" : "bg-gray-200"
-                }`}
-              ></div>
-            ))}
+            {(() => {
+              const totalSteps = formData.interiorType === "customised-premium" ? 2 : 
+                               formData.interiorType === "modular" ? 5 : 1;
+              const stepsArray = Array.from({ length: totalSteps }, (_, i) => i + 1);
+              
+              let currentStepForProgress: number;
+              if (currentStep === 0) {
+                // On step 0, show first step filled
+                currentStepForProgress = 1;
+              } else if (formData.interiorType === "customised-premium") {
+                // For customised-premium: step 5 maps to step 2 of 2
+                currentStepForProgress = 2;
+              } else if (formData.interiorType === "modular") {
+                // For modular: use current step directly
+                currentStepForProgress = currentStep;
+              } else {
+                currentStepForProgress = 1;
+              }
+              
+              return stepsArray.map((step) => (
+                <div
+                  key={step}
+                  className={`flex-1 h-2 rounded-full ${
+                    step <= currentStepForProgress ? "bg-brand" : "bg-gray-200"
+                  }`}
+                ></div>
+              ));
+            })()}
           </div>
 
           {/* Form Content */}
           <div className="mb-8 ">
+            {currentStep === 0 && renderStep0()}
             {currentStep === 1 && renderStep1()}
             {currentStep === 2 && renderStep2()}
             {currentStep === 3 && renderStep3()}
@@ -843,7 +970,10 @@ const handleSubmit = async () => {
           <div className="flex justify-center items-center">
             <button
               onClick={currentStep === 5 ? handleSubmit : handleNext}
-              className=" bg-brand hover:bg-brand-dark text-white lg:px-64 md:px-40 sm:px-36  px-24 py-3  font-medium transition"
+              disabled={currentStep === 0 && !formData.interiorType}
+              className={`bg-brand hover:bg-brand-dark text-white lg:px-64 md:px-40 sm:px-36 px-24 py-3 font-medium transition ${
+                currentStep === 0 && !formData.interiorType ? "opacity-50 cursor-not-allowed" : ""
+              }`}
             >
               {isSubmitting
                 ? "Submitting..."

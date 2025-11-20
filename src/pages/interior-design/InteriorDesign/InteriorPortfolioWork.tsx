@@ -26,18 +26,12 @@ const InteriorPortfolioWork = () => {
     requestHandler(
       async () => await getInteriorPortfolio(),
       (data) => {
-        console.log("Success callback called with data:", data);
-        console.log("Data type:", typeof data);
-        console.log("Has portfolios?", data?.portfolios);
-        console.log("Is portfolios array?", Array.isArray(data?.portfolios));
-        
         // Filter portfolios where showOnInteriorHome === true
         if (data?.portfolios && Array.isArray(data.portfolios)) {
           const filteredPortfolios = data.portfolios.filter(
             (item: PortfolioItem) => item.showOnInteriorHome === true
           );
-          console.log("Filtered portfolios:", filteredPortfolios);
-          console.log("Filtered count:", filteredPortfolios.length);
+
           setPortfolioItems(filteredPortfolios);
         } else {
           console.warn("Portfolios not found or not an array. Data structure:", data);
@@ -50,14 +44,11 @@ const InteriorPortfolioWork = () => {
   }
    // ✅ Fetch all portfolio records
    useEffect(() => {
-    console.log("useEffect triggered - calling getAllPortfolio");
     getAllPortfolio();
   }, []);
 
   // Monitor portfolioItems state changes
   useEffect(() => {
-    console.log("portfolioItems state updated:", portfolioItems);
-    console.log("portfolioItems length:", portfolioItems.length);
   }, [portfolioItems]);
 
   const filteredItems = selectedCategory === 'All' 
@@ -71,7 +62,7 @@ const InteriorPortfolioWork = () => {
     <section className="py-16 md:py-24 bg-[#F4F4F4]">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-12 md:mb-16">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
           <div>
             <h2 className="text-2xl md:text-2xl lg:text-3xl font-bold text-gray-800 mb-4">
               Our Comprehensive Design & Construction Services
