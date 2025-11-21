@@ -884,7 +884,7 @@ const handleSubmit = async () => {
           placeholder="Mobile Number"
           value={formData.mobile}
           onChange={(e) => setFormData({ ...formData, mobile: e.target.value })}
-          className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent outline-none"
+          className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:brand focus:border-transparent outline-none"
         />
       </div>
 
@@ -908,7 +908,7 @@ const handleSubmit = async () => {
         placeholder="Enter Your Pincode"
         value={formData.pincode}
         onChange={(e) => setFormData({ ...formData, pincode: e.target.value })}
-        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent outline-none"
+        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:brand focus:border-transparent outline-none"
       />
 
       <textarea
@@ -916,7 +916,7 @@ const handleSubmit = async () => {
         value={formData.message}
         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
         rows={4}
-        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent outline-none resize-none"
+        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:brand focus:border-transparent outline-none resize-none"
       />
 
       <div className="space-y-2">
@@ -937,7 +937,7 @@ const handleSubmit = async () => {
               />
               <label
                 htmlFor="interior-pdf-upload"
-                className="inline-flex items-center gap-2 px-4 py-2 bg-yellow-500 hover:bg-yellow-600 text-white rounded-lg cursor-pointer font-medium transition"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-brand hover:bg-brand-dark text-white cursor-pointer font-medium transition"
               >
                 <Upload className="w-4 h-4" />
                 Select PDF
@@ -949,7 +949,7 @@ const handleSubmit = async () => {
           ) : (
             <div className="flex items-center justify-between bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-left">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-yellow-100 text-yellow-600 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-full bg-yellow-100 text-brand flex items-center justify-center">
                   <FileText className="w-5 h-5" />
                 </div>
                 <div>

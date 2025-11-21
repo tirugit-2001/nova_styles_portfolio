@@ -6,8 +6,8 @@ type BuildingType = "Ground Floor" | "Duplex Home" | "G+2 or More Floors";
 type PackageName = "Basic" | "Standard" | "Premium";
 
 const RATES: Record<BuildingType, Record<PackageName, number>> = {
-  "Ground Floor": { Basic: 1800, Standard: 2000, Premium: 2200 },
-  "Duplex Home": { Basic: 1900, Standard: 2050, Premium: 2250 },
+  "Ground Floor": { Basic: 2200, Standard: 2400, Premium: 2600 },
+  "Duplex Home": { Basic: 2200, Standard: 2400, Premium: 2600 },
   "G+2 or More Floors": { Basic: 1950, Standard: 2100, Premium: 2350 },
 };
 

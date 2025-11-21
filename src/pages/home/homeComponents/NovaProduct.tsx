@@ -116,7 +116,7 @@ const NovaProductList: React.FC = () => {
         const res = await httpClient.get(url, {
           params: {
             page: 1,
-            limit: 8,
+            limit: 4,
           },
         });
         const rows = extractProducts(res.data);

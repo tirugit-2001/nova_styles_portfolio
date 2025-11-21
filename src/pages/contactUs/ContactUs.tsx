@@ -29,7 +29,7 @@ export const ContactUs = () => {
 
           <button
             onClick={() => navigate("/ContactUs/construction")}
-            className="bg-brand text-white font-medium px-6 py-2 rounded-lg hover:bg-brand-dark transition-all duration-200"
+            className="bg-brand text-white font-medium px-6 py-2  hover:bg-brand-dark transition-all duration-200"
           >
             Choose Interior Design
           </button>
@@ -54,7 +54,7 @@ export const ContactUs = () => {
 
           <button
             onClick={() => navigate("/ContactUs/construction")}
-            className="bg-brand text-white font-medium px-6 py-2 rounded-lg hover:bg-brand-dark transition-all duration-200"
+            className="bg-brand text-white font-medium px-6 py-2 hover:bg-brand-dark transition-all duration-200"
           >
             Choose Construction
           </button>

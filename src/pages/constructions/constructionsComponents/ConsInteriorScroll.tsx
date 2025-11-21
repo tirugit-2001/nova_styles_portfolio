@@ -19,8 +19,8 @@ const ConsInteriorScroll = () => {
         </div>
 
         <BeforeAfterSlider
-          beforeImage="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=1200&h=800&fit=crop"
-          afterImage="https://images.unsplash.com/photo-1600210492493-0946911123ea?w=1200&h=800&fit=crop"
+          beforeImage="/interiorScrollbefore.png"
+          afterImage="/interiorScrollafter.jpg"
           startingPosition={50} // optional
         />
 
@@ -109,7 +109,7 @@ const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
   return (
     <div
       ref={containerRef}
-      className="relative w-full h-[400px] md:h-[500px] overflow-hidden rounded-xl shadow-lg select-none"
+      className="relative w-full h-[400px] md:h-[500px] overflow-hidden shadow-lg select-none"
       onMouseDown={startDrag}
       onTouchStart={startDrag}
     >

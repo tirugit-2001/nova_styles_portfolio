@@ -65,7 +65,7 @@ const InteriorPortfolioWork = () => {
         <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
           <div>
             <h2 className="text-2xl md:text-2xl lg:text-3xl font-bold text-gray-800 mb-4">
-              Our Comprehensive Design & Construction Services
+            Glimps of Our Works
             </h2>
             <p className="text-gray-600 text-base md:text-lg">
               Latest dream home interiors delivered the hassle-free way
