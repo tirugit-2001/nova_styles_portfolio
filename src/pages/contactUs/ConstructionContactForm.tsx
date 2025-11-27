@@ -78,7 +78,10 @@ function formatINR(amount: number | null): string {
 }
 
 export default function ConstructionContactForm() {
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(0);
+  const [constructionType, setConstructionType] = useState<
+    "modular" | "customised-premium" | ""
+  >("");
   const [buildingType, setBuildingType] = useState<BuildingType | "">("");
   const [sqftInput, setSqftInput] = useState<string>("");
   const [selectedPackage, setSelectedPackage] = useState<PackageName | "">("");
@@ -95,6 +98,13 @@ export default function ConstructionContactForm() {
 
   const sqft = Number(sqftInput.replace(/\D/g, ""));
 
+  const totalSteps =
+    constructionType === "customised-premium"
+      ? 2
+      : constructionType === "modular"
+      ? 4
+      : 1;
+
   const getRate = (pkg: PackageName) =>
     buildingType ? RATES[buildingType as BuildingType][pkg] : null;
   const estimate = (pkg: PackageName) => {
@@ -105,6 +115,67 @@ export default function ConstructionContactForm() {
 
   const canGoNextFromStep1 = Boolean(buildingType);
   const canGoNextFromStep2 = Boolean(sqft && sqft > 0);
+
+  const resetModularFlow = () => {
+    setBuildingType("");
+    setSqftInput("");
+    setSelectedPackage("");
+  };
+
+  const handleConstructionTypeSelect = (
+    type: "modular" | "customised-premium"
+  ) => {
+    setConstructionType(type);
+    resetModularFlow();
+    if (step !== 0) {
+      setStep(0);
+    }
+  };
+
+  const handleSelectionContinue = () => {
+    if (!constructionType) return;
+    if (constructionType === "customised-premium") {
+      setStep(4);
+      return;
+    }
+    setStep(1);
+  };
+
+  const handleBack = () => {
+    if (step === 0) return;
+    if (step === 4 && constructionType === "customised-premium") {
+      setStep(0);
+      return;
+    }
+    setStep((prev) => Math.max(0, prev - 1));
+  };
+
+  const getStepIndicatorText = () => {
+    if (step === 0) {
+      return `Step 1 of ${totalSteps}`;
+    }
+    if (constructionType === "customised-premium") {
+      return "Step 2 of 2";
+    }
+    if (constructionType === "modular") {
+      return `Step ${step} of 4`;
+    }
+    return `Step ${step} of 1`;
+  };
+
+  const getProgressPosition = () => {
+    if (step === 0) return 1;
+    if (constructionType === "customised-premium") return 2;
+    if (constructionType === "modular") return step;
+    return 1;
+  };
+
+  const getConstructionTypeLabel = () => {
+    if (constructionType === "modular") return "Modular Construction";
+    if (constructionType === "customised-premium")
+      return "Customised Premium Construction";
+    return "—";
+  };
 
   const validateContact = () => {
     if (!name || !email || !mobile) {
@@ -174,6 +245,7 @@ export default function ConstructionContactForm() {
       // If file is present, use FormData, otherwise use JSON
       if (pdfFile) {
         const formData = new FormData();
+        formData.append("constructionType", constructionType || "");
         formData.append("buildingType", buildingType || "");
         formData.append("sqft", sqft.toString());
         formData.append("selectedPackage", selectedPackage || "");
@@ -194,6 +266,7 @@ export default function ConstructionContactForm() {
         });
       } else {
         await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/content/construction-form`, {
+          constructionType,
           buildingType,
           sqft,
           selectedPackage,
@@ -211,7 +284,8 @@ export default function ConstructionContactForm() {
       setShowSuccess(true);
       setTimeout(() => setShowSuccess(false), 3000);
       // Reset
-      setStep(1);
+      setStep(0);
+      setConstructionType("");
       setBuildingType("");
       setSqftInput("");
       setSelectedPackage("");
@@ -246,10 +320,10 @@ export default function ConstructionContactForm() {
       <div className="bg-white  shadow-lg p-8 w-full max-w-5xl">
         <div className="flex items-center justify-between mb-8">
           <button
-            onClick={() => setStep((s) => Math.max(1, s - 1))}
-            disabled={step === 1}
+            onClick={handleBack}
+            disabled={step === 0}
             className={`p-2  ${
-              step === 1
+              step === 0
                 ? "text-gray-300 cursor-not-allowed"
                 : "text-gray-700 hover:bg-gray-100"
             }`}
@@ -259,29 +333,61 @@ export default function ConstructionContactForm() {
 
           <div className="text-center">
             <h2 className="text-2xl font-bold text-gray-800">
+              {step === 0 && "Select Construction Type"}
               {step === 1 && "Choose Building Type"}
               {step === 2 && "Enter Built-up Area"}
               {step === 3 && "Your Instant Estimates"}
               {step === 4 && "Connect with Us"}
             </h2>
-            <p className="text-gray-500 mt-1">Step {step} of 4</p>
+            <p className="text-gray-500 mt-1">{getStepIndicatorText()}</p>
           </div>
 
           <div className="w-10"></div>
         </div>
 
         <div className="flex gap-2 mb-8">
-          {[1, 2, 3, 4].map((s) => (
+          {Array.from({ length: totalSteps }, (_, i) => i + 1).map((s) => (
             <div
               key={s}
               className={`flex-1 h-2 transition-all ${
-                s <= step ? "bg-brand" : "bg-gray-200"
+                s <= getProgressPosition() ? "bg-brand" : "bg-gray-200"
               }`}
             ></div>
           ))}
         </div>
 
         <div className="mb-8">
+          {step === 0 && (
+            <div className="space-y-6">
+              <p className="text-center text-gray-700">
+                Choose how you'd like to plan your construction journey.
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <button
+                  onClick={() => handleConstructionTypeSelect("modular")}
+                  className={`py-6 px-6 border-2 font-semibold transition-all ${
+                    constructionType === "modular"
+                      ? "bg-brand text-white shadow-lg"
+                      : "border-slate-200 bg-white hover:border-slate-300 text-slate-700"
+                  }`}
+                >
+                  Modular Construction
+                </button>
+                <button
+                  onClick={() =>
+                    handleConstructionTypeSelect("customised-premium")
+                  }
+                  className={`py-6 px-6 border-2 font-semibold transition-all ${
+                    constructionType === "customised-premium"
+                      ? "bg-brand text-white shadow-lg"
+                      : "border-slate-200 bg-white hover:border-slate-300 text-slate-700"
+                  }`}
+                >
+                  Customised Premium Construction
+                </button>
+              </div>
+            </div>
+          )}
           {step === 1 && (
             <div className="space-y-6">
               <p className="text-center text-gray-700">
@@ -405,10 +511,16 @@ export default function ConstructionContactForm() {
           )}
           {step === 4 && (
             <div className="space-y-6 max-w-md mx-auto">
-              <div className="text-center mb-2">
+              <div className="text-center mb-2 space-y-1">
                 <p className="text-sm text-gray-600">
-                  Selected: {selectedPackage || "—"} • {buildingType || "—"} • {sqft || 0} sqft
+                  Construction Type: {getConstructionTypeLabel()}
                 </p>
+                {constructionType === "modular" && (
+                  <p className="text-sm text-gray-600">
+                    Selected: {selectedPackage || "—"} • {buildingType || "—"} •{" "}
+                    {sqft || 0} sqft
+                  </p>
+                )}
               </div>
               <input
                 type="text"
@@ -521,7 +633,16 @@ export default function ConstructionContactForm() {
         </div>
 
         <div className="flex justify-center items-center">
-          {step === 1 && (
+          {step === 0 && (
+            <button
+              onClick={handleSelectionContinue}
+              disabled={!constructionType}
+              className="bg-brand hover:bg-yellow-700 disabled:bg-gray-400 text-white px-12 py-3 font-medium transition"
+            >
+              Continue
+            </button>
+          )}
+          {constructionType === "modular" && step === 1 && (
             <button
               onClick={() => canGoNextFromStep1 && setStep(2)}
               disabled={!canGoNextFromStep1}
@@ -530,7 +651,7 @@ export default function ConstructionContactForm() {
               Continue
             </button>
           )}
-          {step === 2 && (
+          {constructionType === "modular" && step === 2 && (
             <button
               onClick={() => canGoNextFromStep2 && setStep(3)}
               disabled={!canGoNextFromStep2}
