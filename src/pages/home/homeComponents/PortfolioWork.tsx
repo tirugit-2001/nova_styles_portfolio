@@ -18,7 +18,7 @@ const PortfolioWork = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const categories = ['All', 'Living Room', 'Bedroom', 'Kitchen', 'Bathroom', 'Office'];
+  // const categories = ['All', 'Living Room', 'Bedroom', 'Kitchen', 'Bathroom', 'Office'];
 
   const getMainPortfolioItems = async () => {
     setLoading(true);
@@ -66,7 +66,7 @@ const PortfolioWork = () => {
 
         {/* Category Filter */}
         <div className="w-full overflow-x-auto sm:overflow-x-visible">
-          <div className="flex sm:flex-wrap space-x-3 sm:space-x-0 sm:gap-3 min-w-max px-2 mb-10 md:mb-12 scrollbar-hide">
+          {/* <div className="flex sm:flex-wrap space-x-3 sm:space-x-0 sm:gap-3 min-w-max px-2 mb-10 md:mb-12 scrollbar-hide">
             {categories.map((category) => (
               <button
                 key={category}
@@ -80,7 +80,7 @@ const PortfolioWork = () => {
                 {category}
               </button>
             ))}
-          </div>
+          </div> */}
         </div>
 
         {/* Loading State */}
