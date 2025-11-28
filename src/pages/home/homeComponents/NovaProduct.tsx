@@ -120,18 +120,18 @@ const NovaProductList: React.FC = () => {
           },
         });
         const rows = extractProducts(res.data);
-        const mapped = rows.map(normalizeProduct);
+        const mapped = rows.filter((item: any) => item.isTrending === true).map(normalizeProduct);
         if (isMounted) setProducts(mapped);
       } catch (err) {
         // Fallback to direct fetch if axios baseURL misconfigured
         try {
           const fallbackUrl = new URL(BACKEND_PRODUCTS_URL);
           fallbackUrl.searchParams.set('page', '1');
-          fallbackUrl.searchParams.set('limit', '8');
+          fallbackUrl.searchParams.set('limit', '10');
           const res = await fetch(fallbackUrl);
           const json = await res.json();
           const rows = extractProducts(json);
-          const mapped = rows.map(normalizeProduct);
+          const mapped = rows.filter((item: any) => item.isTrending === true).map(normalizeProduct);
           if (isMounted) setProducts(mapped);
         } catch (e) {
           if (isMounted) setError('Failed to load products.');
