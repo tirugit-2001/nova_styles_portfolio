@@ -62,7 +62,7 @@ const NavBar = () => {
             className="flex items-center gap-2 text-gray-700 hover:text-amber-600 transition-colors"
           >
             <Mail size={16} />
-            <span className="hidden sm:inline">info@novastyles.com</span>
+            <span className="hidden sm:inline">salesnovastyles@gmail.com</span>
           </a>
           <span>|</span>
           <a

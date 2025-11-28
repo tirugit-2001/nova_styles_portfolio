@@ -18,29 +18,29 @@ const ClientTalk = () => {
     },
     {
       id: 2,
-      name: "Rajesh & Priya Nair",
+      name: "-Amit & Neha Patel",
       image: "/clientTalk2.jpg",
       quote: "“Professional team, stunning results. Our home feels brand new”",
       rating: 5
     },
     {
       id: 3,
-      name: "Rajesh & Priya Nair",
+      name: "Priya Sharma, Bangalore",
       image: "/clientTalk3jpg.jpg",
       quote: "NovaStyles made our 3BHK look spacious and elegant. Highly recommended",
       rating: 5
     },
     {
       id: 4,
-      name: "Amit & Sneha Sharma",
+      name: "Prateek & Sneha Sharma",
       image: "/constrution_hero1.jpg",
-      quote: "“NovaStyles transformed our small 2BHK into a beautiful, functional home we love.”",
+      quote: "“NovaStyles delivered a stunning 3BHK with smart design and flawless execution.”",
       rating: 5
     },
     {
       id: 5,
       name: "Vikram & Anita Patel",
-      image: "/clientTalk3jpg.jpg",
+      image: "/aboutus1.jpg",
       quote: "“Professional team, stunning results. Our home feels brand new”",
       rating: 5
     }
