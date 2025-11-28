@@ -11,7 +11,7 @@ type PortfolioItem = {
 };
 
 const ConsPortfolioWork = () => {
-  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [selectedCategory] = useState('All');
   const [portfolioItems, setPortfolioItems] = useState<PortfolioItem[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);

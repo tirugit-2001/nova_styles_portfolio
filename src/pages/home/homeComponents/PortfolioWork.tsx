@@ -13,7 +13,7 @@ interface PortfolioItem {
 }
 
 const PortfolioWork = () => {
-  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [selectedCategory] = useState('All');
   const [portfolioItems, setPortfolioItems] = useState<PortfolioItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
