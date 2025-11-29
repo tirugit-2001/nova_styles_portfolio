@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useState, useEffect, useRef } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const ClientTalk = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -13,37 +13,42 @@ const ClientTalk = () => {
       id: 1,
       name: "Rajesh & Priya Nair",
       image: "/customerTalk.jpg",
-      quote: "“NovaStyles transformed our small 2BHK into a beautiful, functional home we love.”",
-      rating: 5
+      quote:
+        "NovaStyles built our home and designed interiors beautifully. One-stop solution with exceptional quality!",
+      rating: 5,
     },
     {
       id: 2,
-      name: "Rajesh & Priya Nair",
+      name: "Amit & Sneha Sharma",
       image: "/clientTalk2.jpg",
-      quote: "“Professional team, stunning results. Our home feels brand new”",
-      rating: 5
+      quote:
+        "From construction to interiors, NovaStyles handled everything seamlessly. Highly recommended!",
+      rating: 5,
     },
     {
       id: 3,
-      name: "Rajesh & Priya Nair",
+      name: "Vikram & Anita Patel",
       image: "/clientTalk3jpg.jpg",
-      quote: "NovaStyles made our 3BHK look spacious and elegant. Highly recommended",
-      rating: 5
+      quote:
+        "NovaStyles renovated our home - construction and interior design. Flawless coordination!",
+      rating: 5,
     },
     {
       id: 4,
-      name: "Amit & Sneha Sharma",
-      image: "/constrution_hero1.jpg",
-      quote: "“NovaStyles transformed our small 2BHK into a beautiful, functional home we love.”",
-      rating: 5
+      name: "Ravi & Meera Reddy",
+      image: "/cleintTalk4.jpg",
+      quote:
+        "Trusted NovaStyles for construction and interior design. Delivered beyond expectations!",
+      rating: 5,
     },
     {
       id: 5,
-      name: "Vikram & Anita Patel",
-      image: "/clientTalk3jpg.jpg",
-      quote: "“Professional team, stunning results. Our home feels brand new”",
-      rating: 5
-    }
+      name: "Kiran & Divya Kumar",
+      image: "/clinetTalk5.jpg",
+      quote:
+        "Complete package - excellent construction and beautiful interiors. Professional service!",
+      rating: 5,
+    },
   ];
 
   const itemsPerView = 3;
@@ -84,11 +89,11 @@ const ClientTalk = () => {
     if (autoPlayTimeoutRef.current) {
       clearTimeout(autoPlayTimeoutRef.current);
     }
-    
+
     // Pause auto-play temporarily, then restart
     setIsAutoPlaying(false);
     setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
-    
+
     // Restart auto-play after 3 seconds
     autoPlayTimeoutRef.current = setTimeout(() => {
       setIsAutoPlaying(true);
@@ -101,11 +106,11 @@ const ClientTalk = () => {
     if (autoPlayTimeoutRef.current) {
       clearTimeout(autoPlayTimeoutRef.current);
     }
-    
+
     // Pause auto-play temporarily, then restart
     setIsAutoPlaying(false);
     setCurrentIndex((prev) => (prev <= 0 ? maxIndex : prev - 1));
-    
+
     // Restart auto-play after 3 seconds
     autoPlayTimeoutRef.current = setTimeout(() => {
       setIsAutoPlaying(true);
@@ -127,7 +132,7 @@ const ClientTalk = () => {
 
   const onTouchEnd = () => {
     if (!touchStartX.current || !touchEndX.current) return;
-    
+
     const distance = touchStartX.current - touchEndX.current;
     const isLeftSwipe = distance > minSwipeDistance;
     const isRightSwipe = distance < -minSwipeDistance;
@@ -137,16 +142,18 @@ const ClientTalk = () => {
       if (autoPlayTimeoutRef.current) {
         clearTimeout(autoPlayTimeoutRef.current);
       }
-      
+
       // Pause auto-play temporarily, then restart
       setIsAutoPlaying(false);
-      
+
       if (isLeftSwipe) {
         setCurrentIndex((prev) => (prev + 1) % testimonials.length);
       } else {
-        setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+        setCurrentIndex(
+          (prev) => (prev - 1 + testimonials.length) % testimonials.length
+        );
       }
-      
+
       // Restart auto-play after 3 seconds
       autoPlayTimeoutRef.current = setTimeout(() => {
         setIsAutoPlaying(true);
@@ -209,7 +216,7 @@ const ClientTalk = () => {
           </div>
 
           {/* Mobile View - 1 Card with Swipe */}
-          <div 
+          <div
             className="md:hidden"
             onTouchStart={onTouchStart}
             onTouchMove={onTouchMove}
@@ -259,34 +266,32 @@ const ClientTalk = () => {
 
         {/* Progress Indicators */}
         <div className="flex justify-center gap-2 mt-8">
-          {Array.from({ length: testimonials.length }).map(
-            (_, index) => (
-              <button
-                key={index}
-                onClick={() => {
-                  // Clear any existing timeout
-                  if (autoPlayTimeoutRef.current) {
-                    clearTimeout(autoPlayTimeoutRef.current);
-                  }
-                  
-                  setCurrentIndex(index);
-                  setIsAutoPlaying(false);
-                  
-                  // Restart auto-play after 3 seconds
-                  autoPlayTimeoutRef.current = setTimeout(() => {
-                    setIsAutoPlaying(true);
-                    autoPlayTimeoutRef.current = null;
-                  }, 3000);
-                }}
-                className={`transition-all duration-300 rounded-full ${
-                  index === currentIndex
-                    ? "w-8 h-2 md:w-8 md:h-2 bg-brand"
-                    : "w-2 h-2 bg-gray-300 hover:bg-gray-400"
-                }`}
-                aria-label={`Go to testimonial ${index + 1}`}
-              />
-            )
-          )}
+          {Array.from({ length: testimonials.length }).map((_, index) => (
+            <button
+              key={index}
+              onClick={() => {
+                // Clear any existing timeout
+                if (autoPlayTimeoutRef.current) {
+                  clearTimeout(autoPlayTimeoutRef.current);
+                }
+
+                setCurrentIndex(index);
+                setIsAutoPlaying(false);
+
+                // Restart auto-play after 3 seconds
+                autoPlayTimeoutRef.current = setTimeout(() => {
+                  setIsAutoPlaying(true);
+                  autoPlayTimeoutRef.current = null;
+                }, 3000);
+              }}
+              className={`transition-all duration-300 rounded-full ${
+                index === currentIndex
+                  ? "w-8 h-2 md:w-8 md:h-2 bg-brand"
+                  : "w-2 h-2 bg-gray-300 hover:bg-gray-400"
+              }`}
+              aria-label={`Go to testimonial ${index + 1}`}
+            />
+          ))}
         </div>
       </div>
     </section>

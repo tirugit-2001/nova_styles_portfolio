@@ -1,6 +1,6 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { ArrowRight } from 'lucide-react';
-import { axios as httpClient } from '../../../service/axios';
+import React, { useEffect, useMemo, useState } from "react";
+import { ArrowRight } from "lucide-react";
+import { axios as httpClient } from "../../../service/axios";
 
 interface Product {
   id: number | string;
@@ -11,27 +11,32 @@ interface Product {
   pricePerSqFt?: string;
 }
 
-const BACKEND_PRODUCTS_URL = `${import.meta.env.VITE_BACKEND_URL}/api/v1/product`;
-const STORE_REDIRECT_URL = 'https://store.novastylesinterior.com/';
+const BACKEND_PRODUCTS_URL = `${
+  import.meta.env.VITE_BACKEND_URL
+}/api/v1/product`;
+const STORE_REDIRECT_URL = "https://store.novastylesinterior.com/";
 
 function normalizeProduct(raw: any): Product {
   // Defensive mapping in case API field names differ
   return {
     id: raw.id ?? raw._id ?? Math.random().toString(36).slice(2),
-    title: raw.title ?? raw.name ?? 'Product',
-    image: raw.image ?? raw.imageUrl ?? raw.thumbnail ?? '/whatsapp_logo.png',
+    title: raw.title ?? raw.name ?? "Product",
+    image: raw.image ?? raw.imageUrl ?? raw.thumbnail ?? "/whatsapp_logo.png",
     originalPrice: raw.originalPrice ?? raw.mrp ?? undefined,
     salePrice: raw.salePrice ?? raw.price ?? undefined,
     pricePerSqFt: raw.pricePerSqFt ?? raw.unit ?? undefined,
   };
 }
 
-const NovaProductCard: React.FC<{ product: Product; onClick: () => void }> = ({ product, onClick }) => {
+const NovaProductCard: React.FC<{ product: Product; onClick: () => void }> = ({
+  product,
+  onClick,
+}) => {
   const priceLabel = useMemo(() => {
     const parts: string[] = [];
     if (product.salePrice != null) parts.push(`₹ ${product.salePrice}`);
     if (product.pricePerSqFt) parts.push(`${product.pricePerSqFt}`);
-    return parts.join(' ');
+    return parts.join(" ");
   }, [product.salePrice, product.pricePerSqFt]);
 
   return (
@@ -41,7 +46,7 @@ const NovaProductCard: React.FC<{ product: Product; onClick: () => void }> = ({ 
       role="button"
       tabIndex={0}
       onKeyDown={(e) => {
-        if (e.key === 'Enter' || e.key === ' ') onClick();
+        if (e.key === "Enter" || e.key === " ") onClick();
       }}
     >
       <div className="relative aspect-[4/5] overflow-hidden bg-gray-100">
@@ -58,7 +63,9 @@ const NovaProductCard: React.FC<{ product: Product; onClick: () => void }> = ({ 
           <h3 className="text-gray-900 text-base font-normal mb-2">
             {product.title}
           </h3>
-          {(product.originalPrice != null || product.salePrice != null || product.pricePerSqFt) && (
+          {(product.originalPrice != null ||
+            product.salePrice != null ||
+            product.pricePerSqFt) && (
             <div className="flex items-center gap-2">
               {product.originalPrice != null && (
                 <span className="text-gray-400 text-sm line-through">
@@ -111,7 +118,7 @@ const NovaProductList: React.FC = () => {
         setError(null);
         // Prefer configured axios baseURL if available; fall back to full URL
         const url = httpClient.defaults.baseURL
-          ? '/api/v1/product'
+          ? "/api/v1/product"
           : BACKEND_PRODUCTS_URL;
         const res = await httpClient.get(url, {
           params: {
@@ -126,15 +133,15 @@ const NovaProductList: React.FC = () => {
         // Fallback to direct fetch if axios baseURL misconfigured
         try {
           const fallbackUrl = new URL(BACKEND_PRODUCTS_URL);
-          fallbackUrl.searchParams.set('page', '1');
-          fallbackUrl.searchParams.set('limit', '8');
+          fallbackUrl.searchParams.set("page", "1");
+          fallbackUrl.searchParams.set("limit", "8");
           const res = await fetch(fallbackUrl);
           const json = await res.json();
           const rows = extractProducts(json);
           const mapped = rows.map(normalizeProduct);
           if (isMounted) setProducts(mapped);
         } catch (e) {
-          if (isMounted) setError('Failed to load products.');
+          if (isMounted) setError("Failed to load products.");
         }
       } finally {
         if (isMounted) setLoading(false);
@@ -147,7 +154,8 @@ const NovaProductList: React.FC = () => {
   }, []);
 
   const redirectToStore = () => {
-    window.location.href = STORE_REDIRECT_URL;
+    const newWin = window.open(STORE_REDIRECT_URL, "_blank");
+    if (newWin) newWin.opener = null;
   };
 
   if (loading) {
@@ -155,7 +163,9 @@ const NovaProductList: React.FC = () => {
       <div className="min-h-screen bg-gray-50 py-12 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-10">
-            <h1 className="text-2xl font-medium text-gray-900 mb-2">Trending Home Interior Wallpapers</h1>
+            <h1 className="text-2xl font-medium text-gray-900 mb-2">
+              Trending Home Interior Wallpapers
+            </h1>
             <p className="text-gray-600 text-xl">Loading products…</p>
           </div>
         </div>
@@ -168,7 +178,9 @@ const NovaProductList: React.FC = () => {
       <div className="min-h-screen bg-gray-50 py-12 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-10">
-            <h1 className="text-2xl font-medium text-gray-900 mb-2">Trending Home Interior Wallpapers</h1>
+            <h1 className="text-2xl font-medium text-gray-900 mb-2">
+              Trending Home Interior Wallpapers
+            </h1>
             <p className="text-red-600 text-xl">{error}</p>
           </div>
         </div>
@@ -190,7 +202,11 @@ const NovaProductList: React.FC = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-24 justify-items-center ">
           {products.map((product) => (
-            <NovaProductCard key={product.id} product={product} onClick={redirectToStore} />
+            <NovaProductCard
+              key={product.id}
+              product={product}
+              onClick={redirectToStore}
+            />
           ))}
         </div>
       </div>

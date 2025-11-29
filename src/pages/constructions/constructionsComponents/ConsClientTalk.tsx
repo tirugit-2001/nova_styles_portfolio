@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useState, useEffect } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const ConsClientTalk = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -10,39 +10,43 @@ const ConsClientTalk = () => {
       id: 1,
       name: "Rajesh & Priya Nair",
       image: "/customerTalk.jpg",
-      quote: "“NovaStyles transformed our small 2BHK into a beautiful, functional home we love.”",
-      rating: 5
+      quote:
+        "NovaStyles Construction built our dream home from scratch. Exceptional quality and completed on time!",
+      rating: 5,
     },
     {
       id: 2,
-      name: "Rajesh & Priya Nair",
+      name: "Amit & Sneha Sharma",
       image: "/clientTalk2.jpg",
-      quote: "“Professional team, stunning results. Our home feels brand new”",
-      rating: 5
+      quote:
+        "Chose NovaStyles for our luxury custom residence. Premium materials and excellent craftsmanship throughout!",
+      rating: 5,
     },
     {
       id: 3,
-      name: "Rajesh & Priya Nair",
+      name: "Vikram & Anita Patel",
       image: "/clientTalk3jpg.jpg",
-      quote: "NovaStyles made our 3BHK look spacious and elegant. Highly recommended",
-      rating: 5
+      quote:
+        "NovaStyles transformed our old house with renovation services. Delivered beyond expectations!",
+      rating: 5,
     },
     {
       id: 4,
-      name: "Amit & Sneha Sharma",
-      image: "/constrution_hero1.jpg",
-      quote: "“NovaStyles transformed our small 2BHK into a beautiful, functional home we love.”",
-      rating: 5
+      name: "Ravi & Meera Reddy",
+      image: "/cleintTalk4.jpg",
+      quote:
+        "Built our 3BHK with NovaStyles Economy range. Great value without compromising on quality!",
+      rating: 5,
     },
     {
       id: 5,
-      name: "Vikram & Anita Patel",
-      image: "/clientTalk3jpg.jpg",
-      quote: "“Professional team, stunning results. Our home feels brand new”",
-      rating: 5
-    }
+      name: "Kiran & Divya Kumar",
+      image: "/clinetTalk5.jpg",
+      quote:
+        "NovaStyles Construction exceeded expectations. Professional handling from planning to execution!",
+      rating: 5,
+    },
   ];
-
   const itemsPerView = 3;
   const maxIndex = testimonials.length - itemsPerView;
 
@@ -86,14 +90,13 @@ const ConsClientTalk = () => {
             <div
               className="flex transition-transform duration-500 ease-in-out"
               style={{
-                transform: `translateX(-${currentIndex * (100 / itemsPerView)}%)`
+                transform: `translateX(-${
+                  currentIndex * (100 / itemsPerView)
+                }%)`,
               }}
             >
               {testimonials.map((testimonial) => (
-                <div
-                  key={testimonial.id}
-                  className="min-w-[33.333%] px-3"
-                >
+                <div key={testimonial.id} className="min-w-[33.333%] px-3">
                   <div className="bg-white overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 h-full">
                     {/* Image with Quote Overlay */}
                     <div className="relative h-80">
@@ -103,7 +106,7 @@ const ConsClientTalk = () => {
                         className="w-full h-full object-cover"
                       />
                       <div className="absolute inset-0" />
-                      
+
                       {/* Content on Image */}
                       <div className="absolute bottom-0 left-0 right-20 top-48 p-2 text-black bg-[#DFE6DE]">
                         <div className="mb-2 ">
@@ -111,9 +114,7 @@ const ConsClientTalk = () => {
                             "{testimonial.quote}"
                           </p>
                         </div>
-                        <p className="font-bold text-sm">
-                          -{testimonial.name}
-                        </p>
+                        <p className="font-bold text-sm">-{testimonial.name}</p>
                       </div>
                     </div>
                   </div>
@@ -132,7 +133,7 @@ const ConsClientTalk = () => {
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-                
+
                 <div className="absolute bottom-0 left-0 right-20 top-60 p-3 text-black bg-[#DFE6DE]">
                   <div className="mb-2">
                     {/* <Quote className="text-base font-light" /> */}
@@ -168,21 +169,23 @@ const ConsClientTalk = () => {
 
         {/* Progress Indicators */}
         <div className="flex justify-center gap-2 mt-8">
-          {Array.from({ length: testimonials.length - (itemsPerView - 1) }).map((_, index) => (
-            <button
-              key={index}
-              onClick={() => {
-                setCurrentIndex(index);
-                setIsAutoPlaying(false);
-              }}
-              className={`transition-all duration-300 rounded-full ${
-                index === currentIndex
-                  ? 'w-8 h-2 bg-brand'
-                  : 'w-2 h-2 bg-gray-300 hover:bg-gray-400'
-              }`}
-              aria-label={`Go to testimonial ${index + 1}`}
-            />
-          ))}
+          {Array.from({ length: testimonials.length - (itemsPerView - 1) }).map(
+            (_, index) => (
+              <button
+                key={index}
+                onClick={() => {
+                  setCurrentIndex(index);
+                  setIsAutoPlaying(false);
+                }}
+                className={`transition-all duration-300 rounded-full ${
+                  index === currentIndex
+                    ? "w-8 h-2 bg-brand"
+                    : "w-2 h-2 bg-gray-300 hover:bg-gray-400"
+                }`}
+                aria-label={`Go to testimonial ${index + 1}`}
+              />
+            )
+          )}
         </div>
       </div>
     </section>

@@ -62,7 +62,7 @@ const NavBar = () => {
             className="flex items-center gap-2 text-gray-700 hover:text-amber-600 transition-colors"
           >
             <Mail size={16} />
-            <span className="hidden sm:inline">info@novastyles.com</span>
+            <span className="hidden sm:inline"> salesnovastyles@gmail.com</span>
           </a>
           <span>|</span>
           <a
@@ -115,7 +115,9 @@ const NavBar = () => {
                   {item.isMegaMenu && openDropdown === item.title && (
                     <div className="absolute top-full left-0 w-[800px] bg-white rounded-lg shadow-xl py-6 px-6 border border-gray-100 grid grid-cols-2 gap-8">
                       {item.groups.map((group) => {
-                        const primaryGroupLink = group.items.find((e) => e.path)?.path;
+                        const primaryGroupLink = group.items.find(
+                          (e) => e.path
+                        )?.path;
                         return (
                           <div key={group.title}>
                             <a
@@ -130,7 +132,9 @@ const NavBar = () => {
                             <ul className="space-y-1 text-sm text-gray-600">
                               {group.items.map((subItem, idx) => (
                                 <li
-                                  key={`${group.title}-${subItem.path || subItem.label}-${idx}`}
+                                  key={`${group.title}-${
+                                    subItem.path || subItem.label
+                                  }-${idx}`}
                                   className="hover:text-brand cursor-pointer transition-colors"
                                 >
                                   {subItem.label}
@@ -148,10 +152,15 @@ const NavBar = () => {
                     <div className="absolute top-full left-0 w-[400px] bg-white rounded-lg shadow-xl py-4 px-4 border border-gray-100 group-hover:block">
                       {item.items.map((subItem, idx) => (
                         <div
-                          key={`${item.title}-${subItem.path || subItem.label}-${idx}`}
+                          key={`${item.title}-${
+                            subItem.path || subItem.label
+                          }-${idx}`}
                           className="py-3 border-b last:border-0 hover:bg-amber-50 rounded-md px-2"
                         >
-                          <a href={subItem.path} {...getLinkProps(subItem.path)}>
+                          <a
+                            href={subItem.path}
+                            {...getLinkProps(subItem.path)}
+                          >
                             <h4 className="font-semibold text-gray-800 mb-1">
                               {subItem.label}
                             </h4>
@@ -174,7 +183,11 @@ const NavBar = () => {
                           </h4>
                           <ul className="space-y-1 text-sm text-gray-600">
                             {group.items.map((subItem, idx) => (
-                              <li key={`${group.title}-${subItem.path || subItem.label}-${idx}`}>
+                              <li
+                                key={`${group.title}-${
+                                  subItem.path || subItem.label
+                                }-${idx}`}
+                              >
                                 <a
                                   href={subItem.path}
                                   {...getLinkProps(subItem.path)}
@@ -235,21 +248,19 @@ const NavBar = () => {
           <div className={`border border-gray-200`}></div>
         )}
         {/* <div className="mx-4 hidden lg:flex items-center justify-between"> */}
-  {/* Left Section: Scrollable Categories + Arrows */}
- 
+        {/* Left Section: Scrollable Categories + Arrows */}
 
-  {/* Right Section: Fixed Sign In Button */}
-  {/* <div className="flex items-center gap-4 ml-6 shrink-0"> */}
-    {/* <button
+        {/* Right Section: Fixed Sign In Button */}
+        {/* <div className="flex items-center gap-4 ml-6 shrink-0"> */}
+        {/* <button
       className="p-2 hover:bg-gray-100/40 rounded-full transition-colors flex gap-2 items-center"
       onClick={() => setEmailSignIn(true)}
     >
       <CircleUserRound size={20} className="text-gray-700" />
       <span>Sign In</span>
     </button> */}
-  {/* </div> */}
-{/* </div> */}
-
+        {/* </div> */}
+        {/* </div> */}
       </div>
 
       {showEmailDignIn && <SignInForm onClose={() => setEmailSignIn(false)} />}
@@ -285,7 +296,9 @@ const NavBar = () => {
                         <div className="space-y-3">
                           {item.items.map((subItem, idx) => (
                             <a
-                              key={`${item.title}-${subItem.path || subItem.label}-${idx}`}
+                              key={`${item.title}-${
+                                subItem.path || subItem.label
+                              }-${idx}`}
                               href={subItem.path ? subItem.path : "#"}
                               {...getLinkProps(subItem.path)}
                               className="block p-4 bg-gray-50 rounded-lg border border-gray-100 hover:bg-amber-50 hover:border-brand transition-all duration-200"
@@ -313,7 +326,9 @@ const NavBar = () => {
                               <div className="space-y-1">
                                 {group.items.map((subItem, idx) => (
                                   <a
-                                    key={`${group.title}-${subItem.path || subItem.label}-${idx}`}
+                                    key={`${group.title}-${
+                                      subItem.path || subItem.label
+                                    }-${idx}`}
                                     href={subItem.path ? subItem.path : "#"}
                                     {...getLinkProps(subItem.path)}
                                     className="block py-2 px-3 text-sm text-gray-600 hover:text-brand hover:bg-amber-50 rounded-md transition-colors"
@@ -333,7 +348,9 @@ const NavBar = () => {
                         <div className="space-y-1">
                           {item.items.map((subItem, idx) => (
                             <a
-                              key={`${item.title}-${subItem.path || subItem.label}-${idx}`}
+                              key={`${item.title}-${
+                                subItem.path || subItem.label
+                              }-${idx}`}
                               href={subItem.path ? subItem.path : "#"}
                               {...getLinkProps(subItem.path)}
                               className="block py-2 px-3 text-sm text-gray-600 hover:text-brand hover:bg-amber-50 rounded-md transition-colors"

@@ -1,6 +1,7 @@
-import React from 'react';
-import { Instagram, Linkedin, Facebook, Youtube } from 'lucide-react';
-import logoN from "../../public/logo_N.png"
+import React from "react";
+import { Instagram, Facebook } from "lucide-react";
+import logoN from "../../public/logo_N.png";
+import { Link } from "react-router-dom";
 
 interface FooterProps {
   companyName?: string;
@@ -14,32 +15,22 @@ interface FooterProps {
 const Footer: React.FC<FooterProps> = ({
   // companyName = "NovaStyles Constructions",
   tagline = "NovaStyles | Home Interiors, Construction ",
-   address= "& Premium Interior Products",
+  address = "& Premium Interior Products",
   phone = "Phone: +91-9900334035",
   email = "salesnovastyles@gmail.com",
-  website = "287 / c, 10th Main Rd, 5th Block, jayanagar,Bengaluru, Karnataka 560041"
+  website = "287 / c, 10th Main Rd, 5th Block, jayanagar,Bengaluru, Karnataka 560041",
 }) => {
   const services = [
     "Interior Design",
     "Wall Decor & Flooring",
     "Construction Services",
     "Modular Kitchens",
-    "Home Renovation"
+    "Home Renovation",
   ];
 
-  const company = [
-    "About Us",
-    "Our Portfolio",
-    "Client Reviews",
-    "Blog & Tips",
-    "Career Opportunities"
-  ];
+  const company = ["About Us", "Our Portfolio", "Client Reviews"];
 
-  const locations = [
-    "Banglore",
-    "Hubli",
-    "Dharwad",
-  ];
+  const locations = ["Banglore", "Hubli", "Dharwad"];
 
   return (
     <footer
@@ -64,7 +55,7 @@ const Footer: React.FC<FooterProps> = ({
             </div>
 
             {/* CTA Section */}
-            <div className="flex flex-col sm:flex-row justify-start lg:justify-end gap-4 sm:gap-10 lg:col-span-2 items-start sm:items-center">
+            {/* <div className="flex flex-col sm:flex-row justify-start lg:justify-end gap-4 sm:gap-10 lg:col-span-2 items-start sm:items-center">
               <div className="text-start">
                 <h3 className="text-base sm:text-lg font-medium mb-2">
                   Free home interior guide
@@ -80,7 +71,7 @@ const Footer: React.FC<FooterProps> = ({
               >
                 Download
               </button>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
@@ -154,18 +145,24 @@ const Footer: React.FC<FooterProps> = ({
               Connect With US:
             </h4>
             <div className="flex gap-4">
-              <a href="https://www.instagram.com/novastylesinterior/" className="hover:opacity-70 transition-opacity">
+              <a
+                href="https://www.instagram.com/novastylesinterior/"
+                className="hover:opacity-70 transition-opacity"
+              >
                 <Instagram className="w-5 h-5 sm:w-6 sm:h-6" />
               </a>
-              <a href="#" className="hover:opacity-70 transition-opacity">
+              {/* <a href="#" className="hover:opacity-70 transition-opacity">
                 <Linkedin className="w-5 h-5 sm:w-6 sm:h-6" />
-              </a>
-              <a href="https://www.facebook.com/profile.php?id=61556927492013" className="hover:opacity-70 transition-opacity">
+              </a> */}
+              <a
+                href="https://www.facebook.com/profile.php?id=61556927492013"
+                className="hover:opacity-70 transition-opacity"
+              >
                 <Facebook className="w-5 h-5 sm:w-6 sm:h-6" />
               </a>
-              <a href="#" className="hover:opacity-70 transition-opacity">
+              {/* <a href="#" className="hover:opacity-70 transition-opacity">
                 <Youtube className="w-5 h-5 sm:w-6 sm:h-6" />
-              </a>
+              </a> */}
             </div>
           </div>
         </div>
@@ -176,21 +173,21 @@ const Footer: React.FC<FooterProps> = ({
         <div className="max-w-7xl mx-auto px-4 sm:px-8 py-4 sm:py-6">
           <div className="flex flex-col md:flex-row justify-center items-center gap-3 sm:gap-4 text-xs sm:text-sm font-light text-center">
             <p className="break-words">
-              © Novastyleconstructionand interirworks PrivateLimited
+              © Novastyles Construction and Interiorworks Private Limited
             </p>
             <div className="flex gap-4 sm:gap-8">
-              <a
-                href="#"
+              <Link
+                to="/privacy"
                 className="hover:text-gray-300 transition-colors whitespace-nowrap"
               >
                 Privacy Policy
-              </a>
-              <a
-                href="#"
+              </Link>
+              <Link
+                to="/terms"
                 className="hover:text-gray-300 transition-colors whitespace-nowrap"
               >
                 Terms and Condition
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -198,6 +195,5 @@ const Footer: React.FC<FooterProps> = ({
     </footer>
   );
 };
-
 
 export default Footer;
