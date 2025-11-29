@@ -14,12 +14,10 @@ interface PortfolioItem {
 }
 
 const InteriorPortfolioWork = () => {
-  const [selectedCategory, setSelectedCategory] = useState('All');
+  // const [selectedCategory, setSelectedCategory] = useState('All');
   const [portfolioItems, setPortfolioItems] = useState<PortfolioItem[]>([]);
 
-  const categories = ['All', 'Living Room', 'Bedroom', 'Kitchen', 'Bathroom', 'Office'];
-
- 
+  // const categories = ['All', 'Living Room', 'Bedroom', 'Kitchen', 'Bathroom', 'Office'];
 
   function getAllPortfolio() {
     console.log("getAllPortfolio called");
@@ -51,9 +49,10 @@ const InteriorPortfolioWork = () => {
   useEffect(() => {
   }, [portfolioItems]);
 
-  const filteredItems = selectedCategory === 'All' 
-    ? portfolioItems 
-    : portfolioItems.filter(item => item.category === selectedCategory);
+  // const filteredItems = selectedCategory === 'All' 
+  //   ? portfolioItems 
+  //   : portfolioItems.filter(item => item.category === selectedCategory);
+  const filteredItems = portfolioItems;
   
   console.log("filteredItems:", filteredItems);
   console.log("filteredItems length:", filteredItems.length);
@@ -75,7 +74,7 @@ const InteriorPortfolioWork = () => {
 
         {/* Category Filter */}
         <div className="w-full overflow-x-auto sm:overflow-x-visible">
-        <div className="flex sm:flex-wrap space-x-3 sm:space-x-0 sm:gap-3 min-w-max px-2 mb-10 md:mb-12 scrollbar-hide">
+        {/* <div className="flex sm:flex-wrap space-x-3 sm:space-x-0 sm:gap-3 min-w-max px-2 mb-10 md:mb-12 scrollbar-hide">
           {categories.map((category) => (
             <button
               key={category}
@@ -89,12 +88,12 @@ const InteriorPortfolioWork = () => {
               {category}
             </button>
           ))}
-        </div>
+        </div> */}
       </div>
 
         {/* Portfolio Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
-          {filteredItems.map((item, index) => (
+          {filteredItems.map((item: PortfolioItem, index: number) => (
             <div
               key={item._id}
               className="group relative bg-white overflow-hidden brand-lg hover:brand-2xl transition-all duration-500 transform hover:-translate-y-2"

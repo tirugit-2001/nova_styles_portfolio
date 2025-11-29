@@ -152,26 +152,26 @@ const menuItems = [
     isCardMenu: true,
     items: [
       {
-        label: "Economy range",
+        label: "Standard construction",
         path: "/construction",
         description:
           "Smart construction solutions designed for budget-friendly, quality homes",
       },
       {
-        label: "Luxury custom residences",
+        label: "Premium construction",
         path: "/construction",
         description:
           "Tailor-maid homes built with premium materials and timeless craftmanship",
       },
       {
-        label: "Renovation ",
+        label: "Independent Bungalow",
         path: "/construction",
         description:
           "Transofrm exisiting spaces with expert planning and modern design upgrades",
       },
     ],
   },
-  
+
   // {
   //   title: "Nova Products",
   //   path:"/ourProduct",

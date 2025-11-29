@@ -19,7 +19,7 @@ const ClientTalk = () => {
     },
     {
       id: 2,
-      name: "Amit & Sneha Sharma",
+      name: "-Amit & Neha Patel",
       image: "/clientTalk2.jpg",
       quote:
         "From construction to interiors, NovaStyles handled everything seamlessly. Highly recommended!",
@@ -27,7 +27,7 @@ const ClientTalk = () => {
     },
     {
       id: 3,
-      name: "Vikram & Anita Patel",
+      name: "Priya Sharma, Bangalore",
       image: "/clientTalk3jpg.jpg",
       quote:
         "NovaStyles renovated our home - construction and interior design. Flawless coordination!",
@@ -35,18 +35,17 @@ const ClientTalk = () => {
     },
     {
       id: 4,
-      name: "Ravi & Meera Reddy",
-      image: "/cleintTalk4.jpg",
+      name: "Prateek & Sneha Sharma",
+      image: "/constrution_hero1.jpg",
       quote:
-        "Trusted NovaStyles for construction and interior design. Delivered beyond expectations!",
+        "“NovaStyles delivered a stunning 3BHK with smart design and flawless execution.”",
       rating: 5,
     },
     {
       id: 5,
-      name: "Kiran & Divya Kumar",
-      image: "/clinetTalk5.jpg",
-      quote:
-        "Complete package - excellent construction and beautiful interiors. Professional service!",
+      name: "Vikram & Anita Patel",
+      image: "/aboutus1.jpg",
+      quote: "“Professional team, stunning results. Our home feels brand new”",
       rating: 5,
     },
   ];
